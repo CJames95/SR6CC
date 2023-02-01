@@ -23,7 +23,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { palette } from '@mui/system';
-import { grey } from '@mui/material/colors';
+import { grey, deepPurple } from '@mui/material/colors';
 
 function createData(row_name, A, B, C, D, E) {
     return {row_name, A, B, C, D, E}
@@ -80,6 +80,8 @@ const resources = [
 ]
 
 const headerBackground = grey[900];
+const subHeaderBackground = grey[700];
+const pointColor = deepPurple['A700'];
 
 export default function Creator() {
 
@@ -1863,6 +1865,376 @@ export default function Creator() {
                             >
                                 Troll
                             </Button>
+                        </TableCell>
+                    </TableRow>
+                </TableBody>
+                <TableHead>
+                    <TableRow sx={{height: 55}}>
+                        <TableCell 
+                            style={{
+                                backgroundColor: headerBackground
+                            }}
+                            colSpan={7}
+                        />
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow sx={{ '& > *': { borderBottom: 'unset'} }} hover>
+                        <TableCell sx={{minWidth: 35}} />
+                        <TableCell 
+                            component='th' 
+                            scope='metatype'
+                            align='center'
+                        >
+                            <Typography
+                                variant='h4'
+                                style={{
+                                    fontSize: 16,
+                                    fontFamily: 'Segoe UI',
+                                    fontWeight: 500
+                                }}
+                            >
+                                Attribute
+                            </Typography>
+                            <Typography
+                                variant='h4'
+                                style={{
+                                    fontSize: 16,
+                                    fontFamily: 'Segoe UI',
+                                    fontWeight: 500,
+                                    color: pointColor
+                                }}
+                            >
+                                {attributePoints}
+                            </Typography>
+                        </TableCell>
+                        <TableCell 
+                            component='th' 
+                            scope='metatype'
+                            align='center'
+                        >
+                            <Typography
+                                variant='h4'
+                                style={{
+                                    fontSize: 16,
+                                    fontFamily: 'Segoe UI',
+                                    fontWeight: 500
+                                }}
+                            >
+                                Adjustment
+                            </Typography>
+                            <Typography
+                                variant='h4'
+                                style={{
+                                    fontSize: 16,
+                                    fontFamily: 'Segoe UI',
+                                    fontWeight: 500,
+                                    color: pointColor
+                                }}
+                            >
+                                {metatypePoints}
+                            </Typography>
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                            colSpan={4}
+                        />
+                    </TableRow>
+                </TableBody>
+                <TableHead>
+                    <TableRow sx={{height: 55}}>
+                        <TableCell 
+                            style={{
+                                backgroundColor: subHeaderBackground,
+                                color: 'white',
+                                fontSize: 16,
+                                fontFamily: 'Segoe UI',
+                            }}
+                        />
+                        <TableCell 
+                            style={{
+                                backgroundColor: subHeaderBackground,
+                                color: 'white',
+                                fontSize: 16,
+                                fontFamily: 'Segoe UI',
+                            }}
+                            align='center'
+                        >
+                            Attribute Name
+                        </TableCell>
+                        <TableCell 
+                            style={{
+                                backgroundColor: subHeaderBackground,
+                                color: 'white',
+                                fontSize: 16,
+                                fontFamily: 'Segoe UI',
+                            }}
+                            align='center'
+                            colSpan={4}
+                        >
+                            Priority D
+                        </TableCell>
+                        <TableCell 
+                            style={{
+                                backgroundColor: subHeaderBackground,
+                                color: 'white',
+                                fontSize: 16,
+                                fontFamily: 'Segoe UI',
+                            }}
+                            align='center'
+                        >
+                            Attribute Cap
+                        </TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow sx={{ '& > *': { borderBottom: 'unset'} }} hover>
+                        <TableCell sx={{minWidth: 35}} />
+                        <TableCell 
+                            component='th' 
+                            align='center'
+                        >
+                            <Typography
+                                variant='h4'
+                                style={{
+                                    fontSize: 16,
+                                    fontFamily: 'Segoe UI',
+                                    fontWeight: 500
+                                }}
+                            >
+                                Body
+                            </Typography>
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                            colSpan={4}
+                        >
+                            stat placement here
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                        >
+                            cap here
+                        </TableCell>
+                    </TableRow>
+                    <TableRow sx={{ '& > *': { borderBottom: 'unset'} }} hover>
+                        <TableCell sx={{minWidth: 35}} />
+                        <TableCell 
+                            component='th' 
+                            align='center'
+                        >
+                            <Typography
+                                variant='h4'
+                                style={{
+                                    fontSize: 16,
+                                    fontFamily: 'Segoe UI',
+                                    fontWeight: 500
+                                }}
+                            >
+                                Agility
+                            </Typography>
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                            colSpan={4}
+                        >
+                            stat placement here
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                        >
+                            cap here
+                        </TableCell>
+                    </TableRow>
+                    <TableRow sx={{ '& > *': { borderBottom: 'unset'} }} hover>
+                        <TableCell sx={{minWidth: 35}} />
+                        <TableCell 
+                            component='th' 
+                            align='center'
+                        >
+                            <Typography
+                                variant='h4'
+                                style={{
+                                    fontSize: 16,
+                                    fontFamily: 'Segoe UI',
+                                    fontWeight: 500
+                                }}
+                            >
+                                Reaction
+                            </Typography>
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                            colSpan={4}
+                        >
+                            stat placement here
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                        >
+                            cap here
+                        </TableCell>
+                    </TableRow>
+                    <TableRow sx={{ '& > *': { borderBottom: 'unset'} }} hover>
+                        <TableCell sx={{minWidth: 35}} />
+                        <TableCell 
+                            component='th' 
+                            align='center'
+                        >
+                            <Typography
+                                variant='h4'
+                                style={{
+                                    fontSize: 16,
+                                    fontFamily: 'Segoe UI',
+                                    fontWeight: 500
+                                }}
+                            >
+                                Strength
+                            </Typography>
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                            colSpan={4}
+                        >
+                            stat placement here
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                        >
+                            cap here
+                        </TableCell>
+                    </TableRow>
+                    <TableRow sx={{ '& > *': { borderBottom: 'unset'} }} hover>
+                        <TableCell sx={{minWidth: 35}} />
+                        <TableCell 
+                            component='th' 
+                            align='center'
+                        >
+                            <Typography
+                                variant='h4'
+                                style={{
+                                    fontSize: 16,
+                                    fontFamily: 'Segoe UI',
+                                    fontWeight: 500
+                                }}
+                            >
+                                Willpower
+                            </Typography>
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                            colSpan={4}
+                        >
+                            stat placement here
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                        >
+                            cap here
+                        </TableCell>
+                    </TableRow>
+                    <TableRow sx={{ '& > *': { borderBottom: 'unset'} }} hover>
+                        <TableCell sx={{minWidth: 35}} />
+                        <TableCell 
+                            component='th' 
+                            align='center'
+                        >
+                            <Typography
+                                variant='h4'
+                                style={{
+                                    fontSize: 16,
+                                    fontFamily: 'Segoe UI',
+                                    fontWeight: 500
+                                }}
+                            >
+                                Logic
+                            </Typography>
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                            colSpan={4}
+                        >
+                            stat placement here
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                        >
+                            cap here
+                        </TableCell>
+                    </TableRow>
+                    <TableRow sx={{ '& > *': { borderBottom: 'unset'} }} hover>
+                        <TableCell sx={{minWidth: 35}} />
+                        <TableCell 
+                            component='th' 
+                            align='center'
+                        >
+                            <Typography
+                                variant='h4'
+                                style={{
+                                    fontSize: 16,
+                                    fontFamily: 'Segoe UI',
+                                    fontWeight: 500
+                                }}
+                            >
+                                Intuition
+                            </Typography>
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                            colSpan={4}
+                        >
+                            stat placement here
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                        >
+                            cap here
+                        </TableCell>
+                    </TableRow>
+                    <TableRow sx={{ '& > *': { borderBottom: 'unset'} }} hover>
+                        <TableCell sx={{minWidth: 35}} />
+                        <TableCell 
+                            component='th' 
+                            align='center'
+                        >
+                            <Typography
+                                variant='h4'
+                                style={{
+                                    fontSize: 16,
+                                    fontFamily: 'Segoe UI',
+                                    fontWeight: 500
+                                }}
+                            >
+                                Charisma
+                            </Typography>
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                            colSpan={4}
+                        >
+                            stat placement here
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                        >
+                            cap here
                         </TableCell>
                     </TableRow>
                 </TableBody>
