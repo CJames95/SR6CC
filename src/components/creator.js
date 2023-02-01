@@ -94,6 +94,7 @@ export default function Creator() {
         handleDState(metatypeState, attributeState, skillState, magicState, resourceState)
         handleEState(metatypeState, attributeState, skillState, magicState, resourceState)
         handleMetatypePoints(metatypeState)
+        handleMetaDisable(metatypePoints)
         console.log({
             metatypeState
         })
@@ -419,11 +420,11 @@ export default function Creator() {
     // disabled block ends
 
     // This block handles changing the button color to 'success' which is green in the respective rows
-    const [metatypeButtonColorA, setMetatypeButtonColorA] = React.useState('primary')
-    const [metatypeButtonColorB, setMetatypeButtonColorB] = React.useState('primary')
-    const [metatypeButtonColorC, setMetatypeButtonColorC] = React.useState('primary')
-    const [metatypeButtonColorD, setMetatypeButtonColorD] = React.useState('primary')
-    const [metatypeButtonColorE, setMetatypeButtonColorE] = React.useState('primary')
+    const [metatypeButtonColorA, setMetatypeButtonColorA] = React.useState(false)
+    const [metatypeButtonColorB, setMetatypeButtonColorB] = React.useState(false)
+    const [metatypeButtonColorC, setMetatypeButtonColorC] = React.useState(false)
+    const [metatypeButtonColorD, setMetatypeButtonColorD] = React.useState(false)
+    const [metatypeButtonColorE, setMetatypeButtonColorE] = React.useState(false)
     function handleMetatypeColor(metatype) {
         if (metatype == 'A') {
             setMetatypeButtonColorA(true)
@@ -468,11 +469,11 @@ export default function Creator() {
             setMetatypeButtonColorE(false)
         }
     }
-    const [attributeButtonColorA, setAttributeButtonColorA] = React.useState('primary')
-    const [attributeButtonColorB, setAttributeButtonColorB] = React.useState('primary')
-    const [attributeButtonColorC, setAttributeButtonColorC] = React.useState('primary')
-    const [attributeButtonColorD, setAttributeButtonColorD] = React.useState('primary')
-    const [attributeButtonColorE, setAttributeButtonColorE] = React.useState('primary')
+    const [attributeButtonColorA, setAttributeButtonColorA] = React.useState(false)
+    const [attributeButtonColorB, setAttributeButtonColorB] = React.useState(false)
+    const [attributeButtonColorC, setAttributeButtonColorC] = React.useState(false)
+    const [attributeButtonColorD, setAttributeButtonColorD] = React.useState(false)
+    const [attributeButtonColorE, setAttributeButtonColorE] = React.useState(false)
     function handleAttributeColor(attribute) {
         if (attribute == 'A') {
             setAttributeButtonColorA(true)
@@ -517,11 +518,11 @@ export default function Creator() {
             setAttributeButtonColorE(false)
         }
     }
-    const [skillButtonColorA, setSkillButtonColorA] = React.useState('primary')
-    const [skillButtonColorB, setSkillButtonColorB] = React.useState('primary')
-    const [skillButtonColorC, setSkillButtonColorC] = React.useState('primary')
-    const [skillButtonColorD, setSkillButtonColorD] = React.useState('primary')
-    const [skillButtonColorE, setSkillButtonColorE] = React.useState('primary')
+    const [skillButtonColorA, setSkillButtonColorA] = React.useState(false)
+    const [skillButtonColorB, setSkillButtonColorB] = React.useState(false)
+    const [skillButtonColorC, setSkillButtonColorC] = React.useState(false)
+    const [skillButtonColorD, setSkillButtonColorD] = React.useState(false)
+    const [skillButtonColorE, setSkillButtonColorE] = React.useState(false)
     function handleSkillColor(skill) {
         if (skill == 'A') {
             setSkillButtonColorA(true)
@@ -566,11 +567,11 @@ export default function Creator() {
             setSkillButtonColorE(false)
         }
     }
-    const [magicButtonColorA, setMagicButtonColorA] = React.useState('primary')
-    const [magicButtonColorB, setMagicButtonColorB] = React.useState('primary')
-    const [magicButtonColorC, setMagicButtonColorC] = React.useState('primary')
-    const [magicButtonColorD, setMagicButtonColorD] = React.useState('primary')
-    const [magicButtonColorE, setMagicButtonColorE] = React.useState('primary')
+    const [magicButtonColorA, setMagicButtonColorA] = React.useState(false)
+    const [magicButtonColorB, setMagicButtonColorB] = React.useState(false)
+    const [magicButtonColorC, setMagicButtonColorC] = React.useState(false)
+    const [magicButtonColorD, setMagicButtonColorD] = React.useState(false)
+    const [magicButtonColorE, setMagicButtonColorE] = React.useState(false)
     function handleMagicColor(magic) {
         if (magic == 'A') {
             setMagicButtonColorA(true)
@@ -615,11 +616,11 @@ export default function Creator() {
             setMagicButtonColorE(false)
         }
     }
-    const [resourceButtonColorA, setResourceButtonColorA] = React.useState('primary')
-    const [resourceButtonColorB, setResourceButtonColorB] = React.useState('primary')
-    const [resourceButtonColorC, setResourceButtonColorC] = React.useState('primary')
-    const [resourceButtonColorD, setResourceButtonColorD] = React.useState('primary')
-    const [resourceButtonColorE, setResourceButtonColorE] = React.useState('primary')
+    const [resourceButtonColorA, setResourceButtonColorA] = React.useState(false)
+    const [resourceButtonColorB, setResourceButtonColorB] = React.useState(false)
+    const [resourceButtonColorC, setResourceButtonColorC] = React.useState(false)
+    const [resourceButtonColorD, setResourceButtonColorD] = React.useState(false)
+    const [resourceButtonColorE, setResourceButtonColorE] = React.useState(false)
     function handleResourceColor(resource) {
         if (resource == 'A') {
             setResourceButtonColorA(true)
@@ -768,13 +769,144 @@ export default function Creator() {
     }
     // end points block
 
+    // this block handles the immediate update of the metatypePoints value
+    useEffect(() => {
+        handleMetatypePoints(metatypeState)
+        handleMetaDisable(metatypePoints)
+        console.log({
+            metatypePoints
+        })
+    }, [metatypePoints])
+    // end metatypePoints update block
+
+    // this block handles storing the race value for button select and deselect as well as use later
+    const [race, setRace] = React.useState(null);
+    const handleRace = (selectedRace) => {
+        if (race == selectedRace) {
+            setRace(null)
+        }
+        else {
+            setRace(selectedRace)
+        }
+    }
+    useEffect(() => {
+        handleRaceButtonColor(race)
+        console.log({
+            race
+        })
+    }, [race])
+    // end race storage block
+
+    // this block handles the race buttons and enabling/disabling them
+    const [disableHuman, setDisableHuman] = React.useState(true);
+    const [disableElf, setDisableElf] = React.useState(true);
+    const [disableDwarf, setDisableDwarf] = React.useState(true);
+    const [disableOrk, setDisableOrk] = React.useState(true);
+    const [disableTroll, setDisableTroll] = React.useState(true);
+    function handleMetaDisable(metaPoints) {
+        if (metaPoints == 13) {
+            setDisableHuman(true) 
+            setDisableElf(true)
+            setDisableDwarf(false)
+            setDisableOrk(false)
+            setDisableTroll(false)
+        }
+        else if (metaPoints == 11) {
+            setDisableHuman(true)
+            setDisableElf(false)
+            setDisableDwarf(false)
+            setDisableOrk(false)
+            setDisableTroll(false)
+        }
+        else if (metaPoints == 9) {
+            setDisableHuman(false)
+            setDisableElf(false)
+            setDisableDwarf(false)
+            setDisableOrk(false)
+            setDisableTroll(false)
+        }
+        else if (metaPoints == 4) {
+            setDisableHuman(false)
+            setDisableElf(false)
+            setDisableDwarf(false)
+            setDisableOrk(false)
+            setDisableTroll(false)
+        }
+        else if (metaPoints == 1) {
+            setDisableHuman(false) 
+            setDisableElf(false)
+            setDisableDwarf(false)
+            setDisableOrk(false)
+            setDisableTroll(false)
+        }
+        else {
+            setDisableHuman(true) 
+            setDisableElf(true)
+            setDisableDwarf(true)
+            setDisableOrk(true)
+            setDisableTroll(true)
+        }
+    }
+    // end race button block
+
+    // this block handles the button color of the selected button for the races
+    const [humanButtonColor, setHumanButtonColor] = React.useState(false);
+    const [elfButtonColor, setElfButtonColor] = React.useState(false);
+    const [dwarfButtonColor, setDwarfButtonColor] = React.useState(false);
+    const [orkButtonColor, setOrkButtonColor] = React.useState(false);
+    const [trollButtonColor, setTrollButtonColor] = React.useState(false);
+    const handleRaceButtonColor = (raceValue) => {
+        if (raceValue == 'Human') {
+            setHumanButtonColor(true)
+            setElfButtonColor(false)
+            setDwarfButtonColor(false)
+            setOrkButtonColor(false)
+            setTrollButtonColor(false)
+        }
+        else if (raceValue == 'Elf') {
+            setHumanButtonColor(false)
+            setElfButtonColor(true)
+            setDwarfButtonColor(false)
+            setOrkButtonColor(false)
+            setTrollButtonColor(false)
+        }
+        else if (raceValue == 'Dwarf') {
+            setHumanButtonColor(false)
+            setElfButtonColor(false)
+            setDwarfButtonColor(true)
+            setOrkButtonColor(false)
+            setTrollButtonColor(false)
+        }
+        else if (raceValue == 'Ork') {
+            setHumanButtonColor(false)
+            setElfButtonColor(false)
+            setDwarfButtonColor(false)
+            setOrkButtonColor(true)
+            setTrollButtonColor(false)
+        }
+        else if (raceValue == 'Troll') {
+            setHumanButtonColor(false)
+            setElfButtonColor(false)
+            setDwarfButtonColor(false)
+            setOrkButtonColor(false)
+            setTrollButtonColor(true)
+        }
+        else {
+            setHumanButtonColor(false)
+            setElfButtonColor(false)
+            setDwarfButtonColor(false)
+            setOrkButtonColor(false)
+            setTrollButtonColor(false)
+        }
+    }
+    // end race button color block
 
     return (
         <Box sx={{minWidth: 1010}}>
         <TableContainer sx={{minWidth: 1010, minHeight: 550}} component={Paper}>
             <Table aria-label='priority table'>
                 <TableHead>
-                    <TableRow>
+                    <TableRow sx={{height: 55}}>
                         <TableCell 
                             style={{
                                 backgroundColor: headerBackground,
@@ -851,7 +983,7 @@ export default function Creator() {
                 <TableBody>
                     {metatype.map((metatype) => (
                         <TableRow sx={{ '& > *': { borderBottom: 'unset'} }} hover>
-                            <TableCell>
+                            <TableCell sx={{minWidth: 35}}>
                                 <IconButton aria-label='expand row' size='small' onClick={() => setMetatypesOpen(!openMetatypes)}>
                                     {openMetatypes ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                                 </IconButton>
@@ -1589,6 +1721,148 @@ export default function Creator() {
                                     </Typography>
                                 </Box>
                             </Collapse>
+                        </TableCell>
+                    </TableRow>
+                </TableBody>
+                <TableHead>
+                    <TableRow sx={{height: 55}}>
+                        <TableCell 
+                            style={{
+                                backgroundColor: headerBackground
+                            }}
+                            colSpan={7}
+                        />
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow sx={{ '& > *': { borderBottom: 'unset'} }} hover>
+                        <TableCell sx={{minWidth: 35}} />
+                        <TableCell 
+                            component='th' 
+                            scope='metatype'
+                            align='center'
+                        >
+                            <Typography
+                                variant='h4'
+                                style={{
+                                    fontSize: 16,
+                                    fontFamily: 'Segoe UI',
+                                    fontWeight: 500
+                                }}
+                            >
+                                Race
+                            </Typography>
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                        >
+                            <Button 
+                                variant='contained' 
+                                value='Human' 
+                                onClick={e => handleRace(e.target.value)} 
+                                disabled={disableHuman} 
+                                color={humanButtonColor ? 'success' : 'primary'}
+                                fullWidth={true}
+                                size='large'
+                                sx={{
+                                    maxHeight: 50, 
+                                    minHeight: 50, 
+                                    typography: 'button', 
+                                    fontFamily: 'Segoe UI',
+                                    fontSize: 12
+                                }}
+                            >
+                                Human
+                            </Button>
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                        >
+                            <Button 
+                                variant='contained' 
+                                value='Elf' 
+                                onClick={e => handleRace(e.target.value)} 
+                                disabled={disableElf} 
+                                color={elfButtonColor ? 'success' : 'primary'}
+                                fullWidth={true}
+                                size='large'
+                                sx={{
+                                    maxHeight: 50, 
+                                    minHeight: 50, 
+                                    typography: 'button', 
+                                    fontFamily: 'Segoe UI',
+                                    fontSize: 12}}
+                            >
+                                Elf
+                            </Button>
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                        >
+                            <Button 
+                                variant='contained' 
+                                value='Dwarf' 
+                                onClick={e => handleRace(e.target.value)} 
+                                disabled={disableDwarf} 
+                                color={dwarfButtonColor ? 'success' : 'primary'}
+                                fullWidth={true}
+                                size='large'
+                                sx={{
+                                    maxHeight: 50, 
+                                    minHeight: 50, 
+                                    typography: 'button', 
+                                    fontFamily: 'Segoe UI',
+                                    fontSize: 12}}
+                            >
+                                Dwarf
+                            </Button>
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                        >
+                            <Button 
+                                variant='contained' 
+                                value='Ork' 
+                                onClick={e => handleRace(e.target.value)} 
+                                disabled={disableOrk} 
+                                color={orkButtonColor ? 'success' : 'primary'}
+                                fullWidth={true}
+                                size='large'
+                                sx={{
+                                    maxHeight: 50, 
+                                    minHeight: 50, 
+                                    typography: 'button', 
+                                    fontFamily: 'Segoe UI',
+                                    fontSize: 12}}
+                            >
+                                Ork
+                            </Button>
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                        >
+                            <Button 
+                                variant='contained' 
+                                value='Troll' 
+                                onClick={e => handleRace(e.target.value)} 
+                                disabled={disableTroll} 
+                                color={trollButtonColor ? 'success' : 'primary'}
+                                fullWidth={true}
+                                size='large'
+                                sx={{
+                                    maxHeight: 50, 
+                                    minHeight: 50, 
+                                    typography: 'button', 
+                                    fontFamily: 'Segoe UI',
+                                    fontSize: 12}}
+                            >
+                                Troll
+                            </Button>
                         </TableCell>
                     </TableRow>
                 </TableBody>
