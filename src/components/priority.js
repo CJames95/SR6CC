@@ -268,6 +268,12 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                         }
                         if(val == magic) {
                             setMagicButton(metatype)
+                            if(metatype != 4) {
+                                setMagicRestrictions(true)
+                            }
+                            else {
+                                setMagicRestrictions(false)
+                            }
                         }
                         if(val == resource) {
                             setResourceButton(metatype)
@@ -277,12 +283,24 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                         //console.log('val:', val, ' metatype', metatype)
                         if(val == metatype) {
                             setMetatypeButton(attribute)
+                            if(attribute != 2 && attribute != 3) {
+                                setRestrictionsDisplay(true)
+                            }
+                            else {
+                                setRestrictionsDisplay(false)
+                            }
                         }
                         if(val == skill) {
                             setSkillButton(attribute)
                         }
                         if(val == magic) {
                             setMagicButton(attribute)
+                            if(attribute != 4) {
+                                setMagicRestrictions(true)
+                            }
+                            else {
+                                setMagicRestrictions(false)
+                            }
                         }
                         if(val == resource) {
                             setResourceButton(attribute)
@@ -292,12 +310,24 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                         //console.log('val:', val, ' skill', skill)
                         if(val == metatype) {
                             setMetatypeButton(skill)
+                            if(skill != 2 && skill != 3) {
+                                setRestrictionsDisplay(true)
+                            }
+                            else {
+                                setRestrictionsDisplay(false)
+                            }
                         }
                         if(val == attribute) {
                             setAttributeButton(skill)
                         }
                         if(val == magic) {
                             setMagicButton(skill)
+                            if(skill != 4) {
+                                setMagicRestrictions(true)
+                            }
+                            else {
+                                setMagicRestrictions(false)
+                            }
                         }
                         if(val == resource) {
                             setResourceButton(skill)
@@ -307,6 +337,12 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                         //console.log('val:', val, ' magic', magic)
                         if(val == metatype) {
                             setMetatypeButton(magic)
+                            if(magic != 2 && magic != 3) {
+                                setRestrictionsDisplay(true)
+                            }
+                            else {
+                                setRestrictionsDisplay(false)
+                            }
                         }
                         if(val == attribute) {
                             setAttributeButton(magic)
@@ -322,6 +358,12 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                         //console.log('val:', val, ' resource', resource)
                         if(val == metatype) {
                             setMetatypeButton(resource)
+                            if(resource != 2 && resource != 3) {
+                                setRestrictionsDisplay(true)
+                            }
+                            else {
+                                setRestrictionsDisplay(false)
+                            }
                         }
                         if(val == attribute) {
                             setAttributeButton(resource)
@@ -331,6 +373,12 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                         }
                         if(val == magic) {
                             setMagicButton(resource)
+                            if(resource != 4) {
+                                setMagicRestrictions(true)
+                            }
+                            else {
+                                setMagicRestrictions(false)
+                            }
                         }
                         break;
                 }
@@ -633,7 +681,7 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                             </IconButton>
                         </TableCell>
                         <PriorityCell align='center'>
-                            Metatype
+                            Magic or Resonance
                         </PriorityCell>
                         <BodyCell>
                             <Button 
