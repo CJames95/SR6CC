@@ -24,6 +24,13 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { palette } from '@mui/system';
 import { grey, deepPurple } from '@mui/material/colors';
+import TextField from '@mui/material/TextField';
+import Icon from '@mui/material/Icon';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import IndeterminateCheckBoxSharpIcon from '@mui/icons-material/IndeterminateCheckBoxSharp';
+
 
 function createData(row_name, A, B, C, D, E) {
     return {row_name, A, B, C, D, E}
@@ -82,6 +89,13 @@ const resources = [
 const headerBackground = grey[900];
 const subHeaderBackground = grey[700];
 const pointColor = deepPurple['A700'];
+
+const styles = theme => ({
+    inputCenter: {
+      textAlign: "center",
+      color: "red"
+    }
+  });
 
 export default function Creator() {
 
@@ -1971,7 +1985,7 @@ export default function Creator() {
                                 fontFamily: 'Segoe UI',
                             }}
                             align='center'
-                            colSpan={4}
+                            colSpan={3}
                         >
                             Priority D
                         </TableCell>
@@ -1984,7 +1998,18 @@ export default function Creator() {
                             }}
                             align='center'
                         >
-                            Attribute Cap
+                            Modifier
+                        </TableCell>
+                        <TableCell 
+                            style={{
+                                backgroundColor: subHeaderBackground,
+                                color: 'white',
+                                fontSize: 16,
+                                fontFamily: 'Segoe UI',
+                            }}
+                            align='center'
+                        >
+                            Sum
                         </TableCell>
                     </TableRow>
                 </TableHead>
@@ -2009,15 +2034,24 @@ export default function Creator() {
                         <TableCell 
                             align='center'
                             sx={{minWidth: 120, maxWidth: 120}}
-                            colSpan={4}
+                            colSpan={3}
                         >
-                            stat placement here
+                            <IconButton color='primary' sx={{marginRight: 1}}><RemoveCircleIcon/></IconButton>
+                            <TextField sx={{input: {textAlign: 'center'}, width: 50}} multiline={false} id='outlined-basic' variant='outlined' size='small' value={attributePoints}/>
+                            /9
+                            <IconButton color='primary' sx={{marginLeft: 1}}><AddCircleIcon/></IconButton>
                         </TableCell>
                         <TableCell 
                             align='center'
                             sx={{minWidth: 120, maxWidth: 120}}
                         >
-                            cap here
+                            mod
+                        </TableCell>
+                        <TableCell 
+                            align='center'
+                            sx={{minWidth: 120, maxWidth: 120}}
+                        >
+                            sum here
                         </TableCell>
                     </TableRow>
                     <TableRow sx={{ '& > *': { borderBottom: 'unset'} }} hover>
