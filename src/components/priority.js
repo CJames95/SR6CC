@@ -162,232 +162,26 @@ const WarningBody = styled(Typography)(({ theme }) => ({
     fontWeight: 500
 }));
 
-export default function Priority({powerLevelSetting, ruleSetSetting}) {
+export default function Priority(
+    {
+        handleMetatypeButton,
+        metatypeButton,
+        handleAttributeButton, 
+        attributeButton,
+        handleSkillButton, 
+        skillButton,
+        handleMagicButton, 
+        magicButton,
+        handleResourceButton, 
+        resourceButton,
+        showRestrictions, 
+        showMagicRestrictions}) {
 
     const [openMetatypes, setMetatypesOpen] = React.useState(false);
     const [openAttributes, setAttributesOpen] = React.useState(false);
     const [openSkills, setSkillsOpen] = React.useState(false);
     const [openMagic, setMagicOpen] = React.useState(false);
     const [openResources, setResourcesOpen] = React.useState(false);
-    const [showMagicRestrictions, setMagicRestrictions] = React.useState(true);
-    const [showRestrictions, setRestrictionsDisplay] = React.useState(true);
-
-    const [metatypeButton, setMetatypeButton] = React.useState(0);
-    useEffect(() => {
-        console.log(
-            'metatype:',
-            metatypeButton
-        )
-    }, [metatypeButton])
-    const handleMetatypeButton = (value) => {
-        if(value == 2 || value == 3) {
-            setRestrictionsDisplay(false)
-        }
-        else {
-            setRestrictionsDisplay(true)
-        }
-        handlePriorityButtonSelections(powerLevelSetting, ruleSetSetting, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 0)
-        setMetatypeButton(value)
-    }
-
-    const [attributeButton, setAttributeButton] = React.useState(1);
-    useEffect(() => {
-        console.log(
-            'attribute:',
-            attributeButton
-        )
-    }, [attributeButton])
-    const handleAttributeButton = (value) => {
-        handlePriorityButtonSelections(powerLevelSetting, ruleSetSetting, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 1)
-        setAttributeButton(value)
-    }
-
-    const [skillButton, setSkillButton] = React.useState(2);
-    useEffect(() => {
-        console.log(
-            'skill:',
-            skillButton
-        )
-    }, [skillButton])
-    const handleSkillButton = (value) => {
-        handlePriorityButtonSelections(powerLevelSetting, ruleSetSetting, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 2)
-        setSkillButton(value)
-    }
-
-    const [magicButton, setMagicButton] = React.useState(3);
-    useEffect(() => {
-        console.log(
-            'magic:',
-            magicButton
-        )
-    }, [magicButton])
-    const handleMagicButton = (value) => {
-        if(value == 4) {
-            setMagicRestrictions(false)
-        }
-        else {
-            setMagicRestrictions(true)
-        }
-        handlePriorityButtonSelections(powerLevelSetting, ruleSetSetting, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 3)
-        setMagicButton(value)
-    }
-
-    const [resourceButton, setResourceButton] = React.useState(4);
-    useEffect(() => {
-        console.log(
-            'resource:',
-            resourceButton
-        )
-    }, [resourceButton])
-    const handleResourceButton = (value) => {
-        handlePriorityButtonSelections(powerLevelSetting, ruleSetSetting, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 4)
-        setResourceButton(value)
-    }
-
-    function handlePriorityButtonSelections(powerLevel, ruleset, metatype, attribute, skill, magic, resource, val, functionFlag) {
-        /*console.log(
-            'handlePriorityButtonSelections',
-            powerLevel, 
-            ruleset, 
-            metatype, 
-            attribute,
-            val,
-            functionFlag
-        )*/
-        if(ruleset == 0) {
-            if(powerLevel == 1) {
-                //console.log('val:', val, ' funcFlag', functionFlag)
-                switch(functionFlag) {
-                    case 0:
-                        //console.log('val:', val, ' attribute', attribute)
-                        if(val == attribute) {
-                            setAttributeButton(metatype)
-                        }
-                        if(val == skill) {
-                            setSkillButton(metatype)
-                        }
-                        if(val == magic) {
-                            setMagicButton(metatype)
-                            if(metatype != 4) {
-                                setMagicRestrictions(true)
-                            }
-                            else {
-                                setMagicRestrictions(false)
-                            }
-                        }
-                        if(val == resource) {
-                            setResourceButton(metatype)
-                        }
-                        break;
-                    case 1:
-                        //console.log('val:', val, ' metatype', metatype)
-                        if(val == metatype) {
-                            setMetatypeButton(attribute)
-                            if(attribute != 2 && attribute != 3) {
-                                setRestrictionsDisplay(true)
-                            }
-                            else {
-                                setRestrictionsDisplay(false)
-                            }
-                        }
-                        if(val == skill) {
-                            setSkillButton(attribute)
-                        }
-                        if(val == magic) {
-                            setMagicButton(attribute)
-                            if(attribute != 4) {
-                                setMagicRestrictions(true)
-                            }
-                            else {
-                                setMagicRestrictions(false)
-                            }
-                        }
-                        if(val == resource) {
-                            setResourceButton(attribute)
-                        }
-                        break;
-                    case 2:
-                        //console.log('val:', val, ' skill', skill)
-                        if(val == metatype) {
-                            setMetatypeButton(skill)
-                            if(skill != 2 && skill != 3) {
-                                setRestrictionsDisplay(true)
-                            }
-                            else {
-                                setRestrictionsDisplay(false)
-                            }
-                        }
-                        if(val == attribute) {
-                            setAttributeButton(skill)
-                        }
-                        if(val == magic) {
-                            setMagicButton(skill)
-                            if(skill != 4) {
-                                setMagicRestrictions(true)
-                            }
-                            else {
-                                setMagicRestrictions(false)
-                            }
-                        }
-                        if(val == resource) {
-                            setResourceButton(skill)
-                        }
-                        break;
-                    case 3:
-                        //console.log('val:', val, ' magic', magic)
-                        if(val == metatype) {
-                            setMetatypeButton(magic)
-                            if(magic != 2 && magic != 3) {
-                                setRestrictionsDisplay(true)
-                            }
-                            else {
-                                setRestrictionsDisplay(false)
-                            }
-                        }
-                        if(val == attribute) {
-                            setAttributeButton(magic)
-                        }
-                        if(val == skill) {
-                            setSkillButton(magic)
-                        }
-                        if(val == resource) {
-                            setResourceButton(magic)
-                        }
-                        break;
-                    case 4:
-                        //console.log('val:', val, ' resource', resource)
-                        if(val == metatype) {
-                            setMetatypeButton(resource)
-                            if(resource != 2 && resource != 3) {
-                                setRestrictionsDisplay(true)
-                            }
-                            else {
-                                setRestrictionsDisplay(false)
-                            }
-                        }
-                        if(val == attribute) {
-                            setAttributeButton(resource)
-                        }
-                        if(val == skill) {
-                            setSkillButton(resource)
-                        }
-                        if(val == magic) {
-                            setMagicButton(resource)
-                            if(resource != 4) {
-                                setMagicRestrictions(true)
-                            }
-                            else {
-                                setMagicRestrictions(false)
-                            }
-                        }
-                        break;
-                }
-            }
-        }
-        else if (ruleset == 1) {
-
-        }
-    }
 
     return (
     <TableGrid xs={12} spacing={2} sx={{display: 'flex', flexDirection: 'column'}}>
