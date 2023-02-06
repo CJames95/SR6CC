@@ -28,6 +28,13 @@ const Metatype = [
     4,
     1
 ]
+const RestrictedRaces = [
+    'Elf, Dalakitnon, Dryad, Nocturna, Wakyambi, Xaipiri Thëpë, Human, Nartaki, Valkyrie',
+    'Human, Nartaki',
+    'No restrictions',
+    'No restrictions',
+    'Menehune, Wakyambi, Nartaki, Valkyrie, Satyr, Fomorian, Centaurs, Merrow, Naga, Pixie, Sasquatch'
+]
 const Attributes = [
     24,
     16,
@@ -41,6 +48,55 @@ const Skills = [
     20,
     16,
     10
+]
+const Magic = [
+    'Not Mundane',
+    'Not Mundane',
+    'Not Mundane',
+    'Not Mundane',
+    'Mundane'
+]
+const AwakenedOrEmerged = [
+    [
+        'Magician, Mystic Adept, Adept: ',
+        '4 Magic',
+        'Aspected Magician: ',
+        '5 Magic',
+        'Technomancer: ',
+        '4 Resonance'
+    ],
+    [
+        'Magician, Mystic Adept, Adept: ',
+        '3 Magic',
+        'Aspected Magician: ',
+        '4 Magic',
+        'Technomancer: ',
+        '3 Resonance'
+    ],
+    [
+        'Magician, Mystic Adept, Adept: ',
+        '2 Magic',
+        'Aspected Magician: ',
+        '3 Magic',
+        'Technomancer: ',
+        '2 Resonance'
+    ],
+    [
+        'Magician, Mystic Adept, Adept: ',
+        '1 Magic',
+        'Aspected Magician: ',
+        '2 Magic',
+        'Technomancer: ',
+        '1 Resonance'
+    ],
+    [
+        '',
+        'No Magic or Resonance',
+        '',
+        '',
+        '',
+        ''
+    ]
 ]
 const Resources = [
     '450,000 ¥',
@@ -72,7 +128,7 @@ const HeaderCell = styled(TableCell)(({ theme }) => ({
     color: 'white',
     fontFamily: 'Segoe UI',
     fontSize: 18,
-    fontWeight: 500,
+    fontWeight: 500
 }));
 
 const BodyCell = styled(TableCell)(({ theme }) => ({
@@ -88,6 +144,24 @@ const PriorityCell = styled(TableCell)(({ theme }) => ({
     fontWeight: 500,
 }));
 
+const WarningHeader = styled(Typography)(({ theme }) => ({
+    fontFamily: 'Segoe UI',
+    fontSize: 20,
+    fontWeight: 'bold'
+}));
+
+const WarningBodyHeader = styled(Typography)(({ theme }) => ({
+    fontFamily: 'Helvetica',
+    fontSize: 17,
+    fontWeight: 'bold'
+}));
+
+const WarningBody = styled(Typography)(({ theme }) => ({
+    fontFamily: 'Helvetica',
+    fontSize: 17,
+    fontWeight: 500
+}));
+
 export default function Priority({powerLevelSetting, ruleSetSetting}) {
 
     const [openMetatypes, setMetatypesOpen] = React.useState(false);
@@ -95,110 +169,170 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
     const [openSkills, setSkillsOpen] = React.useState(false);
     const [openMagic, setMagicOpen] = React.useState(false);
     const [openResources, setResourcesOpen] = React.useState(false);
+    const [showMagicRestrictions, setMagicRestrictions] = React.useState(true);
+    const [showRestrictions, setRestrictionsDisplay] = React.useState(true);
 
     const [metatypeButton, setMetatypeButton] = React.useState(0);
-    const [prevMetatypeButton, setPrevMetatypeButton] = React.useState(0);
-    const [metatypeUsedLast, setMetatypeUsedLast] = React.useState(false);
     useEffect(() => {
-    }, [prevMetatypeButton])
-    useEffect(() => {
-        handlePriorityButtonSelections(
-            powerLevelSetting, 
-            ruleSetSetting, 
-            metatypeButton,
-            prevMetatypeButton,
-            attributeButton,
-            prevAttributeButton)
-        lastClick(metatypeButton, -1)
         console.log(
-            'metatype const log',
-            metatypeButton,
-            prevMetatypeButton
+            'metatype:',
+            metatypeButton
         )
     }, [metatypeButton])
-    useEffect(() => {
-        console.log(
-            'metatype used last log',
-            metatypeUsedLast
-        )
-    }, [metatypeUsedLast])
     const handleMetatypeButton = (value) => {
-        setPrevMetatypeButton(metatypeButton)
+        if(value == 2 || value == 3) {
+            setRestrictionsDisplay(false)
+        }
+        else {
+            setRestrictionsDisplay(true)
+        }
+        handlePriorityButtonSelections(powerLevelSetting, ruleSetSetting, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 0)
         setMetatypeButton(value)
     }
 
     const [attributeButton, setAttributeButton] = React.useState(1);
-    const [prevAttributeButton, setPrevAttributeButton] = React.useState(1);
-    const [attributeUsedLast, setAttributeUsedLast] = React.useState(false);
     useEffect(() => {
-    }, [prevAttributeButton])
-    useEffect(() => {
-        handlePriorityButtonSelections(
-            powerLevelSetting, 
-            ruleSetSetting, 
-            metatypeButton,
-            prevMetatypeButton,
-            attributeButton,
-            prevAttributeButton)
-        lastClick(-1, attributeButton)
         console.log(
-            'attribute const log',
-            attributeButton,
-            prevAttributeButton
+            'attribute:',
+            attributeButton
         )
     }, [attributeButton])
-    useEffect(() => {
-        console.log(
-            'attribute used last log',
-            attributeUsedLast
-        )
-    }, [attributeUsedLast])
     const handleAttributeButton = (value) => {
-        setPrevAttributeButton(attributeButton)
+        handlePriorityButtonSelections(powerLevelSetting, ruleSetSetting, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 1)
         setAttributeButton(value)
     }
 
-    function lastClick(met, att) {
-        if(met != -1) {
-            setMetatypeUsedLast(true)
-            setAttributeUsedLast(false)
-        }
-        else if(att != -1) {
-            setMetatypeUsedLast(false)
-            setAttributeUsedLast(true)
-        }
+    const [skillButton, setSkillButton] = React.useState(2);
+    useEffect(() => {
+        console.log(
+            'skill:',
+            skillButton
+        )
+    }, [skillButton])
+    const handleSkillButton = (value) => {
+        handlePriorityButtonSelections(powerLevelSetting, ruleSetSetting, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 2)
+        setSkillButton(value)
     }
 
-    function handlePriorityButtonSelections(powerLevel, ruleset, metatype, prevMetatype, attribute, prevAttribute) {
+    const [magicButton, setMagicButton] = React.useState(3);
+    useEffect(() => {
         console.log(
+            'magic:',
+            magicButton
+        )
+    }, [magicButton])
+    const handleMagicButton = (value) => {
+        if(value == 4) {
+            setMagicRestrictions(false)
+        }
+        else {
+            setMagicRestrictions(true)
+        }
+        handlePriorityButtonSelections(powerLevelSetting, ruleSetSetting, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 3)
+        setMagicButton(value)
+    }
+
+    const [resourceButton, setResourceButton] = React.useState(4);
+    useEffect(() => {
+        console.log(
+            'resource:',
+            resourceButton
+        )
+    }, [resourceButton])
+    const handleResourceButton = (value) => {
+        handlePriorityButtonSelections(powerLevelSetting, ruleSetSetting, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 4)
+        setResourceButton(value)
+    }
+
+    function handlePriorityButtonSelections(powerLevel, ruleset, metatype, attribute, skill, magic, resource, val, functionFlag) {
+        /*console.log(
             'handlePriorityButtonSelections',
             powerLevel, 
             ruleset, 
             metatype, 
-            prevMetatype, 
-            attribute, 
-            prevAttribute
-        )
+            attribute,
+            val,
+            functionFlag
+        )*/
         if(ruleset == 0) {
             if(powerLevel == 1) {
-                if(metatype == attribute) {
-                    console.log(
-                        'metatype: ',
-                        metatype,
-                        ' = ',
-                        'attribute: ',
-                        attribute
-                    )
-                    if(metatypeUsedLast == true) {
-                        setAttributeButton(prevMetatype)
-                        setAttributeUsedLast(true)
-                        setMetatypeUsedLast(false)
-                    }
-                    else {
-                        setMetatypeButton(prevAttribute)
-                        setMetatypeUsedLast(true)
-                        setAttributeUsedLast(false)
-                    }
+                //console.log('val:', val, ' funcFlag', functionFlag)
+                switch(functionFlag) {
+                    case 0:
+                        //console.log('val:', val, ' attribute', attribute)
+                        if(val == attribute) {
+                            setAttributeButton(metatype)
+                        }
+                        if(val == skill) {
+                            setSkillButton(metatype)
+                        }
+                        if(val == magic) {
+                            setMagicButton(metatype)
+                        }
+                        if(val == resource) {
+                            setResourceButton(metatype)
+                        }
+                        break;
+                    case 1:
+                        //console.log('val:', val, ' metatype', metatype)
+                        if(val == metatype) {
+                            setMetatypeButton(attribute)
+                        }
+                        if(val == skill) {
+                            setSkillButton(attribute)
+                        }
+                        if(val == magic) {
+                            setMagicButton(attribute)
+                        }
+                        if(val == resource) {
+                            setResourceButton(attribute)
+                        }
+                        break;
+                    case 2:
+                        //console.log('val:', val, ' skill', skill)
+                        if(val == metatype) {
+                            setMetatypeButton(skill)
+                        }
+                        if(val == attribute) {
+                            setAttributeButton(skill)
+                        }
+                        if(val == magic) {
+                            setMagicButton(skill)
+                        }
+                        if(val == resource) {
+                            setResourceButton(skill)
+                        }
+                        break;
+                    case 3:
+                        //console.log('val:', val, ' magic', magic)
+                        if(val == metatype) {
+                            setMetatypeButton(magic)
+                        }
+                        if(val == attribute) {
+                            setAttributeButton(magic)
+                        }
+                        if(val == skill) {
+                            setSkillButton(magic)
+                        }
+                        if(val == resource) {
+                            setResourceButton(magic)
+                        }
+                        break;
+                    case 4:
+                        //console.log('val:', val, ' resource', resource)
+                        if(val == metatype) {
+                            setMetatypeButton(resource)
+                        }
+                        if(val == attribute) {
+                            setAttributeButton(resource)
+                        }
+                        if(val == skill) {
+                            setSkillButton(resource)
+                        }
+                        if(val == magic) {
+                            setMagicButton(resource)
+                        }
+                        break;
                 }
             }
         }
@@ -213,23 +347,23 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
             <Table>
                 <TableHead>
                     <TableRow sx={{height: 55}}>
-                        <HeaderCell />
-                        <HeaderCell align='center'>
+                        <HeaderCell sx={{width: '5%'}}/>
+                        <HeaderCell sx={{width: '20%'}} align='center'>
                             Priority
                         </HeaderCell>
-                        <HeaderCell align='center'>
+                        <HeaderCell sx={{width: '15%'}} align='center'>
                             A
                         </HeaderCell>
-                        <HeaderCell align='center'>
+                        <HeaderCell sx={{width: '15%'}} align='center'>
                             B
                         </HeaderCell>
-                        <HeaderCell align='center'>
+                        <HeaderCell sx={{width: '15%'}} align='center'>
                             C
                         </HeaderCell>
-                        <HeaderCell align='center'>
+                        <HeaderCell sx={{width: '15%'}} align='center'>
                             D
                         </HeaderCell>
-                        <HeaderCell align='center'>
+                        <HeaderCell sx={{width: '15%'}} align='center'>
                             E
                         </HeaderCell>
                     </TableRow>
@@ -251,6 +385,7 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                                 color={(metatypeButton == 0) ? 'secondary' : 'primary'} 
                                 fullWidth 
                                 variant='contained'
+                                sx={{height: 80}}
                             >
                                 {Metatype[0]}
                             </Button>
@@ -262,6 +397,7 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                                 color={(metatypeButton == 1) ? 'secondary' : 'primary'} 
                                 fullWidth 
                                 variant='contained'
+                                sx={{height: 80}}
                             >
                                 {Metatype[1]}
                             </Button>
@@ -273,6 +409,7 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                                 color={(metatypeButton == 2) ? 'secondary' : 'primary'} 
                                 fullWidth 
                                 variant='contained'
+                                sx={{height: 80}}
                             >
                                 {Metatype[2]}
                             </Button>
@@ -284,6 +421,7 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                                 color={(metatypeButton == 3) ? 'secondary' : 'primary'} 
                                 fullWidth 
                                 variant='contained'
+                                sx={{height: 80}}
                             >
                                 {Metatype[3]}
                             </Button>
@@ -295,14 +433,24 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                                 color={(metatypeButton == 4) ? 'secondary' : 'primary'} 
                                 fullWidth 
                                 variant='contained'
+                                sx={{height: 80}}
                             >
                                 {Metatype[4]}
                             </Button>
                         </BodyCell>
                     </TableRow>
                     <TableRow sx={{ '& > *': { borderBottom: 'unset'}}} hover>
-                        <TableCell colSpan={7}>
-                            hi
+                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
+                            <Collapse in={showRestrictions} orientation='vertical' timeout={{enter: 500, exit: 1000}} unmountOnExit>       
+                                <Box sx={{ margin: 1 }}>
+                                    <WarningHeader align='center' sx={{marginBottom: 1}}>
+                                        Restricted From the Following Metatypes                                        
+                                    </WarningHeader>
+                                    <WarningBody align='center'>
+                                        {RestrictedRaces[metatypeButton]}
+                                    </WarningBody>
+                                </Box>
+                            </Collapse>
                         </TableCell>
                     </TableRow>
                     <TableRow>
@@ -332,6 +480,7 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                                 color={(attributeButton == 0) ? 'secondary' : 'primary'} 
                                 fullWidth 
                                 variant='contained'
+                                sx={{height: 80}}
                             >
                                 {Attributes[0]}
                             </Button>
@@ -343,6 +492,7 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                                 color={(attributeButton == 1) ? 'secondary' : 'primary'} 
                                 fullWidth 
                                 variant='contained'
+                                sx={{height: 80}}
                             >
                                 {Attributes[1]}
                             </Button>
@@ -354,6 +504,7 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                                 color={(attributeButton == 2) ? 'secondary' : 'primary'} 
                                 fullWidth 
                                 variant='contained'
+                                sx={{height: 80}}
                             >
                                 {Attributes[2]}
                             </Button>
@@ -365,6 +516,7 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                                 color={(attributeButton == 3) ? 'secondary' : 'primary'} 
                                 fullWidth 
                                 variant='contained'
+                                sx={{height: 80}}
                             >
                                 {Attributes[3]}
                             </Button>
@@ -376,6 +528,7 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                                 color={(attributeButton == 4) ? 'secondary' : 'primary'} 
                                 fullWidth 
                                 variant='contained'
+                                sx={{height: 80}}
                             >
                                 {Attributes[4]}
                             </Button>
@@ -384,6 +537,267 @@ export default function Priority({powerLevelSetting, ruleSetSetting}) {
                     <TableRow>
                         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
                             <Collapse in={openAttributes} timeout='auto' unmountOnExit>
+                                <Box sx={{ margin: 1 }}>
+                                    <Typography variant='h6' gutterBottom component='div'>
+                                        History
+                                    </Typography>
+                                </Box>
+                            </Collapse>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow sx={{ '& > *': { borderBottom: 'unset'}}} hover>
+                        <TableCell sx={{minWidth: 35}}>
+                            <IconButton aria-label='expand row' size='small' onClick={() => setSkillsOpen(!openSkills)}>
+                                {openSkills ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                            </IconButton>
+                        </TableCell>
+                        <PriorityCell align='center'>
+                            Skills
+                        </PriorityCell>
+                        <BodyCell>
+                            <Button 
+                                value={0} 
+                                onClick={e => handleSkillButton(e.target.value)} 
+                                color={(skillButton == 0) ? 'secondary' : 'primary'} 
+                                fullWidth 
+                                variant='contained'
+                                sx={{height: 80}}
+                            >
+                                {Skills[0]}
+                            </Button>
+                        </BodyCell>
+                        <BodyCell>
+                            <Button 
+                                value={1} 
+                                onClick={e => handleSkillButton(e.target.value)} 
+                                color={(skillButton == 1) ? 'secondary' : 'primary'} 
+                                fullWidth 
+                                variant='contained'
+                                sx={{height: 80}}
+                            >
+                                {Skills[1]}
+                            </Button>
+                        </BodyCell>
+                        <BodyCell>
+                            <Button 
+                                value={2} 
+                                onClick={e => handleSkillButton(e.target.value)} 
+                                color={(skillButton == 2) ? 'secondary' : 'primary'} 
+                                fullWidth 
+                                variant='contained'
+                                sx={{height: 80}}
+                            >
+                                {Skills[2]}
+                            </Button>
+                        </BodyCell>
+                        <BodyCell>
+                            <Button 
+                                value={3} 
+                                onClick={e => handleSkillButton(e.target.value)} 
+                                color={(skillButton == 3) ? 'secondary' : 'primary'} 
+                                fullWidth 
+                                variant='contained'
+                                sx={{height: 80}}
+                            >
+                                {Skills[3]}
+                            </Button>
+                        </BodyCell>
+                        <BodyCell>
+                            <Button 
+                                value={4} 
+                                onClick={e => handleSkillButton(e.target.value)} 
+                                color={(skillButton == 4) ? 'secondary' : 'primary'} 
+                                fullWidth 
+                                variant='contained'
+                                sx={{height: 80}}
+                            >
+                                {Skills[4]}
+                            </Button>
+                        </BodyCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
+                            <Collapse in={openSkills} timeout='auto' unmountOnExit>
+                                <Box sx={{ margin: 1 }}>
+                                    <Typography variant='h6' gutterBottom component='div'>
+                                        History
+                                    </Typography>
+                                </Box>
+                            </Collapse>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow sx={{ '& > *': { borderBottom: 'unset'}}} hover>
+                        <TableCell sx={{minWidth: 35}}>
+                            <IconButton aria-label='expand row' size='small' onClick={() => setMagicOpen(!openMagic)}>
+                                {openMagic ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                            </IconButton>
+                        </TableCell>
+                        <PriorityCell align='center'>
+                            Metatype
+                        </PriorityCell>
+                        <BodyCell>
+                            <Button 
+                                value={0} 
+                                onClick={e => handleMagicButton(e.target.value)} 
+                                color={(magicButton == 0) ? 'secondary' : 'primary'} 
+                                fullWidth 
+                                variant='contained'
+                                sx={{height: 80}}
+                            >
+                                {Magic[0]}
+                            </Button>
+                        </BodyCell>
+                        <BodyCell>
+                            <Button 
+                                value={1} 
+                                onClick={e => handleMagicButton(e.target.value)} 
+                                color={(magicButton == 1) ? 'secondary' : 'primary'} 
+                                fullWidth 
+                                variant='contained'
+                                sx={{height: 80}}
+                            >
+                                {Magic[1]}
+                            </Button>
+                        </BodyCell>
+                        <BodyCell>
+                            <Button 
+                                value={2} 
+                                onClick={e => handleMagicButton(e.target.value)} 
+                                color={(magicButton == 2) ? 'secondary' : 'primary'} 
+                                fullWidth 
+                                variant='contained'
+                                sx={{height: 80}}
+                            >
+                                {Magic[2]}
+                            </Button>
+                        </BodyCell>
+                        <BodyCell>
+                            <Button 
+                                value={3} 
+                                onClick={e => handleMagicButton(e.target.value)} 
+                                color={(magicButton == 3) ? 'secondary' : 'primary'} 
+                                fullWidth 
+                                variant='contained'
+                                sx={{height: 80}}
+                            >
+                                {Magic[3]}
+                            </Button>
+                        </BodyCell>
+                        <BodyCell>
+                            <Button 
+                                value={4} 
+                                onClick={e => handleMagicButton(e.target.value)} 
+                                color={(magicButton == 4) ? 'secondary' : 'primary'} 
+                                fullWidth 
+                                variant='contained'
+                                sx={{height: 80}}
+                            >
+                                {Magic[4]}
+                            </Button>
+                        </BodyCell>
+                    </TableRow>
+                    <TableRow sx={{ '& > *': { borderBottom: 'unset'}}} hover>
+                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
+                            <Collapse in={showMagicRestrictions} orientation='vertical' timeout={{enter: 500, exit: 1000}} unmountOnExit>       
+                                <Box container align='center' sx={{ margin: 1 }}>
+                                    <WarningHeader sx={{marginBottom: 1}}>
+                                        Magic or Resonance
+                                    </WarningHeader>
+                                    <WarningBody>
+                                        <WarningBodyHeader display='inline'>{AwakenedOrEmerged[magicButton][0]}</WarningBodyHeader>{AwakenedOrEmerged[magicButton][1]}
+                                        <br/>
+                                        <WarningBodyHeader display='inline'>{AwakenedOrEmerged[magicButton][2]}</WarningBodyHeader>{AwakenedOrEmerged[magicButton][3]}
+                                        <br/>
+                                        <WarningBodyHeader display='inline'>{AwakenedOrEmerged[magicButton][4]}</WarningBodyHeader>{AwakenedOrEmerged[magicButton][5]}
+                                    </WarningBody>
+                                </Box>
+                            </Collapse>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
+                            <Collapse in={openMagic} timeout='auto' unmountOnExit>
+                                <Box sx={{ margin: 1 }}>
+                                    <Typography variant='h6' gutterBottom component='div'>
+                                        History
+                                    </Typography>
+                                </Box>
+                            </Collapse>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow sx={{ '& > *': { borderBottom: 'unset'}}} hover>
+                        <TableCell sx={{minWidth: 35}}>
+                            <IconButton aria-label='expand row' size='small' onClick={() => setResourcesOpen(!openResources)}>
+                                {openResources ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                            </IconButton>
+                        </TableCell>
+                        <PriorityCell align='center'>
+                            Resources
+                        </PriorityCell>
+                        <BodyCell>
+                            <Button 
+                                value={0} 
+                                onClick={e => handleResourceButton(e.target.value)} 
+                                color={(resourceButton == 0) ? 'secondary' : 'primary'} 
+                                fullWidth 
+                                variant='contained'
+                                sx={{marginTop: .1, height: 80}}
+                            >
+                                {Resources[0]}
+                            </Button>
+                        </BodyCell>
+                        <BodyCell>
+                            <Button 
+                                value={1} 
+                                onClick={e => handleResourceButton(e.target.value)} 
+                                color={(resourceButton == 1) ? 'secondary' : 'primary'} 
+                                fullWidth 
+                                variant='contained'
+                                sx={{marginTop: .1, height: 80}}
+                            >
+                                {Resources[1]}
+                            </Button>
+                        </BodyCell>
+                        <BodyCell>
+                            <Button 
+                                value={2} 
+                                onClick={e => handleResourceButton(e.target.value)} 
+                                color={(resourceButton == 2) ? 'secondary' : 'primary'} 
+                                fullWidth 
+                                variant='contained'
+                                sx={{marginTop: .1, height: 80}}
+                            >
+                                {Resources[2]}
+                            </Button>
+                        </BodyCell>
+                        <BodyCell>
+                            <Button 
+                                value={3} 
+                                onClick={e => handleResourceButton(e.target.value)} 
+                                color={(resourceButton == 3) ? 'secondary' : 'primary'} 
+                                fullWidth 
+                                variant='contained'
+                                sx={{marginTop: .1, height: 80}}
+                            >
+                                {Resources[3]}
+                            </Button>
+                        </BodyCell>
+                        <BodyCell>
+                            <Button 
+                                value={4} 
+                                onClick={e => handleResourceButton(e.target.value)} 
+                                color={(resourceButton == 4) ? 'secondary' : 'primary'} 
+                                fullWidth 
+                                variant='contained'
+                                sx={{marginTop: .1, height: 80}}
+                            >
+                                {Resources[4]}
+                            </Button>
+                        </BodyCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
+                            <Collapse in={openResources} timeout='auto' unmountOnExit>
                                 <Box sx={{ margin: 1 }}>
                                     <Typography variant='h6' gutterBottom component='div'>
                                         History
