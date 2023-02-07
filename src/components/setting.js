@@ -28,6 +28,8 @@ import { useTheme, styled } from '@mui/material/styles';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import Priority from './priority.js';
+import Metatype from './metatype.js';
+import MetatypeDescription from './metatype_desc.js';
 
 const headerBackground = grey[800];
 const subHeaderBackground = grey[400];
@@ -422,6 +424,17 @@ export default function Setting() {
     const [showMagicRestrictions, setMagicRestrictions] = React.useState(true);
     const [showRestrictions, setRestrictionsDisplay] = React.useState(true);
 
+    const [metatypeState, setMetatypeState] = React.useState('Troll');
+    useEffect(() => {
+        console.log(
+            'metatype chosen:',
+            metatypeState
+        )
+    }, [metatypeState])
+    const handleMetatypeState = (value) => {
+        setMetatypeState(value)
+    }
+
     return (
         <Box sx={{flexGrow: 1, margin: 'auto', maxWidth: 1350, bgcolor: subHeaderBackground, padding: 1}}>
             <Grid container spacing={2}>
@@ -535,6 +548,12 @@ export default function Setting() {
                     resourceButton={resourceButton}
                     showRestrictions={showRestrictions}
                     showMagicRestrictions={showMagicRestrictions}/>
+                }
+                {(activeStep == 2 && buttonState == 0) &&
+                    <Metatype handleMetatypeState={handleMetatypeState} metatypeButton={metatypeButton}/>
+                }
+                {(activeStep == 2 && buttonState == 0) &&
+                    <MetatypeDescription metatypeState={metatypeState}/>
                 }
                 {/* This section handles the progress bar at the bottom */}
                 <Grid xs={12} sx={{display: 'flex', flexDirection: 'column'}}>
