@@ -22,7 +22,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Metatype({handleMetatypeState, metatypeButton}) {
     return (
-        <Grid xs={8} spacing={2} sx={{display: 'flex', flexDirection: 'column'}}>
+        <Grid xl={8} lg={8} md={8} sm={8} xs={8} spacing={2} sx={{display: 'flex', flexDirection: 'column'}}>
             <Item>
             </Item>
         </Grid>

@@ -431,7 +431,7 @@ export default function Setting() {
             metatypeState
         )
     }, [metatypeState])
-    const handleMetatypeState = (value) => {
+    const handleMetatypeState = (value) => () => {
         setMetatypeState(value)
     }
 
@@ -550,7 +550,10 @@ export default function Setting() {
                     showMagicRestrictions={showMagicRestrictions}/>
                 }
                 {(activeStep == 2 && buttonState == 0) &&
-                    <Metatype handleMetatypeState={handleMetatypeState} metatypeButton={metatypeButton}/>
+                    <Metatype 
+                        handleMetatypeState={handleMetatypeState}
+                        metatypeState={metatypeState}
+                        metatypeButton={metatypeButton}/>
                 }
                 {(activeStep == 2 && buttonState == 0) &&
                     <MetatypeDescription metatypeState={metatypeState}/>
