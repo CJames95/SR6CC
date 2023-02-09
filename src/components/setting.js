@@ -30,6 +30,8 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import Priority from './priority.js';
 import Metatype from './metatype.js';
 import MetatypeDescription from './metatype_desc.js';
+import Magic from './magic.js';
+import MagicDescription from './magic_desc.js';
 
 const headerBackground = grey[800];
 const subHeaderBackground = grey[400];
@@ -191,6 +193,13 @@ export default function Setting() {
     }
     {/* end section */}
 
+    const [totalSteps, setTotalSteps] = React.useState(6);
+    useEffect(() => {
+        console.log({
+            totalSteps
+        })
+    }, [totalSteps])
+
     const [activeStep, setActiveStep] = React.useState(0);
     useEffect(() => {
         console.log({
@@ -256,9 +265,11 @@ export default function Setting() {
     const handleMagicButton = (value) => {
         if(value == 4) {
             setMagicRestrictions(false)
+            setTotalSteps(6)
         }
         else {
             setMagicRestrictions(true)
+            setTotalSteps(7)
         }
         handlePriorityButtonSelections(powerState, buttonState, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 3)
         setMagicButton(value)
@@ -425,15 +436,55 @@ export default function Setting() {
     const [showRestrictions, setRestrictionsDisplay] = React.useState(true);
 
     const [metatypeState, setMetatypeState] = React.useState('Troll');
+    const [metatypeCost, setMetatypeCost] = React.useState(0);
     useEffect(() => {
         console.log(
             'metatype chosen:',
             metatypeState
         )
     }, [metatypeState])
-    const handleMetatypeState = (value) => () => {
+    useEffect(() => {
+        console.log(
+            'metatype cost:',
+            metatypeCost
+        )
+    }, [metatypeCost])
+    const handleMetatypeState = (value, karmaValue) => () => {
+        setKarma((karma + metatypeCost) - karmaValue)
         setMetatypeState(value)
+        setMetatypeCost(karmaValue)
+        
     }
+
+    const [magicState, setMagicState] = React.useState(0);
+    useEffect(() => {
+        console.log(
+            'magic state:',
+            magicState
+        )
+    }, [magicState])
+    const handleMagicState = (value) => () => {
+        setMagicState(value)
+    }
+
+    const [traditionState, setTraditionState] = React.useState(0);
+    useEffect(() => {
+        console.log (
+            'tradition state:',
+            traditionState
+        )
+    }, [traditionState])
+    const handleTraditionState = (value) => () => {
+        setTraditionState(value)
+    }
+
+    const [karma, setKarma] = React.useState(50);
+    useEffect(() => {
+        console.log(
+            'karma:',
+            karma
+        )
+    }, [karma])
 
     return (
         <Box sx={{flexGrow: 1, margin: 'auto', maxWidth: 1350, bgcolor: subHeaderBackground, padding: 1}}>
@@ -445,13 +496,13 @@ export default function Setting() {
                                     <FormControl variant='filled' fullWidth={true}>
                                         <InputLabel>Power Level</InputLabel>
                                     <Select sx={{marginBottom: 1}} defaultValue={1} label='Power Level' onChange={e => handlePowerState(e.target.value)}>
-                                        <MenuItem value={0}>
+                                        <MenuItem value={0} disabled>
                                             {powerLevel[0]}
                                         </MenuItem>
                                         <MenuItem value={1}>
                                             {powerLevel[1]}
                                         </MenuItem>
-                                        <MenuItem value={2}>
+                                        <MenuItem value={2} disabled>
                                             {powerLevel[2]}
                                         </MenuItem>
                                     </Select>
@@ -459,13 +510,13 @@ export default function Setting() {
                                     <Button value={0} onClick={e => handleButtonState(e.target.value)} variant='contained' sx={{height: 80}} color={buttonColor1 ? 'secondary' : 'primary'}>
                                         {creatorType[0]}
                                     </Button>
-                                    <Button value={1} onClick={e => handleButtonState(e.target.value)} variant='contained' sx={{height: 80}} color={buttonColor2 ? 'secondary' : 'primary'}>
+                                    <Button value={1} onClick={e => handleButtonState(e.target.value)} variant='contained' sx={{height: 80}} color={buttonColor2 ? 'secondary' : 'primary'} disabled>
                                         {creatorType[1][powerState]}
                                     </Button>
-                                    <Button value={2} onClick={e => handleButtonState(e.target.value)} variant='contained' sx={{height: 80}} color={buttonColor3 ? 'secondary' : 'primary'}>
+                                    <Button value={2} onClick={e => handleButtonState(e.target.value)} variant='contained' sx={{height: 80}} color={buttonColor3 ? 'secondary' : 'primary'} disabled>
                                         {creatorType[2]}
                                     </Button>
-                                    <Button value={3} onClick={e => handleButtonState(e.target.value)} variant='contained' sx={{height: 80}} color={buttonColor4 ? 'secondary' : 'primary'}>
+                                    <Button value={3} onClick={e => handleButtonState(e.target.value)} variant='contained' sx={{height: 80}} color={buttonColor4 ? 'secondary' : 'primary'} disabled>
                                         {creatorType[3]}
                                     </Button>                                
                             </ButtonGroup>
@@ -553,23 +604,36 @@ export default function Setting() {
                     <Metatype 
                         handleMetatypeState={handleMetatypeState}
                         metatypeState={metatypeState}
-                        metatypeButton={metatypeButton}/>
+                        metatypeButton={metatypeButton}
+                        karma={karma}
+                    />
                 }
                 {(activeStep == 2 && buttonState == 0) &&
                     <MetatypeDescription metatypeState={metatypeState}/>
+                }
+                {(activeStep == 3 && buttonState == 0 && magicButton != 4) && 
+                    <Magic 
+                        karma={karma} 
+                        handleMagicState={handleMagicState} 
+                        magicState={magicState}
+                        handleTraditionState={handleTraditionState}
+                    />
+                }
+                {(activeStep == 3 && buttonState == 0 && magicButton != 4) && 
+                    <MagicDescription magicState={magicState}/>
                 }
                 {/* This section handles the progress bar at the bottom */}
                 <Grid xs={12} sx={{display: 'flex', flexDirection: 'column'}}>
                     <Item>
                         <MobileStepper
                             variant='progress'
-                            steps={6}
+                            steps={totalSteps}
                             position='static'
                             activeStep={activeStep}
                             sx={{flexGrow: 1, bgcolor: ''}}
                             fullWidth={true}
                             nextButton={
-                                <Button size='small' onClick={handleNext} disabled={activeStep === 5}>
+                                <Button size='small' onClick={handleNext} disabled={activeStep === (totalSteps - 1)}>
                                     Next
                                     {progressTheme.direction === 'rtl' ? (
                                         <KeyboardArrowLeft />

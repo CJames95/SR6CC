@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import List from '@mui/material/List';
 import ListSubheader from '@mui/material/ListSubheader';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { blue, grey, purple } from '@mui/material/colors';
 
@@ -180,7 +178,6 @@ const metatypes = [
     ],
 ]
 
-
 const Item = styled(Paper)(({ theme }) => ({
     display: 'table',
     tableLayout: 'fixed',
@@ -192,12 +189,12 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-export default function Metatype({handleMetatypeState, metatypeState, metatypeButton}) {
+export default function Metatype({handleMetatypeState, metatypeState, metatypeButton, karma}) {
 
     const rows = metatypes[metatypeButton].map((metatypes) => 
         <ListItem key={metatypes.metatypeName} disablePadding={true}>
             <ListItemButton 
-                onClick={handleMetatypeState(metatypes.metatypeName)}
+                onClick={handleMetatypeState(metatypes.metatypeName, metatypes.karma)}
                 divider={true}
                 sx={{
                     height: 70,
@@ -208,7 +205,25 @@ export default function Metatype({handleMetatypeState, metatypeState, metatypeBu
                 }}
                 alignItems='center'
             >
-                <ListItemText primary={metatypes.metatypeName}/>
+                <ListItemText 
+                    align='left'
+                    primary={metatypes.metatypeName}
+                    primaryTypographyProps={{
+                        fontFamily: 'Segoe UI',
+                        fontSize: 20,
+                        fontWeight: 500
+                    }}
+                />
+                <ListItemText 
+                    align='right' 
+                    primary={metatypes.karma}
+                    primaryTypographyProps={{
+                        fontFamily: 'Segoe UI',
+                        fontSize: 20,
+                        fontWeight: 500
+                    }}
+                />
+                
             </ListItemButton>
         </ListItem>
     );
@@ -226,7 +241,7 @@ export default function Metatype({handleMetatypeState, metatypeState, metatypeBu
                     }}
                 >
                     <ListSubheader 
-                        align='left' 
+                        align='right' 
                         sx={{
                             height: 55,
                             display: 'flex',
@@ -234,8 +249,11 @@ export default function Metatype({handleMetatypeState, metatypeState, metatypeBu
                             justifyContent: 'center', 
                             bgcolor: subHeaderBackground, 
                             color: 'white',
+                            fontFamily: 'Segoe UI',
+                            fontSize: 20,
+                            fontWeight: 500
                         }}>
-                            Karma: 0
+                            Karma: {karma}
                         </ListSubheader>
                     {rows}
                 </List>
