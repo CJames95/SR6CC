@@ -122,22 +122,35 @@ export default function Setting() {
         ['goodbye', 'gotta get some milk', 'lemme get some cigs']
     ]
 
-    {/* This section handles the power level system value for passing later.
-        This section also handles immediate updating for the select menu. */}
-    const [powerState, setPowerState] = React.useState(1);
+    const [powerState, setPowerState] = React.useState(1); //handlePowerState
+    const [buttonState, setButtonState] = React.useState(0); //handleButtonState
+    const [buttonColor1, setButtonColor1] = React.useState(true); //handleButtonColor
+    const [buttonColor2, setButtonColor2] = React.useState(false); //handleButtonColor
+    const [buttonColor3, setButtonColor3] = React.useState(false); //handleButtonColor
+    const [buttonColor4, setButtonColor4] = React.useState(false); //handleButtonColor
+    const [totalSteps, setTotalSteps] = React.useState(6);
+    const [activeStep, setActiveStep] = React.useState(0); //handleNext and handleBack
+    const [metatypeButton, setMetatypeButton] = React.useState(0); //handleMetatypeButton
+    const [metatypeState, setMetatypeState] = React.useState('Troll'); //handleMetatypeState
+    const [metatypeCost, setMetatypeCost] = React.useState(0);
+    const [attributeButton, setAttributeButton] = React.useState(1); //handleAttributeButton
+    const [skillButton, setSkillButton] = React.useState(2); //handleSkillButton
+    const [magicButton, setMagicButton] = React.useState(3); //handleMagicButton
+    const [magicState, setMagicState] = React.useState(0); //handleMagicState
+    const [traditionState, setTraditionState] = React.useState(0); //handleTraditionState
+    const [magicLimitationState, setMagicLimitationState] = React.useState(0); //handleMagicLimitationState
+    const [magicianPoints, setMagicianPoints] = React.useState(0); //handleMagicianPoints
+    const [adeptPoints, setAdeptPoints] = React.useState(0); //handleMagicianAdeptPoints
+    const [resourceButton, setResourceButton] = React.useState(4); //handleMagicianAdeptPoints
+    const [showMagicRestrictions, setMagicRestrictions] = React.useState(true);
+    const [showRestrictions, setRestrictionsDisplay] = React.useState(true);
+    const [karma, setKarma] = React.useState(50);
+
     useEffect(() => {
         console.log({
             powerState
         })
     }, [powerState])
-    const handlePowerState = (value) => {
-        setPowerState(value)
-    }
-    {/* end section */}
-
-    {/* This section handles the character creation system value for passing later.
-        This section also handles immediate updating for the buttons. */}
-    const [buttonState, setButtonState] = React.useState(0);
     useEffect(() => {
         handleButtonColor(buttonState)
         console.log({
@@ -148,16 +161,101 @@ export default function Setting() {
             buttonColor4,
         })
     }, [buttonState])
+    useEffect(() => {
+        console.log({
+            totalSteps
+        })
+    }, [totalSteps])
+    useEffect(() => {
+        console.log({
+            activeStep
+        })
+    }, [activeStep])
+    useEffect(() => {
+        console.log(
+            'metatype:',
+            metatypeButton
+        )
+    }, [metatypeButton])
+    useEffect(() => {
+        console.log(
+            'attribute:',
+            attributeButton
+        )
+    }, [attributeButton])
+    useEffect(() => {
+        console.log(
+            'skill:',
+            skillButton
+        )
+    }, [skillButton])
+    useEffect(() => {
+        console.log(
+            'magic:',
+            magicButton
+        )
+    }, [magicButton])
+    useEffect(() => {
+        console.log(
+            'resource:',
+            resourceButton
+        )
+    }, [resourceButton])
+    useEffect(() => {
+        console.log(
+            'metatype chosen:',
+            metatypeState
+        )
+    }, [metatypeState])
+    useEffect(() => {
+        console.log(
+            'metatype cost:',
+            metatypeCost
+        )
+    }, [metatypeCost])
+    useEffect(() => {
+        console.log(
+            'magic state:',
+            magicState
+        )
+    }, [magicState])
+    useEffect(() => {
+        console.log (
+            'tradition state:',
+            traditionState
+        )
+    }, [traditionState])
+    useEffect(() => {
+        console.log (
+            'magic limitation state:',
+            magicLimitationState
+        )
+    }, [magicLimitationState])
+    useEffect(() => {
+        console.log(
+            'karma:',
+            karma
+        )
+    }, [karma])
+    useEffect(() => {
+        console.log(
+            'magician points',
+            magicianPoints
+        )
+    }, [magicianPoints])
+    useEffect(() => {
+        console.log(
+            'adept points',
+            adeptPoints
+        )
+    }, [adeptPoints])
+    
+    const handlePowerState = (value) => {
+        setPowerState(value)
+    }
     const handleButtonState = (value) => {
         setButtonState(value)
     }
-    {/* end section */}
-
-    {/* This section handles the selection color of the system buttons*/}
-    const [buttonColor1, setButtonColor1] = React.useState(true);
-    const [buttonColor2, setButtonColor2] = React.useState(false);
-    const [buttonColor3, setButtonColor3] = React.useState(false);
-    const [buttonColor4, setButtonColor4] = React.useState(false);
     function handleButtonColor(bState) {
         if (bState == 0) {
             setButtonColor1(true)
@@ -191,35 +289,12 @@ export default function Setting() {
         }
 
     }
-    {/* end section */}
-
-    const [totalSteps, setTotalSteps] = React.useState(6);
-    useEffect(() => {
-        console.log({
-            totalSteps
-        })
-    }, [totalSteps])
-
-    const [activeStep, setActiveStep] = React.useState(0);
-    useEffect(() => {
-        console.log({
-            activeStep
-        })
-    }, [activeStep])
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     }
-
-    const [metatypeButton, setMetatypeButton] = React.useState(0);
-    useEffect(() => {
-        console.log(
-            'metatype:',
-            metatypeButton
-        )
-    }, [metatypeButton])
     const handleMetatypeButton = (value) => {
         if(value == 2 || value == 3) {
             setRestrictionsDisplay(false)
@@ -230,38 +305,14 @@ export default function Setting() {
         handlePriorityButtonSelections(powerState, buttonState, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 0)
         setMetatypeButton(value)
     }
-
-    const [attributeButton, setAttributeButton] = React.useState(1);
-    useEffect(() => {
-        console.log(
-            'attribute:',
-            attributeButton
-        )
-    }, [attributeButton])
     const handleAttributeButton = (value) => {
         handlePriorityButtonSelections(powerState, buttonState, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 1)
         setAttributeButton(value)
     }
-
-    const [skillButton, setSkillButton] = React.useState(2);
-    useEffect(() => {
-        console.log(
-            'skill:',
-            skillButton
-        )
-    }, [skillButton])
     const handleSkillButton = (value) => {
         handlePriorityButtonSelections(powerState, buttonState, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 2)
         setSkillButton(value)
     }
-
-    const [magicButton, setMagicButton] = React.useState(3);
-    useEffect(() => {
-        console.log(
-            'magic:',
-            magicButton
-        )
-    }, [magicButton])
     const handleMagicButton = (value) => {
         if(value == 4) {
             setMagicRestrictions(false)
@@ -274,17 +325,41 @@ export default function Setting() {
         handlePriorityButtonSelections(powerState, buttonState, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 3)
         setMagicButton(value)
     }
-
-    const [resourceButton, setResourceButton] = React.useState(4);
-    useEffect(() => {
-        console.log(
-            'resource:',
-            resourceButton
-        )
-    }, [resourceButton])
     const handleResourceButton = (value) => {
         handlePriorityButtonSelections(powerState, buttonState, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 4)
         setResourceButton(value)
+    }
+    const handleMetatypeState = (value, karmaValue) => () => {
+        setKarma((karma + metatypeCost) - karmaValue)
+        setMetatypeState(value)
+        setMetatypeCost(karmaValue)
+        
+    }
+    const handleMagicState = (value) => () => {
+        if(value == 3) {
+            setMagicianPoints(4 - magicButton)
+        }
+        setMagicState(value)
+    }
+    const handleTraditionState = (value) => {
+        setTraditionState(value)
+    }
+    const handleMagicLimitationState = (value) => {
+        setMagicLimitationState(value)
+    }
+    const handleMagicianAdeptPoints = (value) => {
+        if(value === 'left') {
+            if(adeptPoints != 0) {
+                setMagicianPoints(magicianPoints + 1)
+                setAdeptPoints(adeptPoints - 1)
+            }
+        }
+        else if (value === 'right') {
+            if(magicianPoints != 0) {
+                setMagicianPoints(magicianPoints - 1)
+                setAdeptPoints(adeptPoints + 1)
+            }
+        }
     }
 
     function handlePriorityButtonSelections(powerLevel, ruleset, metatype, attribute, skill, magic, resource, val, functionFlag) {
@@ -431,60 +506,6 @@ export default function Setting() {
 
         }
     }
-    
-    const [showMagicRestrictions, setMagicRestrictions] = React.useState(true);
-    const [showRestrictions, setRestrictionsDisplay] = React.useState(true);
-
-    const [metatypeState, setMetatypeState] = React.useState('Troll');
-    const [metatypeCost, setMetatypeCost] = React.useState(0);
-    useEffect(() => {
-        console.log(
-            'metatype chosen:',
-            metatypeState
-        )
-    }, [metatypeState])
-    useEffect(() => {
-        console.log(
-            'metatype cost:',
-            metatypeCost
-        )
-    }, [metatypeCost])
-    const handleMetatypeState = (value, karmaValue) => () => {
-        setKarma((karma + metatypeCost) - karmaValue)
-        setMetatypeState(value)
-        setMetatypeCost(karmaValue)
-        
-    }
-
-    const [magicState, setMagicState] = React.useState(0);
-    useEffect(() => {
-        console.log(
-            'magic state:',
-            magicState
-        )
-    }, [magicState])
-    const handleMagicState = (value) => () => {
-        setMagicState(value)
-    }
-
-    const [traditionState, setTraditionState] = React.useState(0);
-    useEffect(() => {
-        console.log (
-            'tradition state:',
-            traditionState
-        )
-    }, [traditionState])
-    const handleTraditionState = (value) => () => {
-        setTraditionState(value)
-    }
-
-    const [karma, setKarma] = React.useState(50);
-    useEffect(() => {
-        console.log(
-            'karma:',
-            karma
-        )
-    }, [karma])
 
     return (
         <Box sx={{flexGrow: 1, margin: 'auto', maxWidth: 1350, bgcolor: subHeaderBackground, padding: 1}}>
@@ -617,6 +638,10 @@ export default function Setting() {
                         handleMagicState={handleMagicState} 
                         magicState={magicState}
                         handleTraditionState={handleTraditionState}
+                        handleMagicLimitationState={handleMagicLimitationState}
+                        handleMagicianAdeptPoints={handleMagicianAdeptPoints}
+                        magicianPoints={magicianPoints}
+                        adeptPoints={adeptPoints}
                     />
                 }
                 {(activeStep == 3 && buttonState == 0 && magicButton != 4) && 

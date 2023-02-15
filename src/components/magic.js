@@ -8,6 +8,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import FormControl from '@mui/material/FormControl';
+import { Button, ButtonGroup, TextField } from '@mui/material';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import { Select, MenuItem, InputLabel } from '@mui/material';
 import { useTheme, styled } from '@mui/material/styles';
 import { blue, grey, purple } from '@mui/material/colors';
@@ -33,9 +36,22 @@ const traditions = [
     'Aztec',
     'Druidic',
 ]
+const magicLimitation = [
+    'Sorcery',
+    'Conjuring',
+    'Enchanting',
+]
 
-export default function Magic({karma, handleMagicState, magicState, handleTraditionState}) {
-
+export default function Magic({
+    karma, 
+    handleMagicState, 
+    magicState, 
+    handleTraditionState, 
+    handleMagicLimitationState, 
+    handleMagicianAdeptPoints, 
+    magicianPoints, 
+    adeptPoints
+}) {
     return (
         <Grid xl={4} lg={4} md={4} sm={4} xs={4} spacing={2} sx={{display: 'flex', flexDirection: 'column', maxHeight: 800}}>
             <Item>
@@ -69,9 +85,9 @@ export default function Magic({karma, handleMagicState, magicState, handleTradit
                             divider={true}
                             sx={{
                                 height: 70,
-                                bgcolor: (magicState === 0) ? selectBackground : primaryBackground,
+                                bgcolor: (magicState == 0) ? selectBackground : primaryBackground,
                                 '&:hover': {
-                                    backgroundColor: (magicState === 0) ? selectHover : primaryHover
+                                    backgroundColor: (magicState == 0) ? selectHover : primaryHover
                                 }
                             }}
                             alignItems='center'
@@ -92,9 +108,9 @@ export default function Magic({karma, handleMagicState, magicState, handleTradit
                             divider={true}
                             sx={{
                                 height: 70,
-                                bgcolor: (magicState === 1) ? selectBackground : primaryBackground,
+                                bgcolor: (magicState == 1) ? selectBackground : primaryBackground,
                                 '&:hover': {
-                                    backgroundColor: (magicState === 1) ? selectHover : primaryHover
+                                    backgroundColor: (magicState == 1) ? selectHover : primaryHover
                                 }
                             }}
                             alignItems='center'
@@ -115,9 +131,9 @@ export default function Magic({karma, handleMagicState, magicState, handleTradit
                             divider={true}
                             sx={{
                                 height: 70,
-                                bgcolor: (magicState === 2) ? selectBackground : primaryBackground,
+                                bgcolor: (magicState == 2) ? selectBackground : primaryBackground,
                                 '&:hover': {
-                                    backgroundColor: (magicState === 2) ? selectHover : primaryHover
+                                    backgroundColor: (magicState == 2) ? selectHover : primaryHover
                                 }
                             }}
                             alignItems='center'
@@ -138,9 +154,9 @@ export default function Magic({karma, handleMagicState, magicState, handleTradit
                             divider={true}
                             sx={{
                                 height: 70,
-                                bgcolor: (magicState === 3) ? selectBackground : primaryBackground,
+                                bgcolor: (magicState == 3) ? selectBackground : primaryBackground,
                                 '&:hover': {
-                                    backgroundColor: (magicState === 3) ? selectHover : primaryHover
+                                    backgroundColor: (magicState == 3) ? selectHover : primaryHover
                                 }
                             }}
                             alignItems='center'
@@ -161,9 +177,9 @@ export default function Magic({karma, handleMagicState, magicState, handleTradit
                             divider={true}
                             sx={{
                                 height: 70,
-                                bgcolor: (magicState === 4) ? selectBackground : primaryBackground,
+                                bgcolor: (magicState == 4) ? selectBackground : primaryBackground,
                                 '&:hover': {
-                                    backgroundColor: (magicState === 4) ? selectHover : primaryHover
+                                    backgroundColor: (magicState == 4) ? selectHover : primaryHover
                                 }
                             }}
                             alignItems='center'
@@ -179,17 +195,44 @@ export default function Magic({karma, handleMagicState, magicState, handleTradit
                         </ListItemButton>
                     </ListItem>
                 </List>
-                <FormControl variant='filled' fullWidth={true}>
-                    <InputLabel>Magic Tradition</InputLabel>
-                    <Select sx={{marginBottom: 1}} defaultValue={0} label='Magic Tradition' onChange={e => handleTraditionState(e.target.value)}>
-                        <MenuItem value={0}>
-                            {traditions[0]}
-                        </MenuItem>
-                        <MenuItem value={1}>
-                            {traditions[1]}
-                        </MenuItem>
-                    </Select>
-                </FormControl>
+                {(magicState == 3) &&
+                    <FormControl sx={{marginTop: 3}}  variant='filled' fullWidth>
+                        <ButtonGroup>
+                            <TextField label='Magician' defaultValue={magicianPoints}/>
+                        <Button value='left' onClick={e => handleMagicianAdeptPoints(e.target.value)}>
+                            <KeyboardArrowLeft/>
+                        </Button>
+                        <Button value='right' onClick={e => handleMagicianAdeptPoints(e.target.value)}>
+                            <KeyboardArrowRight/>
+                        </Button>
+                        <TextField label='Adept' defaultValue={adeptPoints}/>
+                        </ButtonGroup>
+                    </FormControl>
+                }
+                {(magicState == 1) &&
+                    <FormControl sx={{marginTop: 3}}  variant='filled' fullWidth={true}>
+                        <InputLabel>Magic Limitation</InputLabel>
+                        <Select defaultValue={0} label='Magic Limitation' onChange={e => handleMagicLimitationState(e.target.value)}>
+                            {magicLimitation.map((magicLimitation, index) =>
+                                <MenuItem value={index}>
+                                    {magicLimitation}
+                                </MenuItem>
+                            )}
+                        </Select>
+                    </FormControl>
+                }
+                {(magicState == 0 || magicState == 1 || magicState == 3) &&
+                    <FormControl sx={{marginTop: 3}}  variant='filled' fullWidth={true}>
+                        <InputLabel>Magic Tradition</InputLabel>
+                        <Select defaultValue={0} label='Magic Tradition' onChange={e => handleTraditionState(e.target.value)}>
+                            {traditions.map((traditions, index) =>
+                                <MenuItem value={index}>
+                                    {traditions}
+                                </MenuItem>
+                            )}
+                        </Select>
+                    </FormControl>
+                }
             </Item>
         </Grid>
     );
