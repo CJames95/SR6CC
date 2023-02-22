@@ -19,92 +19,6 @@ import { styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 
 const headerBackground = grey[800];
-const subHeaderBackground = grey[400];
-
-const Metatype = [
-    13,
-    11,
-    9,
-    4,
-    1
-]
-const RestrictedRaces = [
-    'Elf, Dalakitnon, Dryad, Nocturna, Wakyambi, Xaipiri Thëpë, Human, Nartaki, Valkyrie',
-    'Human, Nartaki',
-    'No restrictions',
-    'No restrictions',
-    'Menehune, Wakyambi, Nartaki, Valkyrie, Satyr, Fomorian, Centaurs, Merrow, Naga, Pixie, Sasquatch'
-]
-const Attributes = [
-    24,
-    16,
-    12,
-    8,
-    2
-]
-const Skills = [
-    32,
-    24,
-    20,
-    16,
-    10
-]
-const Magic = [
-    'Not Mundane',
-    'Not Mundane',
-    'Not Mundane',
-    'Not Mundane',
-    'Mundane'
-]
-const AwakenedOrEmerged = [
-    [
-        'Magician, Mystic Adept, Adept: ',
-        '4 Magic',
-        'Aspected Magician: ',
-        '5 Magic',
-        'Technomancer: ',
-        '4 Resonance'
-    ],
-    [
-        'Magician, Mystic Adept, Adept: ',
-        '3 Magic',
-        'Aspected Magician: ',
-        '4 Magic',
-        'Technomancer: ',
-        '3 Resonance'
-    ],
-    [
-        'Magician, Mystic Adept, Adept: ',
-        '2 Magic',
-        'Aspected Magician: ',
-        '3 Magic',
-        'Technomancer: ',
-        '2 Resonance'
-    ],
-    [
-        'Magician, Mystic Adept, Adept: ',
-        '1 Magic',
-        'Aspected Magician: ',
-        '2 Magic',
-        'Technomancer: ',
-        '1 Resonance'
-    ],
-    [
-        '',
-        'No Magic or Resonance',
-        '',
-        '',
-        '',
-        ''
-    ]
-]
-const Resources = [
-    '450,000 ¥',
-    '275,000 ¥',
-    '150,000 ¥',
-    '50,000 ¥',
-    '8,000 ¥'
-]
 
 const TableGrid = styled(Grid)(({ theme }) => ({
     display: 'flex',
@@ -175,13 +89,343 @@ export default function Priority(
         handleResourceButton, 
         resourceButton,
         showRestrictions, 
-        showMagicRestrictions}) {
+        showMagicRestrictions}) 
+{
+
 
     const [openMetatypes, setMetatypesOpen] = React.useState(false);
+    const handleOpenMetatypes = (value) => {
+        setMetatypesOpen(value)
+    }
     const [openAttributes, setAttributesOpen] = React.useState(false);
+    const handleOpenAttributes = (value) => {
+        setAttributesOpen(value)
+    }
     const [openSkills, setSkillsOpen] = React.useState(false);
+    const handleOpenSkills = (value) => {
+        setSkillsOpen(value)
+    }
     const [openMagic, setMagicOpen] = React.useState(false);
+    const handleOpenMagic = (value) => {
+        setMagicOpen(value)
+    }
     const [openResources, setResourcesOpen] = React.useState(false);
+    const handleOpenResources = (value) => {
+        setResourcesOpen(value)
+    }
+
+    // This section handles magic category warning text to simplify amount of code in priorityRows
+    const AwakenedOrEmerged = [
+        [
+            'Magician, Mystic Adept, Adept: ',
+            '4 Magic',
+            'Aspected Magician: ',
+            '5 Magic',
+            'Technomancer: ',
+            '4 Resonance'
+        ],
+        [
+            'Magician, Mystic Adept, Adept: ',
+            '3 Magic',
+            'Aspected Magician: ',
+            '4 Magic',
+            'Technomancer: ',
+            '3 Resonance'
+        ],
+        [
+            'Magician, Mystic Adept, Adept: ',
+            '2 Magic',
+            'Aspected Magician: ',
+            '3 Magic',
+            'Technomancer: ',
+            '2 Resonance'
+        ],
+        [
+            'Magician, Mystic Adept, Adept: ',
+            '1 Magic',
+            'Aspected Magician: ',
+            '2 Magic',
+            'Technomancer: ',
+            '1 Resonance'
+        ],
+        [
+            '',
+            'No Magic or Resonance',
+            '',
+            '',
+            '',
+            ''
+        ]
+    ]
+    // This section handles all other mapped information in priorityRows
+    const priorities = [
+        {
+            name: 'Metatype',
+            idA: 0,
+            A: 13,
+            idB: 1,
+            B: 11,
+            idC: 2,
+            C: 9,
+            idD: 3,
+            D: 4,
+            idE: 4,
+            E: 1,
+            state: metatypeButton,
+            change: handleMetatypeButton,
+            collapse: openMetatypes,
+            set: handleOpenMetatypes
+        },
+        {
+            name: -2,
+            title: 'Restricted From the Following Metatypes',
+            A: 'Elf, Dalakitnon, Dryad, Nocturna, Wakyambi, Xaipiri Thëpë, Human, Nartaki, Valkyrie',
+            B: 'Human, Nartaki',
+            C: 'No restrictions',
+            D: 'No restrictions',
+            E: 'Menehune, Wakyambi, Nartaki, Valkyrie, Satyr, Fomorian, Centaurs, Merrow, Naga, Pixie, Sasquatch',
+            state: metatypeButton,
+            showState: showRestrictions
+        },
+        {
+            name: -1,
+            collapse: openMetatypes,
+            desc: 'Metatypes',
+        },
+        {
+            name: 'Attributes',
+            idA: 0,
+            A: 24,
+            idB: 1,
+            B: 16,
+            idC: 2,
+            C: 12,
+            idD: 3,
+            D: 8,
+            idE: 4,
+            E: 2,
+            state: attributeButton,
+            change: handleAttributeButton,
+            collapse: openAttributes,
+            set: handleOpenAttributes
+        },
+        {
+            name: -1,
+            collapse: openAttributes,
+            desc: 'Attributes',
+        },
+        {
+            name: 'Skills',
+            idA: 0,
+            A: 32,
+            idB: 1,
+            B: 24,
+            idC: 2,
+            C: 20,
+            idD: 3,
+            D: 16,
+            idE: 4,
+            E: 10,
+            state: skillButton,
+            change: handleSkillButton,
+            collapse: openSkills,
+            set: handleOpenSkills
+        },
+        {
+            name: -1,
+            collapse: openSkills,
+            desc: 'Skills',
+        },
+        {
+            name: 'Magic or Resonance',
+            idA: 0,
+            A: 'Not Mundane',
+            idB: 1,
+            B: 'Not Mundane',
+            idC: 2,
+            C: 'Not Mundane',
+            idD: 3,
+            D: 'Not Mundane',
+            idE: 4,
+            E: 'Mundane',
+            state: magicButton,
+            change: handleMagicButton,
+            collapse: openMagic,
+            set: handleOpenMagic
+        },
+        {
+            name: -3,
+            title: 'Magic or Resonance',
+            showState: showMagicRestrictions
+        },
+        {
+            name: -1,
+            collapse: openMagic,
+            desc: 'Magic or Resonance',
+        },
+        {
+            name: 'Resources',
+            idA: 0,
+            A: '450,000 ¥',
+            idB: 1,
+            B: '275,000 ¥',
+            idC: 2,
+            C: '150,000 ¥',
+            idD: 3,
+            D: '50,000 ¥',
+            idE: 4,
+            E: '8,000 ¥',
+            state: resourceButton,
+            change: handleResourceButton,
+            collapse: openResources,
+            set: handleOpenResources
+        },
+        {
+            name: -1,
+            collapse: openResources,
+            desc: 'Resources',
+        },       
+    ]
+
+    const priorityRows = priorities.map(priorities => {
+        return priorities.name !== -1 && priorities.name !== -2 && priorities.name !== -3 ?
+            // This section handles rows with buttons for each category which has no numbered name ID
+            <TableRow sx={{ '& > *': { borderBottom: 'unset'}}} hover>
+                <TableCell sx={{minWidth: 35}}>
+                    <IconButton aria-label='expand row' size='small' onClick={() => priorities.set(!priorities.collapse)}>
+                        {priorities.collapse ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                    </IconButton>
+                </TableCell>
+                <PriorityCell align='center'>
+                    {priorities.name}
+                </PriorityCell>
+                <BodyCell>
+                    <Button 
+                        value={priorities.idA} 
+                        onClick={e => priorities.change(e.target.value)} 
+                        color={(priorities.state == 0) ? 'secondary' : 'primary'} 
+                        fullWidth 
+                        variant='contained'
+                        sx={{height: 80}}
+                    >
+                        {priorities.A}
+                    </Button>
+                </BodyCell>
+                <BodyCell>
+                    <Button 
+                        value={priorities.idB} 
+                        onClick={e => priorities.change(e.target.value)} 
+                        color={(priorities.state == 1) ? 'secondary' : 'primary'} 
+                        fullWidth 
+                        variant='contained'
+                        sx={{height: 80}}
+                    >
+                        {priorities.B}
+                    </Button>
+                </BodyCell>
+                <BodyCell>
+                    <Button 
+                        value={priorities.idC} 
+                        onClick={e => priorities.change(e.target.value)} 
+                        color={(priorities.state == 2) ? 'secondary' : 'primary'} 
+                        fullWidth 
+                        variant='contained'
+                        sx={{height: 80}}
+                    >
+                        {priorities.C}
+                    </Button>
+                </BodyCell>
+                <BodyCell>
+                    <Button 
+                        value={priorities.idD} 
+                        onClick={e => priorities.change(e.target.value)} 
+                        color={(priorities.state == 3) ? 'secondary' : 'primary'} 
+                        fullWidth 
+                        variant='contained'
+                        sx={{height: 80}}
+                    >
+                        {priorities.D}
+                    </Button>
+                </BodyCell>
+                <BodyCell>
+                    <Button 
+                        value={priorities.idE} 
+                        onClick={e => priorities.change(e.target.value)} 
+                        color={(priorities.state == 4) ? 'secondary' : 'primary'} 
+                        fullWidth 
+                        variant='contained'
+                        sx={{height: 80}}
+                    >
+                        {priorities.E}
+                    </Button>
+                </BodyCell>
+            </TableRow>
+        :
+            priorities.name !== -2 && priorities.name !== -3 ?
+                // This section handles the collapsed rows for each category and has a numbered name ID of -1
+                <TableRow>
+                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
+                        <Collapse in={priorities.collapse} timeout='auto' unmountOnExit>
+                            <Box sx={{ margin: 1 }}>
+                                <Typography variant='h6' gutterBottom component='div'>
+                                    {priorities.desc}
+                                </Typography>
+                            </Box>
+                        </Collapse>
+                    </TableCell>
+                </TableRow>
+            :
+                priorities.name !== -3 ?
+                    // This section handles the metatype category warning on what races are disabled and has a numbered name ID of -2
+                    <TableRow sx={{ '& > *': { borderBottom: 'unset'}}} hover>
+                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
+                            <Collapse in={priorities.showState} orientation='vertical' timeout={{enter: 500, exit: 1000}} unmountOnExit>       
+                                <Box sx={{ margin: 1 }}>
+                                    <WarningHeader align='center' sx={{marginBottom: 1}}>
+                                        {priorities.title}
+                                    </WarningHeader>
+                                    <WarningBody align='center'>
+                                        {
+                                            priorities.state == 0 ?
+                                                priorities.A
+                                            :
+                                            priorities.state == 1 ?
+                                                priorities.B
+                                            :
+                                            priorities.state == 2 ?
+                                                priorities.C
+                                            :
+                                            priorities.state == 3 ?
+                                                priorities.D
+                                            :
+                                                priorities.E
+                                        }
+                                    </WarningBody>
+                                </Box>
+                            </Collapse>
+                        </TableCell>
+                    </TableRow>
+                :
+                    // This section handles the magic category warning on what magic or resonance points will be available and has a numbered name ID of -3
+                    <TableRow sx={{ '& > *': { borderBottom: 'unset'}}} hover>
+                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
+                            <Collapse in={priorities.showState} orientation='vertical' timeout={{enter: 500, exit: 1000}} unmountOnExit>       
+                                <Box container align='center' sx={{ margin: 1 }}>
+                                    <WarningHeader sx={{marginBottom: 1}}>
+                                        {priorities.title}
+                                    </WarningHeader>
+                                    <WarningBody>
+                                        <WarningBodyHeader display='inline'>{AwakenedOrEmerged[magicButton][0]}</WarningBodyHeader>{AwakenedOrEmerged[magicButton][1]}
+                                        <br/>
+                                        <WarningBodyHeader display='inline'>{AwakenedOrEmerged[magicButton][2]}</WarningBodyHeader>{AwakenedOrEmerged[magicButton][3]}
+                                        <br/>
+                                        <WarningBodyHeader display='inline'>{AwakenedOrEmerged[magicButton][4]}</WarningBodyHeader>{AwakenedOrEmerged[magicButton][5]}
+                                    </WarningBody>
+                                </Box>
+                            </Collapse>
+                        </TableCell>
+                    </TableRow>
+    });
 
     return (
     <TableGrid xs={12} spacing={2} sx={{display: 'flex', flexDirection: 'column'}}>
@@ -211,443 +455,7 @@ export default function Priority(
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    <TableRow sx={{ '& > *': { borderBottom: 'unset'}}} hover>
-                        <TableCell sx={{minWidth: 35}}>
-                            <IconButton aria-label='expand row' size='small' onClick={() => setMetatypesOpen(!openMetatypes)}>
-                                {openMetatypes ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                            </IconButton>
-                        </TableCell>
-                        <PriorityCell align='center'>
-                            Metatype
-                        </PriorityCell>
-                        <BodyCell>
-                            <Button 
-                                value={0} 
-                                onClick={e => handleMetatypeButton(e.target.value)} 
-                                color={(metatypeButton == 0) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Metatype[0]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={1} 
-                                onClick={e => handleMetatypeButton(e.target.value)} 
-                                color={(metatypeButton == 1) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Metatype[1]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={2} 
-                                onClick={e => handleMetatypeButton(e.target.value)} 
-                                color={(metatypeButton == 2) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Metatype[2]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={3} 
-                                onClick={e => handleMetatypeButton(e.target.value)} 
-                                color={(metatypeButton == 3) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Metatype[3]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={4} 
-                                onClick={e => handleMetatypeButton(e.target.value)} 
-                                color={(metatypeButton == 4) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Metatype[4]}
-                            </Button>
-                        </BodyCell>
-                    </TableRow>
-                    <TableRow sx={{ '& > *': { borderBottom: 'unset'}}} hover>
-                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
-                            <Collapse in={showRestrictions} orientation='vertical' timeout={{enter: 500, exit: 1000}} unmountOnExit>       
-                                <Box sx={{ margin: 1 }}>
-                                    <WarningHeader align='center' sx={{marginBottom: 1}}>
-                                        Restricted From the Following Metatypes                                        
-                                    </WarningHeader>
-                                    <WarningBody align='center'>
-                                        {RestrictedRaces[metatypeButton]}
-                                    </WarningBody>
-                                </Box>
-                            </Collapse>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
-                            <Collapse in={openMetatypes} timeout='auto' unmountOnExit>
-                                <Box sx={{ margin: 1 }}>
-                                    <Typography variant='h6' gutterBottom component='div'>
-                                        History
-                                    </Typography>
-                                </Box>
-                            </Collapse>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow sx={{ '& > *': { borderBottom: 'unset'}}} hover>
-                        <TableCell sx={{minWidth: 35}}>
-                            <IconButton aria-label='expand row' size='small' onClick={() => setAttributesOpen(!openAttributes)}>
-                                {openAttributes ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                            </IconButton>
-                        </TableCell>
-                        <PriorityCell align='center'>
-                            Attributes
-                        </PriorityCell>
-                        <BodyCell>
-                            <Button 
-                                value={0} 
-                                onClick={e => handleAttributeButton(e.target.value)} 
-                                color={(attributeButton == 0) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Attributes[0]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={1} 
-                                onClick={e => handleAttributeButton(e.target.value)} 
-                                color={(attributeButton == 1) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Attributes[1]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={2} 
-                                onClick={e => handleAttributeButton(e.target.value)} 
-                                color={(attributeButton == 2) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Attributes[2]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={3} 
-                                onClick={e => handleAttributeButton(e.target.value)} 
-                                color={(attributeButton == 3) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Attributes[3]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={4} 
-                                onClick={e => handleAttributeButton(e.target.value)} 
-                                color={(attributeButton == 4) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Attributes[4]}
-                            </Button>
-                        </BodyCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
-                            <Collapse in={openAttributes} timeout='auto' unmountOnExit>
-                                <Box sx={{ margin: 1 }}>
-                                    <Typography variant='h6' gutterBottom component='div'>
-                                        History
-                                    </Typography>
-                                </Box>
-                            </Collapse>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow sx={{ '& > *': { borderBottom: 'unset'}}} hover>
-                        <TableCell sx={{minWidth: 35}}>
-                            <IconButton aria-label='expand row' size='small' onClick={() => setSkillsOpen(!openSkills)}>
-                                {openSkills ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                            </IconButton>
-                        </TableCell>
-                        <PriorityCell align='center'>
-                            Skills
-                        </PriorityCell>
-                        <BodyCell>
-                            <Button 
-                                value={0} 
-                                onClick={e => handleSkillButton(e.target.value)} 
-                                color={(skillButton == 0) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Skills[0]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={1} 
-                                onClick={e => handleSkillButton(e.target.value)} 
-                                color={(skillButton == 1) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Skills[1]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={2} 
-                                onClick={e => handleSkillButton(e.target.value)} 
-                                color={(skillButton == 2) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Skills[2]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={3} 
-                                onClick={e => handleSkillButton(e.target.value)} 
-                                color={(skillButton == 3) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Skills[3]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={4} 
-                                onClick={e => handleSkillButton(e.target.value)} 
-                                color={(skillButton == 4) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Skills[4]}
-                            </Button>
-                        </BodyCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
-                            <Collapse in={openSkills} timeout='auto' unmountOnExit>
-                                <Box sx={{ margin: 1 }}>
-                                    <Typography variant='h6' gutterBottom component='div'>
-                                        History
-                                    </Typography>
-                                </Box>
-                            </Collapse>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow sx={{ '& > *': { borderBottom: 'unset'}}} hover>
-                        <TableCell sx={{minWidth: 35}}>
-                            <IconButton aria-label='expand row' size='small' onClick={() => setMagicOpen(!openMagic)}>
-                                {openMagic ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                            </IconButton>
-                        </TableCell>
-                        <PriorityCell align='center'>
-                            Magic or Resonance
-                        </PriorityCell>
-                        <BodyCell>
-                            <Button 
-                                value={0} 
-                                onClick={e => handleMagicButton(e.target.value)} 
-                                color={(magicButton == 0) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Magic[0]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={1} 
-                                onClick={e => handleMagicButton(e.target.value)} 
-                                color={(magicButton == 1) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Magic[1]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={2} 
-                                onClick={e => handleMagicButton(e.target.value)} 
-                                color={(magicButton == 2) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Magic[2]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={3} 
-                                onClick={e => handleMagicButton(e.target.value)} 
-                                color={(magicButton == 3) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Magic[3]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={4} 
-                                onClick={e => handleMagicButton(e.target.value)} 
-                                color={(magicButton == 4) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{height: 80}}
-                            >
-                                {Magic[4]}
-                            </Button>
-                        </BodyCell>
-                    </TableRow>
-                    <TableRow sx={{ '& > *': { borderBottom: 'unset'}}} hover>
-                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
-                            <Collapse in={showMagicRestrictions} orientation='vertical' timeout={{enter: 500, exit: 1000}} unmountOnExit>       
-                                <Box container align='center' sx={{ margin: 1 }}>
-                                    <WarningHeader sx={{marginBottom: 1}}>
-                                        Magic or Resonance
-                                    </WarningHeader>
-                                    <WarningBody>
-                                        <WarningBodyHeader display='inline'>{AwakenedOrEmerged[magicButton][0]}</WarningBodyHeader>{AwakenedOrEmerged[magicButton][1]}
-                                        <br/>
-                                        <WarningBodyHeader display='inline'>{AwakenedOrEmerged[magicButton][2]}</WarningBodyHeader>{AwakenedOrEmerged[magicButton][3]}
-                                        <br/>
-                                        <WarningBodyHeader display='inline'>{AwakenedOrEmerged[magicButton][4]}</WarningBodyHeader>{AwakenedOrEmerged[magicButton][5]}
-                                    </WarningBody>
-                                </Box>
-                            </Collapse>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
-                            <Collapse in={openMagic} timeout='auto' unmountOnExit>
-                                <Box sx={{ margin: 1 }}>
-                                    <Typography variant='h6' gutterBottom component='div'>
-                                        History
-                                    </Typography>
-                                </Box>
-                            </Collapse>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow sx={{ '& > *': { borderBottom: 'unset'}}} hover>
-                        <TableCell sx={{minWidth: 35}}>
-                            <IconButton aria-label='expand row' size='small' onClick={() => setResourcesOpen(!openResources)}>
-                                {openResources ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                            </IconButton>
-                        </TableCell>
-                        <PriorityCell align='center'>
-                            Resources
-                        </PriorityCell>
-                        <BodyCell>
-                            <Button 
-                                value={0} 
-                                onClick={e => handleResourceButton(e.target.value)} 
-                                color={(resourceButton == 0) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{marginTop: .1, height: 80}}
-                            >
-                                {Resources[0]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={1} 
-                                onClick={e => handleResourceButton(e.target.value)} 
-                                color={(resourceButton == 1) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{marginTop: .1, height: 80}}
-                            >
-                                {Resources[1]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={2} 
-                                onClick={e => handleResourceButton(e.target.value)} 
-                                color={(resourceButton == 2) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{marginTop: .1, height: 80}}
-                            >
-                                {Resources[2]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={3} 
-                                onClick={e => handleResourceButton(e.target.value)} 
-                                color={(resourceButton == 3) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{marginTop: .1, height: 80}}
-                            >
-                                {Resources[3]}
-                            </Button>
-                        </BodyCell>
-                        <BodyCell>
-                            <Button 
-                                value={4} 
-                                onClick={e => handleResourceButton(e.target.value)} 
-                                color={(resourceButton == 4) ? 'secondary' : 'primary'} 
-                                fullWidth 
-                                variant='contained'
-                                sx={{marginTop: .1, height: 80}}
-                            >
-                                {Resources[4]}
-                            </Button>
-                        </BodyCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
-                            <Collapse in={openResources} timeout='auto' unmountOnExit>
-                                <Box sx={{ margin: 1 }}>
-                                    <Typography variant='h6' gutterBottom component='div'>
-                                        History
-                                    </Typography>
-                                </Box>
-                            </Collapse>
-                        </TableCell>
-                    </TableRow>
+                    {priorityRows}
                 </TableBody>
             </Table>
         </Item>

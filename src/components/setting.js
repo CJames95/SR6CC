@@ -35,6 +35,8 @@ import MagicDescription from './magic_desc.js';
 import Qualities from './qualities.js';
 import QualitiesTaken from './qualities_taken.js';
 import QualitiesDescription from './qualities_desc.js';
+import Attributes from './attributes.js';
+import DerivedAttributes from './derived_attributes.js';
 
 const headerBackground = grey[800];
 const subHeaderBackground = grey[400];
@@ -143,7 +145,7 @@ export default function Setting() {
     const [buttonColor2, setButtonColor2] = React.useState(false); //handleButtonColor
     const [buttonColor3, setButtonColor3] = React.useState(false); //handleButtonColor
     const [buttonColor4, setButtonColor4] = React.useState(false); //handleButtonColor
-    const [totalSteps, setTotalSteps] = React.useState(6);
+    const [totalSteps, setTotalSteps] = React.useState(11);
     const [activeStep, setActiveStep] = React.useState(0); //handleNext and handleBack
     const [metatypeButton, setMetatypeButton] = React.useState(0); //handleMetatypeButton
     const [metatypeState, setMetatypeState] = React.useState('Troll'); //handleMetatypeState
@@ -365,7 +367,7 @@ export default function Setting() {
         }
         else {
             setMagicRestrictions(true)
-            setTotalSteps(7)
+            setTotalSteps(10)
         }
         handlePriorityButtonSelections(powerState, buttonState, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 3)
         setMagicButton(value)
@@ -725,6 +727,24 @@ export default function Setting() {
                 }
                 {((activeStep == 4 && buttonState == 0 && magicButton != 4) || activeStep == 3 && buttonState == 0 && magicButton == 4) &&
                     <QualitiesDescription/>
+                }
+                {((activeStep == 5 && buttonState == 0 && magicButton != 4) || (activeStep == 4 && buttonState == 0 && magicButton == 4)) &&
+                    <Attributes/>
+                }
+                {((activeStep == 5 && buttonState == 0 && magicButton != 4) || (activeStep == 4 && buttonState == 0 && magicButton == 4)) &&
+                    <DerivedAttributes/>
+                }
+                {((activeStep == 6 && buttonState == 0 && magicButton != 4) || (activeStep == 5 && buttonState == 0 && magicButton == 4)) &&
+                    <DerivedAttributes/>
+                }
+                {((activeStep == 6 && buttonState == 0 && magicButton != 4) || (activeStep == 5 && buttonState == 0 && magicButton == 4)) &&
+                    <DerivedAttributes/>
+                }
+                {((activeStep == 7 && buttonState == 0 && magicButton != 4) || (activeStep == 6 && buttonState == 0 && magicButton == 4)) &&
+                    <DerivedAttributes/>
+                }
+                {((activeStep == 7 && buttonState == 0 && magicButton != 4) || (activeStep == 6 && buttonState == 0 && magicButton == 4)) &&
+                    <DerivedAttributes/>
                 }
                 {/* This section handles the progress bar at the bottom */}
                 <Grid xs={12} sx={{display: 'flex', flexDirection: 'column'}}>
