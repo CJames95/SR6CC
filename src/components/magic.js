@@ -198,14 +198,14 @@ export default function Magic({
                 {(magicState == 3) &&
                     <FormControl sx={{marginTop: 3}}  variant='filled' fullWidth>
                         <ButtonGroup>
-                            <TextField label='Magician' defaultValue={magicianPoints}/>
-                        <Button value='left' onClick={e => handleMagicianAdeptPoints(e.target.value)}>
+                            <TextField label='Magician' value={magicianPoints} inputProps={{readOnly: true}}/>
+                        <Button onClick={handleMagicianAdeptPoints('left')}>
                             <KeyboardArrowLeft/>
                         </Button>
-                        <Button value='right' onClick={e => handleMagicianAdeptPoints(e.target.value)}>
+                        <Button onClick={handleMagicianAdeptPoints('right')}>
                             <KeyboardArrowRight/>
                         </Button>
-                        <TextField label='Adept' defaultValue={adeptPoints}/>
+                        <TextField label='Adept' value={adeptPoints} inputProps={{readOnly: true}}/>
                         </ButtonGroup>
                     </FormControl>
                 }

@@ -20,7 +20,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-export default function Metatype({handleMetatypeState, metatypeButton}) {
+export default function MetatypeDesc({handleMetatypeState, metatypeButton}) {
     return (
         <Grid xl={8} lg={8} md={8} sm={8} xs={8} spacing={2} sx={{display: 'flex', flexDirection: 'column'}}>
             <Item>

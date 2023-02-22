@@ -37,28 +37,28 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-export default function Qualities({qualitiesArray, handleUpdateQualitiesArray, qualityState, handleQualityState}) {
+export default function QualitiesTaken({qualitiesTakenArray, handleUpdateQualityTakenArray, qualityTakenState, handleQualityTakenState}) {
 
     const mouseDown = e => {
         e.stopPropagation();
     }
 
-    const listEntries = qualitiesArray.sort(function(a, b) {
-            if(a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-            if(a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-            return 0;
-        })
-        .map((qualitiesArray) => 
+    const listEntries = qualitiesTakenArray.sort(function(a, b) {
+        if(a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+        if(a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+        return 0;
+    })
+    .map((qualitiesTakenArray) => 
         <ListItem disablePadding={true}>
             <ListItemButton
                 disableGutters
-                onClick={handleQualityState(qualitiesArray.id)}
+                onClick={handleQualityTakenState(qualitiesTakenArray.id)}
                 divider={true}
                 sx={{
                     height: 70,
-                    bgcolor: (qualityState == qualitiesArray.id) ? selectBackground : primaryBackground,
+                    bgcolor: (qualityTakenState == qualitiesTakenArray.id) ? selectBackground : primaryBackground,
                     '&:hover': {
-                        backgroundColor: (qualityState == qualitiesArray.id) ? selectHover : primaryHover
+                        backgroundColor: (qualityTakenState == qualitiesTakenArray.id) ? selectHover : primaryHover
                     }
                 }}
                 alignItems='center'
@@ -73,7 +73,7 @@ export default function Qualities({qualitiesArray, handleUpdateQualitiesArray, q
                                         fontSize: 20,
                                         fontWeight: 500
                                     }}
-                                    primary={qualitiesArray.name}
+                                    primary={qualitiesTakenArray.name}
                                 />
                             </TableCell>
                             <TableCell align='right'>
@@ -83,14 +83,14 @@ export default function Qualities({qualitiesArray, handleUpdateQualitiesArray, q
                                         fontSize: 20,
                                         fontWeight: 500
                                     }}
-                                    primary={qualitiesArray.cost}
+                                    primary={qualitiesTakenArray.cost}
                                 />
                             </TableCell>
                             <TableCell align='right'>
                                 <IconButton 
                                     color=''
                                     onMouseDown={mouseDown} 
-                                    onClick={handleUpdateQualitiesArray(qualitiesArray.id)} 
+                                    onClick={handleUpdateQualityTakenArray(qualitiesTakenArray.id)} 
                                     sx={{
                                         marginRight: 1,
                                         bgcolor: primaryIcon,
@@ -99,7 +99,7 @@ export default function Qualities({qualitiesArray, handleUpdateQualitiesArray, q
                                         }
                                     }}
                                 >
-                                    <AddCircleIcon/>
+                                    <RemoveCircleIcon/>
                                 </IconButton>
                             </TableCell>
                         </TableRow>
@@ -135,7 +135,7 @@ export default function Qualities({qualitiesArray, handleUpdateQualitiesArray, q
                             fontWeight: 500
                         }}
                     >
-                        Karma:
+                        Net Bonus Karma:
                     </ListSubheader>
                     {listEntries}
                 </List>

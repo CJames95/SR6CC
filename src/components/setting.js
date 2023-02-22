@@ -32,6 +32,9 @@ import Metatype from './metatype.js';
 import MetatypeDescription from './metatype_desc.js';
 import Magic from './magic.js';
 import MagicDescription from './magic_desc.js';
+import Qualities from './qualities.js';
+import QualitiesTaken from './qualities_taken.js';
+import QualitiesDescription from './qualities_desc.js';
 
 const headerBackground = grey[800];
 const subHeaderBackground = grey[400];
@@ -121,6 +124,18 @@ export default function Setting() {
         ['bye', 'cya', 'brb'],
         ['goodbye', 'gotta get some milk', 'lemme get some cigs']
     ]
+    const qualitiesList = [
+        {
+            id: 0,
+            cost: 5,
+            name: 'Test Quality I',
+        },
+        {
+            id: 1,
+            cost: 10,
+            name: 'Test Quality II',
+        },
+    ]
 
     const [powerState, setPowerState] = React.useState(1); //handlePowerState
     const [buttonState, setButtonState] = React.useState(0); //handleButtonState
@@ -144,6 +159,10 @@ export default function Setting() {
     const [resourceButton, setResourceButton] = React.useState(4); //handleMagicianAdeptPoints
     const [showMagicRestrictions, setMagicRestrictions] = React.useState(true);
     const [showRestrictions, setRestrictionsDisplay] = React.useState(true);
+    const [qualityState, setQualityState] = React.useState(0); //handleQualityState
+    const [qualityTakenState, setQualityTakenState] = React.useState(null); //handleQualityTakenState
+    const [qualitiesArray, updateQualitiesArray] = React.useState(qualitiesList); //handleUpdateQualityArray
+    const [qualitiesTakenArray, updateQualitiesTakenArray] = React.useState([]); //handleUpdateQualityTakenArray
     const [karma, setKarma] = React.useState(50);
 
     useEffect(() => {
@@ -190,6 +209,8 @@ export default function Setting() {
         )
     }, [skillButton])
     useEffect(() => {
+        setMagicianPoints(4 - magicButton)
+        setAdeptPoints(0)
         console.log(
             'magic:',
             magicButton
@@ -249,6 +270,30 @@ export default function Setting() {
             adeptPoints
         )
     }, [adeptPoints])
+    useEffect(() => {
+        console.log(
+            'qualities',
+            qualityState
+        )
+    }, [qualityState])
+    useEffect(() => {
+        console.log(
+            'qualities taken',
+            qualityTakenState
+        )
+    }, [qualityTakenState])
+    useEffect(() => {
+        console.log(
+            'qualities array',
+            qualitiesArray
+        )
+    }, [qualitiesArray])
+    useEffect(() => {
+        console.log(
+            'qualities taken array',
+            qualitiesTakenArray
+        )
+    }, [qualitiesTakenArray])
     
     const handlePowerState = (value) => {
         setPowerState(value)
@@ -336,9 +381,6 @@ export default function Setting() {
         
     }
     const handleMagicState = (value) => () => {
-        if(value == 3) {
-            setMagicianPoints(4 - magicButton)
-        }
         setMagicState(value)
     }
     const handleTraditionState = (value) => {
@@ -347,7 +389,7 @@ export default function Setting() {
     const handleMagicLimitationState = (value) => {
         setMagicLimitationState(value)
     }
-    const handleMagicianAdeptPoints = (value) => {
+    const handleMagicianAdeptPoints = (value) => () => {
         if(value === 'left') {
             if(adeptPoints != 0) {
                 setMagicianPoints(magicianPoints + 1)
@@ -360,6 +402,24 @@ export default function Setting() {
                 setAdeptPoints(adeptPoints + 1)
             }
         }
+    }
+    const handleQualityState = (value) => () => {
+        setQualityState(value)
+        setQualityTakenState(value)
+    }
+    const handleQualityTakenState = (value) => () => {
+        setQualityTakenState(value)
+        setQualityState(value)
+    }
+    const handleUpdateQualitiesArray = (value) => () => {
+        const valueResult = qualitiesArray.find(qualitiesArray => qualitiesArray.id == value)
+        updateQualitiesArray(qualitiesArray.filter(qualitiesArray => qualitiesArray.id !== value))
+        updateQualitiesTakenArray([...qualitiesTakenArray, valueResult])
+    }
+    const handleUpdateQualityTakenArray = (value) => () => {
+        const valueResult = qualitiesTakenArray.find(qualitiesTakenArray => qualitiesTakenArray.id == value)
+        updateQualitiesTakenArray(qualitiesTakenArray.filter(qualitiesTakenArray => qualitiesTakenArray.id !== value))
+        updateQualitiesArray([...qualitiesArray, valueResult])
     }
 
     function handlePriorityButtonSelections(powerLevel, ruleset, metatype, attribute, skill, magic, resource, val, functionFlag) {
@@ -646,6 +706,25 @@ export default function Setting() {
                 }
                 {(activeStep == 3 && buttonState == 0 && magicButton != 4) && 
                     <MagicDescription magicState={magicState}/>
+                }
+                {((activeStep == 4 && buttonState == 0 && magicButton != 4) || activeStep == 3 && buttonState == 0 && magicButton == 4) &&
+                    <Qualities
+                        qualitiesArray={qualitiesArray}
+                        handleUpdateQualitiesArray={handleUpdateQualitiesArray}
+                        qualityState={qualityState} 
+                        handleQualityState={handleQualityState} 
+                    />
+                }
+                {((activeStep == 4 && buttonState == 0 && magicButton != 4) || activeStep == 3 && buttonState == 0 && magicButton == 4) &&
+                    <QualitiesTaken 
+                        qualitiesTakenArray={qualitiesTakenArray} 
+                        handleUpdateQualityTakenArray={handleUpdateQualityTakenArray}
+                        handleQualityTakenState={handleQualityTakenState}
+                        qualityTakenState={qualityTakenState}
+                    />
+                }
+                {((activeStep == 4 && buttonState == 0 && magicButton != 4) || activeStep == 3 && buttonState == 0 && magicButton == 4) &&
+                    <QualitiesDescription/>
                 }
                 {/* This section handles the progress bar at the bottom */}
                 <Grid xs={12} sx={{display: 'flex', flexDirection: 'column'}}>
