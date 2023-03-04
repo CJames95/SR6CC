@@ -1,24 +1,8 @@
 import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
-import Container from '@mui/material/Container';
-import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import StepContent from '@mui/material/StepContent';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Button, ButtonGroup } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import { Select, MenuItem, InputLabel } from '@mui/material';
@@ -37,12 +21,12 @@ import QualitiesTaken from './qualities_taken.js';
 import QualitiesDescription from './qualities_desc.js';
 import Attributes from './attributes.js';
 import DerivedAttributes from './derived_attributes.js';
+import Skills from './skills.js';
+import SkillDescription from './skill_desc.js';
+import Knowledge from './knowledge.js';
 
-const headerBackground = grey[800];
 const subHeaderBackground = grey[400];
 const selectionBackground = grey[300];
-const pointColor = deepPurple['A700'];  
-const pointColors = deepPurple[700];  
 
 const Item = styled(Paper)(({ theme }) => ({
     height: '100%',
@@ -54,8 +38,23 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Setting() {
-    const progressTheme = useTheme();
 
+    // This section contains hooks that are needed in many different components
+    // This is here because they do not fit cleanly into a single block for generation,
+    // but rather are updated throughout the creation process
+    const [karma, setKarma] = React.useState(50);
+    useEffect(() => {
+        console.log(
+            'karma:',
+            karma
+        )
+    }, [karma])
+
+    // This section handles the information used for setting.js
+    // This exists to get the power level of the runner and to get
+    // the character creation ruleset for the runner.
+    // This also exists to keep track of overall steps until completion
+    const progressTheme = useTheme();
     const powerLevel = [
         'Street-Level Runner', 'Standard Runner', 'Elite Runner'
     ]    
@@ -126,19 +125,6 @@ export default function Setting() {
         ['bye', 'cya', 'brb'],
         ['goodbye', 'gotta get some milk', 'lemme get some cigs']
     ]
-    const qualitiesList = [
-        {
-            id: 0,
-            cost: 5,
-            name: 'Test Quality I',
-        },
-        {
-            id: 1,
-            cost: 10,
-            name: 'Test Quality II',
-        },
-    ]
-
     const [powerState, setPowerState] = React.useState(1); //handlePowerState
     const [buttonState, setButtonState] = React.useState(0); //handleButtonState
     const [buttonColor1, setButtonColor1] = React.useState(true); //handleButtonColor
@@ -147,26 +133,6 @@ export default function Setting() {
     const [buttonColor4, setButtonColor4] = React.useState(false); //handleButtonColor
     const [totalSteps, setTotalSteps] = React.useState(11);
     const [activeStep, setActiveStep] = React.useState(0); //handleNext and handleBack
-    const [metatypeButton, setMetatypeButton] = React.useState(0); //handleMetatypeButton
-    const [metatypeState, setMetatypeState] = React.useState('Troll'); //handleMetatypeState
-    const [metatypeCost, setMetatypeCost] = React.useState(0);
-    const [attributeButton, setAttributeButton] = React.useState(1); //handleAttributeButton
-    const [skillButton, setSkillButton] = React.useState(2); //handleSkillButton
-    const [magicButton, setMagicButton] = React.useState(3); //handleMagicButton
-    const [magicState, setMagicState] = React.useState(0); //handleMagicState
-    const [traditionState, setTraditionState] = React.useState(0); //handleTraditionState
-    const [magicLimitationState, setMagicLimitationState] = React.useState(0); //handleMagicLimitationState
-    const [magicianPoints, setMagicianPoints] = React.useState(0); //handleMagicianPoints
-    const [adeptPoints, setAdeptPoints] = React.useState(0); //handleMagicianAdeptPoints
-    const [resourceButton, setResourceButton] = React.useState(4); //handleMagicianAdeptPoints
-    const [showMagicRestrictions, setMagicRestrictions] = React.useState(true);
-    const [showRestrictions, setRestrictionsDisplay] = React.useState(true);
-    const [qualityState, setQualityState] = React.useState(0); //handleQualityState
-    const [qualityTakenState, setQualityTakenState] = React.useState(null); //handleQualityTakenState
-    const [qualitiesArray, updateQualitiesArray] = React.useState(qualitiesList); //handleUpdateQualityArray
-    const [qualitiesTakenArray, updateQualitiesTakenArray] = React.useState([]); //handleUpdateQualityTakenArray
-    const [karma, setKarma] = React.useState(50);
-
     useEffect(() => {
         console.log({
             powerState
@@ -192,111 +158,6 @@ export default function Setting() {
             activeStep
         })
     }, [activeStep])
-    useEffect(() => {
-        console.log(
-            'metatype:',
-            metatypeButton
-        )
-    }, [metatypeButton])
-    useEffect(() => {
-        console.log(
-            'attribute:',
-            attributeButton
-        )
-    }, [attributeButton])
-    useEffect(() => {
-        console.log(
-            'skill:',
-            skillButton
-        )
-    }, [skillButton])
-    useEffect(() => {
-        setMagicianPoints(4 - magicButton)
-        setAdeptPoints(0)
-        console.log(
-            'magic:',
-            magicButton
-        )
-    }, [magicButton])
-    useEffect(() => {
-        console.log(
-            'resource:',
-            resourceButton
-        )
-    }, [resourceButton])
-    useEffect(() => {
-        console.log(
-            'metatype chosen:',
-            metatypeState
-        )
-    }, [metatypeState])
-    useEffect(() => {
-        console.log(
-            'metatype cost:',
-            metatypeCost
-        )
-    }, [metatypeCost])
-    useEffect(() => {
-        console.log(
-            'magic state:',
-            magicState
-        )
-    }, [magicState])
-    useEffect(() => {
-        console.log (
-            'tradition state:',
-            traditionState
-        )
-    }, [traditionState])
-    useEffect(() => {
-        console.log (
-            'magic limitation state:',
-            magicLimitationState
-        )
-    }, [magicLimitationState])
-    useEffect(() => {
-        console.log(
-            'karma:',
-            karma
-        )
-    }, [karma])
-    useEffect(() => {
-        console.log(
-            'magician points',
-            magicianPoints
-        )
-    }, [magicianPoints])
-    useEffect(() => {
-        console.log(
-            'adept points',
-            adeptPoints
-        )
-    }, [adeptPoints])
-    useEffect(() => {
-        console.log(
-            'qualities',
-            qualityState
-        )
-    }, [qualityState])
-    useEffect(() => {
-        console.log(
-            'qualities taken',
-            qualityTakenState
-        )
-    }, [qualityTakenState])
-    useEffect(() => {
-        console.log(
-            'qualities array',
-            qualitiesArray
-        )
-    }, [qualitiesArray])
-    useEffect(() => {
-        console.log(
-            'qualities taken array',
-            qualitiesTakenArray
-        )
-    }, [qualitiesTakenArray])
-    
     const handlePowerState = (value) => {
         setPowerState(value)
     }
@@ -342,6 +203,50 @@ export default function Setting() {
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     }
+
+    // This block handles the information needed for priority.js
+    // This block handles storing the state of the priority table to be
+    // used by other child components later to ensure adherence to the character creation rules
+    // This also contains hooks that handle displaying warnings to the user during the priority table step
+    const [metatypeButton, setMetatypeButton] = React.useState(0); //handleMetatypeButton
+    const [attributeButton, setAttributeButton] = React.useState(1); //handleAttributeButton
+    const [skillButton, setSkillButton] = React.useState(2); //handleSkillButton
+    const [magicButton, setMagicButton] = React.useState(3); //handleMagicButton
+    const [resourceButton, setResourceButton] = React.useState(4); //handleMagicianAdeptPoints
+    const [showRestrictions, setRestrictionsDisplay] = React.useState(true);
+    const [showMagicRestrictions, setMagicRestrictions] = React.useState(true);
+    useEffect(() => {
+        console.log(
+            'metatype:',
+            metatypeButton
+        )
+    }, [metatypeButton])
+    useEffect(() => {
+        console.log(
+            'attribute:',
+            attributeButton
+        )
+    }, [attributeButton])
+    useEffect(() => {
+        console.log(
+            'skill:',
+            skillButton
+        )
+    }, [skillButton])
+    useEffect(() => {
+        setMagicianPoints(4 - magicButton)
+        setAdeptPoints(0)
+        console.log(
+            'magic:',
+            magicButton
+        )
+    }, [magicButton])
+    useEffect(() => {
+        console.log(
+            'resource:',
+            resourceButton
+        )
+    }, [resourceButton])
     const handleMetatypeButton = (value) => {
         if(value == 2 || value == 3) {
             setRestrictionsDisplay(false)
@@ -376,54 +281,6 @@ export default function Setting() {
         handlePriorityButtonSelections(powerState, buttonState, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 4)
         setResourceButton(value)
     }
-    const handleMetatypeState = (value, karmaValue) => () => {
-        setKarma((karma + metatypeCost) - karmaValue)
-        setMetatypeState(value)
-        setMetatypeCost(karmaValue)
-        
-    }
-    const handleMagicState = (value) => () => {
-        setMagicState(value)
-    }
-    const handleTraditionState = (value) => {
-        setTraditionState(value)
-    }
-    const handleMagicLimitationState = (value) => {
-        setMagicLimitationState(value)
-    }
-    const handleMagicianAdeptPoints = (value) => () => {
-        if(value === 'left') {
-            if(adeptPoints != 0) {
-                setMagicianPoints(magicianPoints + 1)
-                setAdeptPoints(adeptPoints - 1)
-            }
-        }
-        else if (value === 'right') {
-            if(magicianPoints != 0) {
-                setMagicianPoints(magicianPoints - 1)
-                setAdeptPoints(adeptPoints + 1)
-            }
-        }
-    }
-    const handleQualityState = (value) => () => {
-        setQualityState(value)
-        setQualityTakenState(value)
-    }
-    const handleQualityTakenState = (value) => () => {
-        setQualityTakenState(value)
-        setQualityState(value)
-    }
-    const handleUpdateQualitiesArray = (value) => () => {
-        const valueResult = qualitiesArray.find(qualitiesArray => qualitiesArray.id == value)
-        updateQualitiesArray(qualitiesArray.filter(qualitiesArray => qualitiesArray.id !== value))
-        updateQualitiesTakenArray([...qualitiesTakenArray, valueResult])
-    }
-    const handleUpdateQualityTakenArray = (value) => () => {
-        const valueResult = qualitiesTakenArray.find(qualitiesTakenArray => qualitiesTakenArray.id == value)
-        updateQualitiesTakenArray(qualitiesTakenArray.filter(qualitiesTakenArray => qualitiesTakenArray.id !== value))
-        updateQualitiesArray([...qualitiesArray, valueResult])
-    }
-
     function handlePriorityButtonSelections(powerLevel, ruleset, metatype, attribute, skill, magic, resource, val, functionFlag) {
         /*console.log(
             'handlePriorityButtonSelections',
@@ -566,6 +423,166 @@ export default function Setting() {
         }
         else if (ruleset == 1) {
 
+        }
+    }
+
+    // This block handles the information needed for metatype.js as well as metatype_desc.js
+    // This block stores the metatype chosen as well as the cost of that metatype and deducts that from 
+    // the karma hook
+    const [metatypeState, setMetatypeState] = React.useState('Troll'); //handleMetatypeState
+    const [metatypeCost, setMetatypeCost] = React.useState(0);
+    useEffect(() => {
+        console.log(
+            'metatype chosen:',
+            metatypeState
+        )
+    }, [metatypeState])
+    useEffect(() => {
+        console.log(
+            'metatype cost:',
+            metatypeCost
+        )
+    }, [metatypeCost])
+    const handleMetatypeState = (value, karmaValue) => () => {
+        setKarma((karma + metatypeCost) - karmaValue)
+        setMetatypeState(value)
+        setMetatypeCost(karmaValue)
+        
+    }
+
+    // This block handles all the information needed for qualities.js, qualities_desc.js, and qualities_taken.js
+    // This block holds the hooks that handle what qualities are taken versus available. 
+    const qualitiesList = [
+        {
+            id: 0,
+            cost: 5,
+            name: 'Test Quality I',
+        },
+        {
+            id: 1,
+            cost: 10,
+            name: 'Test Quality II',
+        },
+    ]
+    const [qualityState, setQualityState] = React.useState(0); //handleQualityState
+    const [qualityTakenState, setQualityTakenState] = React.useState(null); //handleQualityTakenState
+    const [qualitiesArray, updateQualitiesArray] = React.useState(qualitiesList); //handleUpdateQualityArray
+    const [qualitiesTakenArray, updateQualitiesTakenArray] = React.useState([]); //handleUpdateQualityTakenArray
+    useEffect(() => {
+        console.log(
+            'qualities',
+            qualityState
+        )
+    }, [qualityState])
+    useEffect(() => {
+        console.log(
+            'qualities taken',
+            qualityTakenState
+        )
+    }, [qualityTakenState])
+    useEffect(() => {
+        console.log(
+            'qualities array',
+            qualitiesArray
+        )
+    }, [qualitiesArray])
+    useEffect(() => {
+        console.log(
+            'qualities taken array',
+            qualitiesTakenArray
+        )
+    }, [qualitiesTakenArray])
+    const handleQualityState = (value) => () => {
+        setQualityState(value)
+        setQualityTakenState(value)
+    }
+    const handleQualityTakenState = (value) => () => {
+        setQualityTakenState(value)
+        setQualityState(value)
+    }
+    const handleUpdateQualitiesArray = (value) => () => {
+        const valueResult = qualitiesArray.find(qualitiesArray => qualitiesArray.id == value)
+        updateQualitiesArray(qualitiesArray.filter(qualitiesArray => qualitiesArray.id !== value))
+        updateQualitiesTakenArray([...qualitiesTakenArray, valueResult])
+    }
+    const handleUpdateQualityTakenArray = (value) => () => {
+        const valueResult = qualitiesTakenArray.find(qualitiesTakenArray => qualitiesTakenArray.id == value)
+        updateQualitiesTakenArray(qualitiesTakenArray.filter(qualitiesTakenArray => qualitiesTakenArray.id !== value))
+        updateQualitiesArray([...qualitiesArray, valueResult])
+    }
+
+    // This block handles all the information needed for skills.js, skill_desc.js, and knowledge.js
+    // This block holds the hooks that handle what skills and knowledge are taken versus available
+    const [skillsTakenArray, setSkillsTakenArray] = React.useState([]); //handleUpdateSkillsTakenArray
+    useEffect(() => {
+        console.log(
+            'skills taken array',
+            skillsTakenArray
+        )
+    }, [skillsTakenArray])
+    const handleUpdateSkillsTakenArray = (value) => () => {
+        updateQualitiesArray([...qualitiesArray, value])
+    }
+
+    // This section handles all the hooks needed for magic.js and magic_desc.js
+    // These hooks are used to determine what magical subtype the runner will have
+    // as well as allocate infromation required for certain subtypes
+    const [magicState, setMagicState] = React.useState(0); //handleMagicState
+    const [traditionState, setTraditionState] = React.useState(0); //handleTraditionState
+    const [magicLimitationState, setMagicLimitationState] = React.useState(0); //handleMagicLimitationState
+    const [magicianPoints, setMagicianPoints] = React.useState(0); //handleMagicianPoints
+    const [adeptPoints, setAdeptPoints] = React.useState(0); //handleMagicianAdeptPoints
+    useEffect(() => {
+        console.log(
+            'magic state:',
+            magicState
+        )
+    }, [magicState])
+    useEffect(() => {
+        console.log (
+            'tradition state:',
+            traditionState
+        )
+    }, [traditionState])
+    useEffect(() => {
+        console.log (
+            'magic limitation state:',
+            magicLimitationState
+        )
+    }, [magicLimitationState])
+    useEffect(() => {
+        console.log(
+            'magician points',
+            magicianPoints
+        )
+    }, [magicianPoints])
+    useEffect(() => {
+        console.log(
+            'adept points',
+            adeptPoints
+        )
+    }, [adeptPoints])
+    const handleMagicState = (value) => () => {
+        setMagicState(value)
+    }
+    const handleTraditionState = (value) => {
+        setTraditionState(value)
+    }
+    const handleMagicLimitationState = (value) => {
+        setMagicLimitationState(value)
+    }
+    const handleMagicianAdeptPoints = (value) => () => {
+        if(value === 'left') {
+            if(adeptPoints != 0) {
+                setMagicianPoints(magicianPoints + 1)
+                setAdeptPoints(adeptPoints - 1)
+            }
+        }
+        else if (value === 'right') {
+            if(magicianPoints != 0) {
+                setMagicianPoints(magicianPoints - 1)
+                setAdeptPoints(adeptPoints + 1)
+            }
         }
     }
 
@@ -735,16 +752,16 @@ export default function Setting() {
                     <DerivedAttributes/>
                 }
                 {((activeStep == 6 && buttonState == 0 && magicButton != 4) || (activeStep == 5 && buttonState == 0 && magicButton == 4)) &&
-                    <DerivedAttributes/>
+                    <Skills skillsTakenArray={skillsTakenArray} handleUpdateSkillsTakenArray={handleUpdateSkillsTakenArray}/>
                 }
                 {((activeStep == 6 && buttonState == 0 && magicButton != 4) || (activeStep == 5 && buttonState == 0 && magicButton == 4)) &&
-                    <DerivedAttributes/>
+                    <Knowledge/>
+                }
+                {((activeStep == 6 && buttonState == 0 && magicButton != 4) || (activeStep == 5 && buttonState == 0 && magicButton == 4)) &&
+                    <SkillDescription/>
                 }
                 {((activeStep == 7 && buttonState == 0 && magicButton != 4) || (activeStep == 6 && buttonState == 0 && magicButton == 4)) &&
-                    <DerivedAttributes/>
-                }
-                {((activeStep == 7 && buttonState == 0 && magicButton != 4) || (activeStep == 6 && buttonState == 0 && magicButton == 4)) &&
-                    <DerivedAttributes/>
+                    <Knowledge/>
                 }
                 {/* This section handles the progress bar at the bottom */}
                 <Grid xs={12} sx={{display: 'flex', flexDirection: 'column'}}>
