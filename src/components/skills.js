@@ -145,7 +145,6 @@ export default function Skills(skillsTakenArray, handleUpdateSkillsTakenArray) {
                             </Grid>
                         </Grid>
                     </ListSubheader>
-                    hi
                 </List>
             </Item>
         </Grid>

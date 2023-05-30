@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -60,110 +60,143 @@ const header = [
     'Value',
     'Max Value'
 ]
-const attributeRows = [
-    {
-        name: 'Body',
-        adjust: 0,
-        attr: 0,
-        karma: 0,
-        cost: 0,
-        value: 0,
-        max: 0
-    },
-    {
-        name: 'Agility',
-        adjust: 0,
-        attr: 0,
-        karma: 0,
-        cost: 0,
-        value: 0,
-        max: 0
-    },
-    {
-        name: 'Reaction',
-        adjust: 0,
-        attr: 0,
-        karma: 0,
-        cost: 0,
-        value: 0,
-        max: 0
-    },
-    {
-        name: 'Strength',
-        adjust: 0,
-        attr: 0,
-        karma: 0,
-        cost: 0,
-        value: 0,
-        max: 0
-    },
-    {
-        name: 'Willpower',
-        adjust: 0,
-        attr: 0,
-        karma: 0,
-        cost: 0,
-        value: 0,
-        max: 0
-    },
-    {
-        name: 'Logic',
-        adjust: 0,
-        attr: 0,
-        karma: 0,
-        cost: 0,
-        value: 0,
-        max: 0
-    },
-    {
-        name: 'Intuition',
-        adjust: 0,
-        attr: 0,
-        karma: 0,
-        cost: 0,
-        value: 0,
-        max: 0
-    },
-    {
-        name: 'Charisma',
-        adjust: 0,
-        attr: 0,
-        karma: 0,
-        cost: 0,
-        value: 0,
-        max: 0
-    },
-    {
-        name: 'Edge',
-        adjust: 0,
-        attr: 0,
-        karma: 0,
-        cost: 0,
-        value: 0,
-        max: 0
-    },
-    {
-        name: 'Magic',
-        adjust: 0,
-        attr: 0,
-        karma: 0,
-        cost: 0,
-        value: 0,
-        max: 0
-    },
-    {
-        name: 'Resonance',
-        adjust: 0,
-        attr: 0,
-        karma: 0,
-        cost: 0,
-        value: 0,
-        max: 0
-    },
-]
+
+
 
 export default function Attributes() {
+    const [counter, setCounter] = useState(0);      
+        const handleDecrement = (value) => {
+            if(counter == 0) {
+                setCounter(counter - value)
+            }
+        };
+        const handleIncrement = (value) => {
+            setCounter(counter + value)
+        };
 
+    const attributeRows = [
+        {
+            name: 'Body',
+            adjust: counter,
+            addadjust: handleIncrement,
+            subadjust: handleDecrement,
+            attr: 0,
+            karma: 0,
+            cost: 0,
+            value: 0,
+            max: 0
+        },
+        {
+            name: 'Agility',
+            adjust: 0,
+            addadjust: handleIncrement,
+            subadjust: handleDecrement,
+            attr: 0,
+            karma: 0,
+            cost: 0,
+            value: 0,
+            max: 0
+        },
+        {
+            name: 'Reaction',
+            adjust: 0,
+            addadjust: handleIncrement,
+            subadjust: handleDecrement,
+            attr: 0,
+            karma: 0,
+            cost: 0,
+            value: 0,
+            max: 0
+        },
+        {
+            name: 'Strength',
+            adjust: 0,
+            addadjust: handleIncrement,
+            subadjust: handleDecrement,
+            attr: 0,
+            karma: 0,
+            cost: 0,
+            value: 0,
+            max: 0
+        },
+        {
+            name: 'Willpower',
+            adjust: 0,
+            addadjust: handleIncrement,
+            subadjust: handleDecrement,
+            attr: 0,
+            karma: 0,
+            cost: 0,
+            value: 0,
+            max: 0
+        },
+        {
+            name: 'Logic',
+            adjust: 0,
+            addadjust: handleIncrement,
+            subadjust: handleDecrement,
+            attr: 0,
+            karma: 0,
+            cost: 0,
+            value: 0,
+            max: 0
+        },
+        {
+            name: 'Intuition',
+            adjust: 0,
+            addadjust: handleIncrement,
+            subadjust: handleDecrement,
+            attr: 0,
+            karma: 0,
+            cost: 0,
+            value: 0,
+            max: 0
+        },
+        {
+            name: 'Charisma',
+            adjust: 0,
+            addadjust: handleIncrement,
+            subadjust: handleDecrement,
+            attr: 0,
+            karma: 0,
+            cost: 0,
+            value: 0,
+            max: 0
+        },
+        {
+            name: 'Edge',
+            adjust: 0,
+            addadjust: handleIncrement,
+            subadjust: handleDecrement,
+            attr: 0,
+            karma: 0,
+            cost: 0,
+            value: 0,
+            max: 0
+        },
+        {
+            name: 'Magic',
+            adjust: 0,
+            addadjust: handleIncrement,
+            subadjust: handleDecrement,
+            attr: 0,
+            karma: 0,
+            cost: 0,
+            value: 0,
+            max: 0
+        },
+        {
+            name: 'Resonance',
+            adjust: 0,
+            addadjust: handleIncrement,
+            subadjust: handleDecrement,
+            attr: 0,
+            karma: 0,
+            cost: 0,
+            value: 0,
+            max: 0
+        },
+    ]
     const headerCells = header.map((header, index) => {
         return index == 0 ?
         <HeaderCell align='left'>
@@ -182,11 +215,11 @@ export default function Attributes() {
             </NameCell>
             <TableCell align='center'>
                 <ButtonGroup variant='filled'>
-                    <Button sx={{width: 45}}>
+                    <Button value='1' sx={{width: 45}} onClick={e => attributeRows.addadjust(e.target.value)}>
                         <RemoveCircleIcon/>
                     </Button>
                     <TextField value={attributeRows.adjust} inputProps={{readOnly: true, style: {textAlign: 'center'}}} sx={{width: 50}} size='small'/>
-                    <Button sx={{width: 45}}>
+                    <Button value='1' sx={{width: 45}} onClick={e => attributeRows.subadjust(e.target.value)}>
                         <AddCircleIcon/>
                     </Button>
                 </ButtonGroup>

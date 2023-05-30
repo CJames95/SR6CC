@@ -127,10 +127,7 @@ export default function Setting() {
     ]
     const [powerState, setPowerState] = React.useState(1); //handlePowerState
     const [buttonState, setButtonState] = React.useState(0); //handleButtonState
-    const [buttonColor1, setButtonColor1] = React.useState(true); //handleButtonColor
-    const [buttonColor2, setButtonColor2] = React.useState(false); //handleButtonColor
-    const [buttonColor3, setButtonColor3] = React.useState(false); //handleButtonColor
-    const [buttonColor4, setButtonColor4] = React.useState(false); //handleButtonColor
+    const [buttonColors, setButtonColors] = React.useState([true, false, false, false]) //handleButtonColor
     const [totalSteps, setTotalSteps] = React.useState(11);
     const [activeStep, setActiveStep] = React.useState(0); //handleNext and handleBack
     useEffect(() => {
@@ -142,10 +139,7 @@ export default function Setting() {
         handleButtonColor(buttonState)
         console.log({
             buttonState,
-            buttonColor1,
-            buttonColor2,
-            buttonColor3,
-            buttonColor4,
+            buttonColors
         })
     }, [buttonState])
     useEffect(() => {
@@ -158,81 +152,40 @@ export default function Setting() {
             activeStep
         })
     }, [activeStep])
-    const handlePowerState = (value) => {
-        setPowerState(value)
-    }
-    const handleButtonState = (value) => {
-        setButtonState(value)
-    }
+    const handlePowerState = (value) => setPowerState(value);
+    const handleButtonState = (value) => setButtonState(value);
     function handleButtonColor(bState) {
-        if (bState == 0) {
-            setButtonColor1(true)
-            setButtonColor2(false)
-            setButtonColor3(false)
-            setButtonColor4(false)
+        const colors = [false, false, false, false]
+        if(bState >= 0 && bState < 4) {
+            colors[bState] = true;
         }
-        else if (bState == 1) {
-            setButtonColor1(false)
-            setButtonColor2(true)
-            setButtonColor3(false)
-            setButtonColor4(false)
-        }
-        else if (bState == 2) {
-            setButtonColor1(false)
-            setButtonColor2(false)
-            setButtonColor3(true)
-            setButtonColor4(false)
-        }
-        else if (bState == 3) {
-            setButtonColor1(false)
-            setButtonColor2(false)
-            setButtonColor3(false)
-            setButtonColor4(true)
-        }
-        else {
-            setButtonColor1(false)
-            setButtonColor2(false)
-            setButtonColor3(false)
-            setButtonColor4(false)
-        }
-
+        setButtonColors(colors);
     }
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    }
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    }
+    const handleNext = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
     // This block handles the information needed for priority.js
     // This block handles storing the state of the priority table to be
     // used by other child components later to ensure adherence to the character creation rules
     // This also contains hooks that handle displaying warnings to the user during the priority table step
+    const [priorityButtons, setPriorityButtons] = React.useState({
+        metatype: 0,
+        attribute: 1,
+        skill: 2,
+        magic: 3,
+        resource: 4
+    })
     const [metatypeButton, setMetatypeButton] = React.useState(0); //handleMetatypeButton
-    const [attributeButton, setAttributeButton] = React.useState(1); //handleAttributeButton
-    const [skillButton, setSkillButton] = React.useState(2); //handleSkillButton
     const [magicButton, setMagicButton] = React.useState(3); //handleMagicButton
-    const [resourceButton, setResourceButton] = React.useState(4); //handleMagicianAdeptPoints
     const [showRestrictions, setRestrictionsDisplay] = React.useState(true);
     const [showMagicRestrictions, setMagicRestrictions] = React.useState(true);
     useEffect(() => {
         console.log(
-            'metatype:',
-            metatypeButton
+            priorityButtons,
+            showRestrictions,
+            showMagicRestrictions
         )
-    }, [metatypeButton])
-    useEffect(() => {
-        console.log(
-            'attribute:',
-            attributeButton
-        )
-    }, [attributeButton])
-    useEffect(() => {
-        console.log(
-            'skill:',
-            skillButton
-        )
-    }, [skillButton])
+    }, [priorityButtons])
     useEffect(() => {
         setMagicianPoints(4 - magicButton)
         setAdeptPoints(0)
@@ -241,188 +194,89 @@ export default function Setting() {
             magicButton
         )
     }, [magicButton])
-    useEffect(() => {
-        console.log(
-            'resource:',
-            resourceButton
-        )
-    }, [resourceButton])
-    const handleMetatypeButton = (value) => {
-        if(value == 2 || value == 3) {
-            setRestrictionsDisplay(false)
+
+    const handlePriorityButtons = (name, value) => {
+        switch(name) {
+            case 'metatype': 
+                setRestrictionsDisplay(!(value === 2 || value === 3));
+                break;
+            case 'magic':
+                if(value == 4) {
+                    setMagicRestrictions(false)
+                    setTotalSteps(6)
+                }
+                else {
+                    setMagicRestrictions(true)
+                    setTotalSteps(10)
+                }
+                break;
+            default:
+                break;
         }
-        else {
-            setRestrictionsDisplay(true)
-        }
-        handlePriorityButtonSelections(powerState, buttonState, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 0)
-        setMetatypeButton(value)
+        handlePriorityButtonSelections(value, name)
+        setPriorityButtons(prevButtons => ({
+            ...prevButtons,
+            [name]: parseInt(value)
+        }))
     }
-    const handleAttributeButton = (value) => {
-        handlePriorityButtonSelections(powerState, buttonState, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 1)
-        setAttributeButton(value)
-    }
-    const handleSkillButton = (value) => {
-        handlePriorityButtonSelections(powerState, buttonState, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 2)
-        setSkillButton(value)
-    }
-    const handleMagicButton = (value) => {
-        if(value == 4) {
-            setMagicRestrictions(false)
-            setTotalSteps(6)
-        }
-        else {
-            setMagicRestrictions(true)
-            setTotalSteps(10)
-        }
-        handlePriorityButtonSelections(powerState, buttonState, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 3)
-        setMagicButton(value)
-    }
-    const handleResourceButton = (value) => {
-        handlePriorityButtonSelections(powerState, buttonState, metatypeButton, attributeButton, skillButton, magicButton, resourceButton, value, 4)
-        setResourceButton(value)
-    }
-    function handlePriorityButtonSelections(powerLevel, ruleset, metatype, attribute, skill, magic, resource, val, functionFlag) {
-        /*console.log(
-            'handlePriorityButtonSelections',
-            powerLevel, 
-            ruleset, 
-            metatype, 
-            attribute,
-            val,
-            functionFlag
-        )*/
-        if(ruleset == 0) {
-            if(powerLevel == 1) {
-                //console.log('val:', val, ' funcFlag', functionFlag)
-                switch(functionFlag) {
-                    case 0:
-                        //console.log('val:', val, ' attribute', attribute)
-                        if(val == attribute) {
-                            setAttributeButton(metatype)
-                        }
-                        if(val == skill) {
-                            setSkillButton(metatype)
-                        }
-                        if(val == magic) {
-                            setMagicButton(metatype)
-                            if(metatype != 4) {
-                                setMagicRestrictions(true)
-                            }
-                            else {
-                                setMagicRestrictions(false)
-                            }
-                        }
-                        if(val == resource) {
-                            setResourceButton(metatype)
-                        }
+    function handlePriorityButtonSelections(val, name) {
+        const updateButtons = (buttonName, buttonValue) => {
+            if (val === buttonValue) {
+                switch(buttonName) {
+                    case 'metatype':
+                        setRestrictionsDisplay(!(priorityButtons[name] === 2 || priorityButtons[name] === 3));
+                        console.log(showRestrictions)
                         break;
-                    case 1:
-                        //console.log('val:', val, ' metatype', metatype)
-                        if(val == metatype) {
-                            setMetatypeButton(attribute)
-                            if(attribute != 2 && attribute != 3) {
-                                setRestrictionsDisplay(true)
-                            }
-                            else {
-                                setRestrictionsDisplay(false)
-                            }
-                        }
-                        if(val == skill) {
-                            setSkillButton(attribute)
-                        }
-                        if(val == magic) {
-                            setMagicButton(attribute)
-                            if(attribute != 4) {
-                                setMagicRestrictions(true)
-                            }
-                            else {
-                                setMagicRestrictions(false)
-                            }
-                        }
-                        if(val == resource) {
-                            setResourceButton(attribute)
-                        }
+                    case 'magic':
+                        setMagicRestrictions(priorityButtons[name] !== 4);
+                        console.log(showMagicRestrictions)
                         break;
-                    case 2:
-                        //console.log('val:', val, ' skill', skill)
-                        if(val == metatype) {
-                            setMetatypeButton(skill)
-                            if(skill != 2 && skill != 3) {
-                                setRestrictionsDisplay(true)
-                            }
-                            else {
-                                setRestrictionsDisplay(false)
-                            }
-                        }
-                        if(val == attribute) {
-                            setAttributeButton(skill)
-                        }
-                        if(val == magic) {
-                            setMagicButton(skill)
-                            if(skill != 4) {
-                                setMagicRestrictions(true)
-                            }
-                            else {
-                                setMagicRestrictions(false)
-                            }
-                        }
-                        if(val == resource) {
-                            setResourceButton(skill)
-                        }
-                        break;
-                    case 3:
-                        //console.log('val:', val, ' magic', magic)
-                        if(val == metatype) {
-                            setMetatypeButton(magic)
-                            if(magic != 2 && magic != 3) {
-                                setRestrictionsDisplay(true)
-                            }
-                            else {
-                                setRestrictionsDisplay(false)
-                            }
-                        }
-                        if(val == attribute) {
-                            setAttributeButton(magic)
-                        }
-                        if(val == skill) {
-                            setSkillButton(magic)
-                        }
-                        if(val == resource) {
-                            setResourceButton(magic)
-                        }
-                        break;
-                    case 4:
-                        //console.log('val:', val, ' resource', resource)
-                        if(val == metatype) {
-                            setMetatypeButton(resource)
-                            if(resource != 2 && resource != 3) {
-                                setRestrictionsDisplay(true)
-                            }
-                            else {
-                                setRestrictionsDisplay(false)
-                            }
-                        }
-                        if(val == attribute) {
-                            setAttributeButton(resource)
-                        }
-                        if(val == skill) {
-                            setSkillButton(resource)
-                        }
-                        if(val == magic) {
-                            setMagicButton(resource)
-                            if(resource != 4) {
-                                setMagicRestrictions(true)
-                            }
-                            else {
-                                setMagicRestrictions(false)
-                            }
-                        }
+                    default:
                         break;
                 }
+                setPriorityButtons(prevButtons => ({
+                    ...prevButtons,
+                    [buttonName]: priorityButtons[name]
+                }));
             }
-        }
-        else if (ruleset == 1) {
-
+        };
+        
+        if (buttonState === 0 && powerState === 1) {
+            switch (name) {
+                case 'metatype':
+                    updateButtons('attribute', priorityButtons.attribute);
+                    updateButtons('skill', priorityButtons.skill);
+                    updateButtons('magic', priorityButtons.magic);
+                    updateButtons('resource', priorityButtons.resource);
+                    break;
+                case 'attribute':
+                    updateButtons('metatype', priorityButtons.metatype);
+                    updateButtons('skill', priorityButtons.skill);
+                    updateButtons('magic', priorityButtons.magic);
+                    updateButtons('resource', priorityButtons.resource);
+                    break;
+                case 'skill':
+                    updateButtons('metatype', priorityButtons.metatype);
+                    updateButtons('attribute', priorityButtons.attribute);
+                    updateButtons('magic', priorityButtons.magic);
+                    updateButtons('resource', priorityButtons.resource);
+                    break;
+                case 'magic':
+                    updateButtons('metatype', priorityButtons.metatype);
+                    updateButtons('attribute', priorityButtons.attribute);
+                    updateButtons('skill', priorityButtons.skill);
+                    updateButtons('resource', priorityButtons.resource);
+                    break;
+                case 'resource':
+                    updateButtons('metatype', priorityButtons.metatype);
+                    updateButtons('attribute', priorityButtons.attribute);
+                    updateButtons('skill', priorityButtons.skill);
+                    updateButtons('magic', priorityButtons.magic);
+                    break;
+            }
+        } 
+        else if (buttonState === 1) {
+            // Handle rules
         }
     }
 
@@ -607,16 +461,16 @@ export default function Setting() {
                                         </MenuItem>
                                     </Select>
                                     </FormControl>
-                                    <Button value={0} onClick={e => handleButtonState(e.target.value)} variant='contained' sx={{height: 80}} color={buttonColor1 ? 'secondary' : 'primary'}>
+                                    <Button value={0} onClick={e => handleButtonState(e.target.value)} variant='contained' sx={{height: 80}} color={buttonColors[0] ? 'secondary' : 'primary'}>
                                         {creatorType[0]}
                                     </Button>
-                                    <Button value={1} onClick={e => handleButtonState(e.target.value)} variant='contained' sx={{height: 80}} color={buttonColor2 ? 'secondary' : 'primary'} disabled>
+                                    <Button value={1} onClick={e => handleButtonState(e.target.value)} variant='contained' sx={{height: 80}} color={buttonColors[1] ? 'secondary' : 'primary'} disabled>
                                         {creatorType[1][powerState]}
                                     </Button>
-                                    <Button value={2} onClick={e => handleButtonState(e.target.value)} variant='contained' sx={{height: 80}} color={buttonColor3 ? 'secondary' : 'primary'} disabled>
+                                    <Button value={2} onClick={e => handleButtonState(e.target.value)} variant='contained' sx={{height: 80}} color={buttonColors[2] ? 'secondary' : 'primary'} disabled>
                                         {creatorType[2]}
                                     </Button>
-                                    <Button value={3} onClick={e => handleButtonState(e.target.value)} variant='contained' sx={{height: 80}} color={buttonColor4 ? 'secondary' : 'primary'} disabled>
+                                    <Button value={3} onClick={e => handleButtonState(e.target.value)} variant='contained' sx={{height: 80}} color={buttonColors[3] ? 'secondary' : 'primary'} disabled>
                                         {creatorType[3]}
                                     </Button>                                
                             </ButtonGroup>
@@ -687,16 +541,8 @@ export default function Setting() {
                 }
                 {(activeStep == 1 && buttonState == 0) &&
                     <Priority 
-                    handleMetatypeButton={handleMetatypeButton}
-                    metatypeButton={metatypeButton}
-                    handleAttributeButton={handleAttributeButton}
-                    attributeButton={attributeButton}
-                    handleSkillButton={handleSkillButton}
-                    skillButton={skillButton}
-                    handleMagicButton={handleMagicButton}
-                    magicButton={magicButton}
-                    handleResourceButton={handleResourceButton}
-                    resourceButton={resourceButton}
+                    priorityButtons={priorityButtons}
+                    handlePriorityButtons={handlePriorityButtons}
                     showRestrictions={showRestrictions}
                     showMagicRestrictions={showMagicRestrictions}/>
                 }
@@ -712,19 +558,10 @@ export default function Setting() {
                     <MetatypeDescription metatypeState={metatypeState}/>
                 }
                 {(activeStep == 3 && buttonState == 0 && magicButton != 4) && 
-                    <Magic 
-                        karma={karma} 
-                        handleMagicState={handleMagicState} 
-                        magicState={magicState}
-                        handleTraditionState={handleTraditionState}
-                        handleMagicLimitationState={handleMagicLimitationState}
-                        handleMagicianAdeptPoints={handleMagicianAdeptPoints}
-                        magicianPoints={magicianPoints}
-                        adeptPoints={adeptPoints}
-                    />
+                    <Attributes/>
                 }
                 {(activeStep == 3 && buttonState == 0 && magicButton != 4) && 
-                    <MagicDescription magicState={magicState}/>
+                    <DerivedAttributes/>
                 }
                 {((activeStep == 4 && buttonState == 0 && magicButton != 4) || activeStep == 3 && buttonState == 0 && magicButton == 4) &&
                     <Qualities
@@ -746,10 +583,19 @@ export default function Setting() {
                     <QualitiesDescription/>
                 }
                 {((activeStep == 5 && buttonState == 0 && magicButton != 4) || (activeStep == 4 && buttonState == 0 && magicButton == 4)) &&
-                    <Attributes/>
+                    <Magic 
+                    karma={karma} 
+                    handleMagicState={handleMagicState} 
+                    magicState={magicState}
+                    handleTraditionState={handleTraditionState}
+                    handleMagicLimitationState={handleMagicLimitationState}
+                    handleMagicianAdeptPoints={handleMagicianAdeptPoints}
+                    magicianPoints={magicianPoints}
+                    adeptPoints={adeptPoints}
+                    />
                 }
                 {((activeStep == 5 && buttonState == 0 && magicButton != 4) || (activeStep == 4 && buttonState == 0 && magicButton == 4)) &&
-                    <DerivedAttributes/>
+                    <MagicDescription magicState={magicState}/>
                 }
                 {((activeStep == 6 && buttonState == 0 && magicButton != 4) || (activeStep == 5 && buttonState == 0 && magicButton == 4)) &&
                     <Skills skillsTakenArray={skillsTakenArray} handleUpdateSkillsTakenArray={handleUpdateSkillsTakenArray}/>
