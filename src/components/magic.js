@@ -43,15 +43,18 @@ const magicLimitation = [
 ]
 
 export default function Magic({
-    karma, 
-    handleMagicState, 
-    magicState, 
-    handleTraditionState, 
-    handleMagicLimitationState, 
-    handleMagicianAdeptPoints, 
-    magicianPoints, 
-    adeptPoints
+    magicStates,
+    handleMagicStates,
 }) {
+    // Load default values into settings on page load.
+    useEffect(() => {
+        if(magicStates.traditionState === 0) {
+            handleMagicStates('traditionState', traditions[0])()
+        }
+        if(magicStates.magicLimitationState === 0) {
+            handleMagicStates('magicLimitationState', magicLimitation[0])()
+        }
+    }, [])
     return (
         <Grid xl={4} lg={4} md={4} sm={4} xs={4} spacing={2} sx={{display: 'flex', flexDirection: 'column', maxHeight: 800}}>
             <Item>
@@ -79,140 +82,50 @@ export default function Magic({
                         }}>
                             Karma:
                         </ListSubheader>
-                    <ListItem disablePadding={true}>
-                        <ListItemButton
-                            onClick={handleMagicState(0)}
-                            divider={true}
-                            sx={{
-                                height: 70,
-                                bgcolor: (magicState == 0) ? selectBackground : primaryBackground,
-                                '&:hover': {
-                                    backgroundColor: (magicState == 0) ? selectHover : primaryHover
-                                }
-                            }}
-                            alignItems='center'
-                        >
-                            <ListItemText 
-                                primaryTypographyProps={{
-                                    fontFamily: 'Segoe UI',
-                                    fontSize: 20,
-                                    fontWeight: 500
-                                }}
-                                primary='Magician'
-                            />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding={true}>
-                        <ListItemButton
-                            onClick={handleMagicState(1)}
-                            divider={true}
-                            sx={{
-                                height: 70,
-                                bgcolor: (magicState == 1) ? selectBackground : primaryBackground,
-                                '&:hover': {
-                                    backgroundColor: (magicState == 1) ? selectHover : primaryHover
-                                }
-                            }}
-                            alignItems='center'
-                        >
-                            <ListItemText 
-                                primaryTypographyProps={{
-                                    fontFamily: 'Segoe UI',
-                                    fontSize: 20,
-                                    fontWeight: 500
-                                }}
-                                primary='Aspected Magician'
-                            />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding={true}>
-                        <ListItemButton
-                            onClick={handleMagicState(2)}
-                            divider={true}
-                            sx={{
-                                height: 70,
-                                bgcolor: (magicState == 2) ? selectBackground : primaryBackground,
-                                '&:hover': {
-                                    backgroundColor: (magicState == 2) ? selectHover : primaryHover
-                                }
-                            }}
-                            alignItems='center'
-                        >
-                            <ListItemText 
-                                primaryTypographyProps={{
-                                    fontFamily: 'Segoe UI',
-                                    fontSize: 20,
-                                    fontWeight: 500
-                                }}
-                                primary='Adept'
-                            />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding={true}>
-                        <ListItemButton
-                            onClick={handleMagicState(3)}
-                            divider={true}
-                            sx={{
-                                height: 70,
-                                bgcolor: (magicState == 3) ? selectBackground : primaryBackground,
-                                '&:hover': {
-                                    backgroundColor: (magicState == 3) ? selectHover : primaryHover
-                                }
-                            }}
-                            alignItems='center'
-                        >
-                            <ListItemText 
-                                primaryTypographyProps={{
-                                    fontFamily: 'Segoe UI',
-                                    fontSize: 20,
-                                    fontWeight: 500
-                                }}
-                                primary='Mystic Adept'
-                            />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding={true}>
-                        <ListItemButton
-                            onClick={handleMagicState(4)}
-                            divider={true}
-                            sx={{
-                                height: 70,
-                                bgcolor: (magicState == 4) ? selectBackground : primaryBackground,
-                                '&:hover': {
-                                    backgroundColor: (magicState == 4) ? selectHover : primaryHover
-                                }
-                            }}
-                            alignItems='center'
-                        >
-                            <ListItemText 
-                                primaryTypographyProps={{
-                                    fontFamily: 'Segoe UI',
-                                    fontSize: 20,
-                                    fontWeight: 500
-                                }}
-                                primary='Technomancer'
-                            />
-                        </ListItemButton>
-                    </ListItem>
+                        {[0, 1, 2, 3, 4].map((index) => (
+                            <ListItem key={index} disablePadding>
+                                <ListItemButton
+                                    onClick={handleMagicStates('magicState', index)}
+                                    divider
+                                    sx={{
+                                    height: 70,
+                                    bgcolor: magicStates.magicState === index ? selectBackground : primaryBackground,
+                                    '&:hover': {
+                                        backgroundColor: magicStates.magicState === index ? selectHover : primaryHover
+                                    }
+                                    }}
+                                    alignItems="center"
+                                >
+                                    <ListItemText
+                                    primaryTypographyProps={{
+                                        fontFamily: 'Segoe UI',
+                                        fontSize: 20,
+                                        fontWeight: 500
+                                    }}
+                                    primary={['Magician', 'Aspected Magician', 'Adept', 'Mystic Adept', 'Technomancer'][index]}
+                                    />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
                 </List>
-                {(magicState == 3) &&
+                {(magicStates.magicState == 3) &&
                     <FormControl sx={{marginTop: 3}}  variant='filled' fullWidth>
                         <ButtonGroup>
-                            <TextField label='Magician' value={magicianPoints} inputProps={{readOnly: true}}/>
-                        <Button onClick={handleMagicianAdeptPoints('left')}>
+                            <TextField label='Magician' value={magicStates.magicianPoints} inputProps={{readOnly: true}}/>
+                        <Button onClick={handleMagicStates('mystic', 'left')}>
                             <KeyboardArrowLeft/>
                         </Button>
-                        <Button onClick={handleMagicianAdeptPoints('right')}>
+                        <Button onClick={handleMagicStates('mystic', 'right')}>
                             <KeyboardArrowRight/>
                         </Button>
-                        <TextField label='Adept' value={adeptPoints} inputProps={{readOnly: true}}/>
+                        <TextField label='Adept' value={magicStates.adeptPoints} inputProps={{readOnly: true}}/>
                         </ButtonGroup>
                     </FormControl>
                 }
-                {(magicState == 1) &&
+                {(magicStates.magicState == 1) &&
                     <FormControl sx={{marginTop: 3}}  variant='filled' fullWidth={true}>
                         <InputLabel>Magic Limitation</InputLabel>
-                        <Select defaultValue={0} label='Magic Limitation' onChange={e => handleMagicLimitationState(e.target.value)}>
+                        <Select defaultValue={0} label='Magic Limitation' onChange={e => handleMagicStates('magicLimitationState', magicLimitation[e.target.value])()}>
                             {magicLimitation.map((magicLimitation, index) =>
                                 <MenuItem value={index}>
                                     {magicLimitation}
@@ -221,10 +134,10 @@ export default function Magic({
                         </Select>
                     </FormControl>
                 }
-                {(magicState == 0 || magicState == 1 || magicState == 3) &&
+                {(magicStates.magicState == 0 || magicStates.magicState == 1 || magicStates.magicState == 3) &&
                     <FormControl sx={{marginTop: 3}}  variant='filled' fullWidth={true}>
                         <InputLabel>Magic Tradition</InputLabel>
-                        <Select defaultValue={0} label='Magic Tradition' onChange={e => handleTraditionState(e.target.value)}>
+                        <Select defaultValue={0} label='Magic Tradition' onChange={(e) => handleMagicStates('traditionState', traditions[e.target.value])()}>
                             {traditions.map((traditions, index) =>
                                 <MenuItem value={index}>
                                     {traditions}

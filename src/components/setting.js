@@ -11,6 +11,13 @@ import MobileStepper from '@mui/material/MobileStepper';
 import { useTheme, styled } from '@mui/material/styles';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import {
+    Table,
+    TableHead,
+    TableBody,
+    TableRow,
+    TableCell
+} from '@mui/material';
 import Priority from './priority.js';
 import Metatype from './metatype.js';
 import MetatypeDescription from './metatype_desc.js';
@@ -24,6 +31,7 @@ import DerivedAttributes from './derived_attributes.js';
 import Skills from './skills.js';
 import SkillDescription from './skill_desc.js';
 import Knowledge from './knowledge.js';
+import max from '../json/metatype_max_attrib.json';
 
 const subHeaderBackground = grey[400];
 const selectionBackground = grey[300];
@@ -175,25 +183,18 @@ export default function Setting() {
         magic: 3,
         resource: 4
     })
-    const [metatypeButton, setMetatypeButton] = React.useState(0); //handleMetatypeButton
     const [magicButton, setMagicButton] = React.useState(3); //handleMagicButton
     const [showRestrictions, setRestrictionsDisplay] = React.useState(true);
     const [showMagicRestrictions, setMagicRestrictions] = React.useState(true);
     useEffect(() => {
+        handleDefaultAttributePoints()
+        handleDefaultMysticAdept()
         console.log(
             priorityButtons,
             showRestrictions,
             showMagicRestrictions
         )
     }, [priorityButtons])
-    useEffect(() => {
-        setMagicianPoints(4 - magicButton)
-        setAdeptPoints(0)
-        console.log(
-            'magic:',
-            magicButton
-        )
-    }, [magicButton])
 
     const handlePriorityButtons = (name, value) => {
         switch(name) {
@@ -283,25 +284,181 @@ export default function Setting() {
     // This block handles the information needed for metatype.js as well as metatype_desc.js
     // This block stores the metatype chosen as well as the cost of that metatype and deducts that from 
     // the karma hook
-    const [metatypeState, setMetatypeState] = React.useState('Troll'); //handleMetatypeState
-    const [metatypeCost, setMetatypeCost] = React.useState(0);
+    const [chosenMetatype, setChosenMetatype] = React.useState({
+        race: 'Troll',
+        cost: 0
+    });
     useEffect(() => {
         console.log(
-            'metatype chosen:',
-            metatypeState
+            chosenMetatype,
+            max[chosenMetatype.race].maxagi
         )
-    }, [metatypeState])
+    }, [chosenMetatype])
+    const handleChosenMetatype = (value, karmaValue) => () => {
+        setKarma((karma + chosenMetatype.cost) - karmaValue)
+        setChosenMetatype(prevMetatype => ({
+            ...prevMetatype,
+            race: value,
+            cost: karmaValue
+        }))        
+    }
+
+    // This block handles the information needed for attributes.js as well as derived_attributes.js
+    // This block stores each attribute based on the priorities and metatype the user chose
+
+    const [attributePoints, setAttributePoints] = React.useState({
+        maxAdjust: 0,
+        adjust: 0,
+        maxAttrib: 0,
+        attrib: 0
+    })
+    const [attributes, setAttributes] = React.useState({
+        adjustPointsBod: 0,
+        attribPointsBod: 0,
+        karmaPointsBod: 0,
+        bod: 1,
+
+        adjustPointsAgi: 0,
+        attribPointsAgi: 0,
+        karmaPointsAgi: 0,
+        agi: 1,
+
+        adjustPointsRea: 0,
+        attribPointsRea: 0,
+        karmaPointsRea: 0,
+        rea: 1,
+
+        adjustPointsStr: 0,
+        attribPointsStr: 0,
+        karmaPointsStr: 0,
+        str: 1,
+
+        adjustPointsWil: 0,
+        attribPointsWil: 0,
+        karmaPointsWil: 0,
+        wil: 1,
+
+        adjustPointsLog: 0,
+        attribPointsLog: 0,
+        karmaPointsLog: 0,
+        log: 1,
+
+        adjustPointsInt: 0,
+        attribPointsInt: 0,
+        karmaPointsInt: 0,
+        int: 1,
+
+        adjustPointsCha: 0,
+        attribPointsCha: 0,
+        karmaPointsCha: 0,
+        cha: 1,
+
+        adjustPointsEdg: 0,
+        attribPointsEdg: 0,
+        karmaPointsEdg: 0,
+        edg: 1,
+
+        adjustPointsMag: 0,
+        attribPointsMag: 0,
+        karmaPointsMag: 0,
+        mag: 1,
+
+        adjustPointsRes: 0,
+        attribPointsRes: 0,
+        karmaPointsRes: 0,
+        res: 1
+    })
     useEffect(() => {
-        console.log(
-            'metatype cost:',
-            metatypeCost
-        )
-    }, [metatypeCost])
-    const handleMetatypeState = (value, karmaValue) => () => {
-        setKarma((karma + metatypeCost) - karmaValue)
-        setMetatypeState(value)
-        setMetatypeCost(karmaValue)
-        
+        console.log(attributePoints)
+    }, [attributePoints])
+    const handleDefaultAttributePoints = () => {
+        let adjustValue = 0
+        let attribValue = 0
+
+        switch(priorityButtons.metatype) {
+            case 0:
+                adjustValue = 13
+                break;
+            case 1:
+                adjustValue = 11
+                break;
+            case 2:
+                adjustValue = 9
+                break;
+            case 3:
+                adjustValue = 4
+                break;
+            case 4:
+                adjustValue = 1
+                break;
+            default:
+                break;
+        }
+        switch(priorityButtons.attribute) {
+            case 0:
+                attribValue = 24
+                break;
+            case 1:
+                attribValue = 16
+                break;
+            case 2:
+                attribValue = 12
+                break;
+            case 3:
+                attribValue = 8
+                break;
+            case 4:
+                attribValue = 2
+                break;
+            default:
+                break;
+        }
+        setAttributePoints(prevPoints => ({
+            ...prevPoints,
+            maxAdjust: adjustValue,
+            adjust: adjustValue,
+            maxAttrib: attribValue,
+            attrib: attribValue
+        }))
+    }
+    const handleAttributePoints = (name, value, attributeName) => {
+        const adjustPointsName = `adjustPoints${attributeName.charAt(0).toUpperCase()}${attributeName.slice(1)}`
+        const attribPointsName = `attribPoints${attributeName.charAt(0).toUpperCase()}${attributeName.slice(1)}`
+        const karmaPointsName = `karmaPoints${attributeName.charAt(0).toUpperCase()}${attributeName.slice(1)}`
+        const maxAttributeValue = max[chosenMetatype.race][`max${attributeName}`];
+
+        if ((attributePoints[name] === 0 && value === -1) || // Avoid going below zero
+            (name === 'adjust' && attributePoints[name] === attributePoints.maxAdjust && value === 1) || // Avoid going above Ajustment Point max
+            (name === 'attrib' && attributePoints[name] === attributePoints.maxAttrib && value === 1) || // Avoid going above Attribute Point max
+            (attributes[attributeName] === 1 && value === 1) ||
+            (attributes[attributeName] === maxAttributeValue && value === -1) ||
+            (karma - ((attributes[attributeName] + 1) * 5) < 0 && value === -1)) {
+            return;
+        }
+        if(name !== 'karma') {
+            setAttributePoints(prevPoints => ({
+                ...prevPoints,
+                [name]: (attributePoints[name] + value)
+            }))
+            setAttributes(prevAttributes => ({
+                ...prevAttributes,
+                [attributeName]: attributes[attributeName] - value,
+                [name === 'adjust' ? adjustPointsName : attribPointsName]: attributes[name === 'adjust' ? adjustPointsName : attribPointsName] - value
+            }));
+        }
+        else {
+            setAttributes(prevAttributes => ({
+                ...prevAttributes,
+                [attributeName]: attributes[attributeName] - value,
+                [karmaPointsName]: attributes[karmaPointsName] - value
+            }));
+            if(value === -1) {
+                setKarma(karma - ((attributes[attributeName] + 1) * 5))
+            }
+            else {
+                setKarma(karma + (attributes[attributeName] * 5))
+            }
+        }
     }
 
     // This block handles all the information needed for qualities.js, qualities_desc.js, and qualities_taken.js
@@ -381,68 +538,102 @@ export default function Setting() {
     // This section handles all the hooks needed for magic.js and magic_desc.js
     // These hooks are used to determine what magical subtype the runner will have
     // as well as allocate infromation required for certain subtypes
-    const [magicState, setMagicState] = React.useState(0); //handleMagicState
-    const [traditionState, setTraditionState] = React.useState(0); //handleTraditionState
-    const [magicLimitationState, setMagicLimitationState] = React.useState(0); //handleMagicLimitationState
-    const [magicianPoints, setMagicianPoints] = React.useState(0); //handleMagicianPoints
-    const [adeptPoints, setAdeptPoints] = React.useState(0); //handleMagicianAdeptPoints
+    const [magicStates, setMagicStates] = React.useState({
+        magicState: 0,
+        traditionState: 0,
+        magicLimitationState: 0,
+        magicianPoints: 0,
+        adeptPoints: 0,
+    });
     useEffect(() => {
         console.log(
             'magic state:',
-            magicState
+            magicStates
         )
-    }, [magicState])
-    useEffect(() => {
-        console.log (
-            'tradition state:',
-            traditionState
-        )
-    }, [traditionState])
-    useEffect(() => {
-        console.log (
-            'magic limitation state:',
-            magicLimitationState
-        )
-    }, [magicLimitationState])
-    useEffect(() => {
-        console.log(
-            'magician points',
-            magicianPoints
-        )
-    }, [magicianPoints])
-    useEffect(() => {
-        console.log(
-            'adept points',
-            adeptPoints
-        )
-    }, [adeptPoints])
-    const handleMagicState = (value) => () => {
-        setMagicState(value)
-    }
-    const handleTraditionState = (value) => {
-        setTraditionState(value)
-    }
-    const handleMagicLimitationState = (value) => {
-        setMagicLimitationState(value)
-    }
-    const handleMagicianAdeptPoints = (value) => () => {
-        if(value === 'left') {
-            if(adeptPoints != 0) {
-                setMagicianPoints(magicianPoints + 1)
-                setAdeptPoints(adeptPoints - 1)
+    }, [magicStates])
+    const handleMagicStates = (name, value) => () => {
+        console.log(name, value)
+        if(name == 'mystic') {
+            switch(value) {
+                case 'left':
+                    if(magicStates.adeptPoints !== 0) {
+                        setMagicStates((prevMagicStates) => ({
+                            ...prevMagicStates,
+                            magicianPoints: magicStates.magicianPoints + 1,
+                            adeptPoints: magicStates.adeptPoints - 1,
+                        }));
+                    }
+                    break;
+                case 'right':
+                    if(magicStates.magicianPoints !== 0) {
+                        setMagicStates((prevMagicStates) => ({
+                            ...prevMagicStates,
+                            magicianPoints: magicStates.magicianPoints - 1,
+                            adeptPoints: magicStates.adeptPoints + 1,
+                        }));
+                    }
+                    break;
+                default:
+                    break;
             }
         }
-        else if (value === 'right') {
-            if(magicianPoints != 0) {
-                setMagicianPoints(magicianPoints - 1)
-                setAdeptPoints(adeptPoints + 1)
-            }
+        else {
+            setMagicStates((prevMagicStates) => ({
+                ...prevMagicStates,
+                [name]: value,
+            }));
+        }
+    }
+    const handleDefaultMysticAdept = () => {
+        switch(priorityButtons.magic) {
+            case 0:
+                setMagicStates((prevMagicStates) => ({
+                    ...prevMagicStates,
+                    magicianPoints: 4
+                }));
+                break;
+            case 1:
+                setMagicStates((prevMagicStates) => ({
+                    ...prevMagicStates,
+                    magicianPoints: 3
+                }));
+                break;
+            case 2:
+                setMagicStates((prevMagicStates) => ({
+                    ...prevMagicStates,
+                    magicianPoints: 2
+                }));
+                break;
+            case 3:
+                setMagicStates((prevMagicStates) => ({
+                    ...prevMagicStates,
+                    magicianPoints: 1
+                }));
+                break;
+            default:
+                setMagicStates((prevMagicStates) => ({
+                    ...prevMagicStates,
+                    magicianPoints: 0,
+                    adeptPoints: 0
+                }));
+                break;
         }
     }
 
     return (
         <Box sx={{flexGrow: 1, margin: 'auto', maxWidth: 1350, bgcolor: subHeaderBackground, padding: 1}}>
             <Grid container spacing={2}>
+                <Grid xs={12} sx={{display: 'flex', flexDirection: 'column', height: 80}}>
+                    <Item>
+                        <Table>
+                            <TableRow>
+                                <TableCell><Typography variant='h1' style={{ fontSize: 16, fontFamily: 'Segoe UI', fontWeight: 500 }}>Karma: {karma}</Typography></TableCell>
+                                <TableCell><Typography variant='h1' style={{ fontSize: 16, fontFamily: 'Segoe UI', fontWeight: 500 }}>Adjustment Points: {attributePoints.adjust}</Typography></TableCell>
+                                <TableCell><Typography variant='h1' style={{ fontSize: 16, fontFamily: 'Segoe UI', fontWeight: 500 }}>Attribute Points: {attributePoints.attrib}</Typography></TableCell>
+                            </TableRow>
+                        </Table>
+                    </Item>
+                </Grid>
                 {activeStep == 0 && 
                     <Grid xs={5} sm={3} md={2.5} lg={2.5} xl={2.5} spacing={2} sx={{display: 'flex', flexDirection: 'column'}}>
                         <Item>
@@ -539,63 +730,62 @@ export default function Setting() {
                         </Item>
                     </Grid>
                 }
-                {(activeStep == 1 && buttonState == 0) &&
+                {(activeStep == 1 && buttonState == 0) && // Always display on step 1
                     <Priority 
                     priorityButtons={priorityButtons}
                     handlePriorityButtons={handlePriorityButtons}
                     showRestrictions={showRestrictions}
                     showMagicRestrictions={showMagicRestrictions}/>
                 }
-                {(activeStep == 2 && buttonState == 0) &&
-                    <Metatype 
-                        handleMetatypeState={handleMetatypeState}
-                        metatypeState={metatypeState}
-                        metatypeButton={metatypeButton}
-                        karma={karma}
-                    />
+                {(activeStep == 2 && buttonState == 0) && // Always display on step 2
+                    <>
+                        <Metatype 
+                            handleChosenMetatype={handleChosenMetatype}
+                            chosenMetatype={chosenMetatype}
+                            priorityButtons={priorityButtons}
+                            karma={karma}/>
+                        <MetatypeDescription chosenMetatype={chosenMetatype}/>
+                    </>
                 }
-                {(activeStep == 2 && buttonState == 0) &&
-                    <MetatypeDescription metatypeState={metatypeState}/>
+                {(activeStep == 3 && buttonState == 0 && priorityButtons.magic !== 4) && // Display on step 3 if magic != 4, otherwise never display
+                    <>
+                        <Magic 
+                            magicStates={magicStates}
+                            handleMagicStates={handleMagicStates}
+                        />
+                        <MagicDescription magicStates={magicStates}/>
+                    </>
                 }
-                {(activeStep == 3 && buttonState == 0 && magicButton != 4) && 
-                    <Attributes/>
-                }
-                {(activeStep == 3 && buttonState == 0 && magicButton != 4) && 
-                    <DerivedAttributes/>
-                }
-                {((activeStep == 4 && buttonState == 0 && magicButton != 4) || activeStep == 3 && buttonState == 0 && magicButton == 4) &&
-                    <Qualities
+                {((activeStep == 4 && buttonState == 0 && priorityButtons.magic != 4) ||  // Display on step 4 if magic != 4
+                  (activeStep == 3 && buttonState == 0 && priorityButtons.magic == 4)) && // Display on step 3 if magic == 4
+                    <>
+                        <Qualities
                         qualitiesArray={qualitiesArray}
                         handleUpdateQualitiesArray={handleUpdateQualitiesArray}
                         qualityState={qualityState} 
                         handleQualityState={handleQualityState} 
-                    />
-                }
-                {((activeStep == 4 && buttonState == 0 && magicButton != 4) || activeStep == 3 && buttonState == 0 && magicButton == 4) &&
-                    <QualitiesTaken 
+                        />
+                        <QualitiesTaken 
                         qualitiesTakenArray={qualitiesTakenArray} 
                         handleUpdateQualityTakenArray={handleUpdateQualityTakenArray}
                         handleQualityTakenState={handleQualityTakenState}
                         qualityTakenState={qualityTakenState}
-                    />
+                        />
+                        <QualitiesDescription/>
+                    </>
                 }
-                {((activeStep == 4 && buttonState == 0 && magicButton != 4) || activeStep == 3 && buttonState == 0 && magicButton == 4) &&
-                    <QualitiesDescription/>
-                }
-                {((activeStep == 5 && buttonState == 0 && magicButton != 4) || (activeStep == 4 && buttonState == 0 && magicButton == 4)) &&
-                    <Magic 
-                    karma={karma} 
-                    handleMagicState={handleMagicState} 
-                    magicState={magicState}
-                    handleTraditionState={handleTraditionState}
-                    handleMagicLimitationState={handleMagicLimitationState}
-                    handleMagicianAdeptPoints={handleMagicianAdeptPoints}
-                    magicianPoints={magicianPoints}
-                    adeptPoints={adeptPoints}
-                    />
-                }
-                {((activeStep == 5 && buttonState == 0 && magicButton != 4) || (activeStep == 4 && buttonState == 0 && magicButton == 4)) &&
-                    <MagicDescription magicState={magicState}/>
+                {((activeStep == 5 && buttonState == 0 && priorityButtons.magic != 4) ||  // Display on step 5 if magic != 4
+                  (activeStep == 4 && buttonState == 0 && priorityButtons.magic == 4)) && // Display on step 4 if magic == 4
+                    <>
+                        <Attributes
+                        priorityButtons={priorityButtons}
+                        chosenMetatype={chosenMetatype}
+                        attributePoints={attributePoints}
+                        handleAttributePoints={handleAttributePoints}
+                        attributes={attributes}
+                        />
+                        <DerivedAttributes/>
+                    </>
                 }
                 {((activeStep == 6 && buttonState == 0 && magicButton != 4) || (activeStep == 5 && buttonState == 0 && magicButton == 4)) &&
                     <Skills skillsTakenArray={skillsTakenArray} handleUpdateSkillsTakenArray={handleUpdateSkillsTakenArray}/>

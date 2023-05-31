@@ -22,6 +22,7 @@ import { TextField } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
+import max from '../json/metatype_max_attrib.json';
 
 const headerBackground = grey[800];
 const subHeaderBackground = grey[900];
@@ -63,138 +64,128 @@ const header = [
 
 
 
-export default function Attributes() {
-    const [counter, setCounter] = useState(0);      
-        const handleDecrement = (value) => {
-            if(counter == 0) {
-                setCounter(counter - value)
-            }
-        };
-        const handleIncrement = (value) => {
-            setCounter(counter + value)
-        };
-
+export default function Attributes({priorityButtons, chosenMetatype, attributePoints, handleAttributePoints, attributes}) {
     const attributeRows = [
         {
             name: 'Body',
-            adjust: counter,
-            addadjust: handleIncrement,
-            subadjust: handleDecrement,
-            attr: 0,
-            karma: 0,
-            cost: 0,
-            value: 0,
-            max: 0
+            attrName: 'bod',
+            adjust: attributes.adjustPointsBod,
+            handlePoints: handleAttributePoints,
+            attr: attributes.attribPointsBod,
+            karma: attributes.karmaPointsBod,
+            cost: (attributes['bod'] + 1) * 5,
+            value: attributes.bod,
+            max: chosenMetatype && max[chosenMetatype.race] ? max[chosenMetatype.race].maxbod : 0
         },
         {
             name: 'Agility',
-            adjust: 0,
-            addadjust: handleIncrement,
-            subadjust: handleDecrement,
-            attr: 0,
-            karma: 0,
-            cost: 0,
-            value: 0,
-            max: 0
+            attrName: 'agi',
+            adjust: attributes.adjustPointsAgi,
+            handlePoints: handleAttributePoints,
+            attr: attributes.attribPointsAgi,
+            karma: attributes.karmaPointsAgi,
+            cost: (attributes['agi'] + 1) * 5,
+            value: attributes.agi,
+            max: chosenMetatype && max[chosenMetatype.race] ? max[chosenMetatype.race].maxagi : 0
         },
         {
             name: 'Reaction',
-            adjust: 0,
-            addadjust: handleIncrement,
-            subadjust: handleDecrement,
-            attr: 0,
-            karma: 0,
-            cost: 0,
-            value: 0,
-            max: 0
+            attrName: 'rea',
+            adjust: attributes.adjustPointsRea,
+            handlePoints: handleAttributePoints,
+            attr: attributes.attribPointsRea,
+            karma: attributes.karmaPointsRea,
+            cost: (attributes['rea'] + 1) * 5,
+            value: attributes.rea,
+            max: chosenMetatype && max[chosenMetatype.race] ? max[chosenMetatype.race].maxrea : 0
         },
         {
             name: 'Strength',
-            adjust: 0,
-            addadjust: handleIncrement,
-            subadjust: handleDecrement,
-            attr: 0,
-            karma: 0,
-            cost: 0,
-            value: 0,
-            max: 0
+            attrName: 'str',
+            adjust: attributes.adjustPointsStr,
+            handlePoints: handleAttributePoints,
+            attr: attributes.attribPointsStr,
+            karma: attributes.karmaPointsStr,
+            cost: (attributes['str'] + 1) * 5,
+            value: attributes.str,
+            max: chosenMetatype && max[chosenMetatype.race] ? max[chosenMetatype.race].maxstr : 0
         },
         {
             name: 'Willpower',
-            adjust: 0,
-            addadjust: handleIncrement,
-            subadjust: handleDecrement,
-            attr: 0,
-            karma: 0,
-            cost: 0,
-            value: 0,
-            max: 0
+            attrName: 'wil',
+            adjust: attributes.adjustPointsWil,
+            handlePoints: handleAttributePoints,
+            attr: attributes.attribPointsWil,
+            karma: attributes.karmaPointsWil,
+            cost: (attributes['wil'] + 1) * 5,
+            value: attributes.wil,
+            max: chosenMetatype && max[chosenMetatype.race] ? max[chosenMetatype.race].maxwil : 0
         },
         {
             name: 'Logic',
-            adjust: 0,
-            addadjust: handleIncrement,
-            subadjust: handleDecrement,
-            attr: 0,
-            karma: 0,
-            cost: 0,
-            value: 0,
-            max: 0
+            attrName: 'log',
+            adjust: attributes.adjustPointsLog,
+            handlePoints: handleAttributePoints,
+            attr: attributes.attribPointsLog,
+            karma: attributes.karmaPointsLog,
+            cost: (attributes['log'] + 1) * 5,
+            value: attributes.log,
+            max: chosenMetatype && max[chosenMetatype.race] ? max[chosenMetatype.race].maxlog : 0
         },
         {
             name: 'Intuition',
-            adjust: 0,
-            addadjust: handleIncrement,
-            subadjust: handleDecrement,
-            attr: 0,
-            karma: 0,
-            cost: 0,
-            value: 0,
-            max: 0
+            attrName: 'int',
+            adjust: attributes.adjustPointsInt,
+            handlePoints: handleAttributePoints,
+            attr: attributes.attribPointsInt,
+            karma: attributes.karmaPointsInt,
+            cost: (attributes['int'] + 1) * 5,
+            value: attributes.int,
+            max: chosenMetatype && max[chosenMetatype.race] ? max[chosenMetatype.race].maxint : 0
         },
         {
             name: 'Charisma',
-            adjust: 0,
-            addadjust: handleIncrement,
-            subadjust: handleDecrement,
-            attr: 0,
-            karma: 0,
-            cost: 0,
-            value: 0,
-            max: 0
+            attrName: 'cha',
+            adjust: attributes.adjustPointsCha,
+            handlePoints: handleAttributePoints,
+            attr: attributes.attribPointsCha,
+            karma: attributes.karmaPointsCha,
+            cost: (attributes['cha'] + 1) * 5,
+            value: attributes.cha,
+            max: chosenMetatype && max[chosenMetatype.race] ? max[chosenMetatype.race].maxcha : 0
         },
         {
             name: 'Edge',
-            adjust: 0,
-            addadjust: handleIncrement,
-            subadjust: handleDecrement,
-            attr: 0,
-            karma: 0,
-            cost: 0,
-            value: 0,
-            max: 0
+            attrName: 'edg',
+            adjust: attributes.adjustPointsEdg,
+            handlePoints: handleAttributePoints,
+            attr: attributes.attribPointsEdg,
+            karma: attributes.karmaPointsEdg,
+            cost: (attributes['edg'] + 1) * 5,
+            value: attributes.edg,
+            max: chosenMetatype && max[chosenMetatype.race] ? max[chosenMetatype.race].maxedg : 0
         },
         {
             name: 'Magic',
-            adjust: 0,
-            addadjust: handleIncrement,
-            subadjust: handleDecrement,
-            attr: 0,
-            karma: 0,
-            cost: 0,
+            attrName: 'mag',
+            adjust: attributes.adjustPointsMag,
+            handlePoints: handleAttributePoints,
+            attr: attributes.attribPointsMag,
+            karma: attributes.karmaPointsMag,
+            cost: (attributes['mag'] + 1) * 5,
             value: 0,
-            max: 0
+            max: null
         },
         {
             name: 'Resonance',
-            adjust: 0,
-            addadjust: handleIncrement,
-            subadjust: handleDecrement,
-            attr: 0,
-            karma: 0,
-            cost: 0,
+            attrName: 'res',
+            adjust: attributes.adjustPointsRes,
+            handlePoints: handleAttributePoints,
+            attr: attributes.attribPointsRes,
+            karma: attributes.karmaPointsRes,
+            cost: (attributes['res'] + 1) * 5,
             value: 0,
-            max: 0
+            max: null
         },
     ]
     const headerCells = header.map((header, index) => {
@@ -214,46 +205,52 @@ export default function Attributes() {
                 {attributeRows.name}
             </NameCell>
             <TableCell align='center'>
+                {(attributeRows.max > 6 || attributeRows.name === 'Edge' || attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 ) &&
                 <ButtonGroup variant='filled'>
-                    <Button value='1' sx={{width: 45}} onClick={e => attributeRows.addadjust(e.target.value)}>
+                    <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('adjust', 1, attributeRows.attrName)}>
                         <RemoveCircleIcon/>
                     </Button>
                     <TextField value={attributeRows.adjust} inputProps={{readOnly: true, style: {textAlign: 'center'}}} sx={{width: 50}} size='small'/>
-                    <Button value='1' sx={{width: 45}} onClick={e => attributeRows.subadjust(e.target.value)}>
+                    <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('adjust', -1, attributeRows.attrName)}>
                         <AddCircleIcon/>
                     </Button>
                 </ButtonGroup>
+                }
             </TableCell>
             <TableCell align='center'>
+                {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') &&
                 <ButtonGroup variant='filled'>
-                    <Button sx={{width: 45}}>
+                    <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('attrib', 1, attributeRows.attrName)}>
                         <RemoveCircleIcon/>
                     </Button>
                     <TextField value={attributeRows.attr} inputProps={{readOnly: true, style: {textAlign: 'center'}}} sx={{width: 50}} size='small'/>
-                    <Button sx={{width: 45}}>
+                    <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('attrib', -1, attributeRows.attrName)}>
                         <AddCircleIcon/>
                     </Button>
                 </ButtonGroup>
+                }
             </TableCell>
             <TableCell align='center'>
+                {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') &&
                 <ButtonGroup variant='filled'>
-                    <Button sx={{width: 45}}>
+                    <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('karma', 1, attributeRows.attrName)}>
                         <RemoveCircleIcon/>
                     </Button>
                     <TextField value={attributeRows.karma} inputProps={{readOnly: true, style: {textAlign: 'center'}}} sx={{width: 50}} size='small'/>
-                    <Button sx={{width: 45}}>
+                    <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('karma', -1, attributeRows.attrName)}>
                         <AddCircleIcon/>
                     </Button>
                 </ButtonGroup>
+                }
             </TableCell>
             <TableCell align='center'>
-                {attributeRows.cost}
+                {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') ? attributeRows.cost : 0}
             </TableCell>
             <TableCell align='center'>
-                {attributeRows.value}
+                {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') ? attributeRows.value : 0}
             </TableCell>
             <TableCell align='center'>
-                {attributeRows.max}
+                {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') ? attributeRows.max : 0}
             </TableCell>
         </TableRow>
     )
