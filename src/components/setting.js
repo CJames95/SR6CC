@@ -183,11 +183,11 @@ export default function Setting() {
         magic: 3,
         resource: 4
     })
-    const [magicButton, setMagicButton] = React.useState(3); //handleMagicButton
     const [showRestrictions, setRestrictionsDisplay] = React.useState(true);
     const [showMagicRestrictions, setMagicRestrictions] = React.useState(true);
     useEffect(() => {
         handleDefaultAttributePoints()
+        handleDefaultSkillPoints()
         handleDefaultMysticAdept()
         console.log(
             priorityButtons,
@@ -204,7 +204,7 @@ export default function Setting() {
             case 'magic':
                 if(value == 4) {
                     setMagicRestrictions(false)
-                    setTotalSteps(6)
+                    setTotalSteps(8)
                 }
                 else {
                     setMagicRestrictions(true)
@@ -524,16 +524,178 @@ export default function Setting() {
 
     // This block handles all the information needed for skills.js, skill_desc.js, and knowledge.js
     // This block holds the hooks that handle what skills and knowledge are taken versus available
-    const [skillsTakenArray, setSkillsTakenArray] = React.useState([]); //handleUpdateSkillsTakenArray
+    const [skillPoints, setSkillPoints] = React.useState({
+        skill: 0,
+        maxSkill: 0
+    })
+    const [skillsTaken, setSkillsTaken] = React.useState([]);
+
     useEffect(() => {
-        console.log(
-            'skills taken array',
-            skillsTakenArray
-        )
-    }, [skillsTakenArray])
-    const handleUpdateSkillsTakenArray = (value) => () => {
-        updateQualitiesArray([...qualitiesArray, value])
-    }
+    console.log(skillsTaken);
+    }, [skillsTaken]);
+
+    const handleDefaultSkillPoints = () => {
+        let skillValue = 0
+
+        switch(priorityButtons.skill) {
+            case 0:
+                skillValue = 32
+                break;
+            case 1:
+                skillValue = 24
+                break;
+            case 2:
+                skillValue = 20
+                break;
+            case 3:
+                skillValue = 16
+                break;
+            case 4:
+                skillValue = 10
+                break;
+            default:
+                skillValue = 0
+                break;
+        }
+        setSkillPoints(prevPoints => ({
+            ...prevPoints,
+            skill: skillValue,
+            maxSkill: skillValue,
+        }))
+    };
+    const handleUpdateSkillsTaken = (identifier, event, value) => {
+        switch(identifier) {
+            case 'checkbox':
+                if(event.target.checked) {
+                    if(skillPoints.skill === 0) {
+                        return;
+                    }
+                    else {
+                        setSkillPoints(prevSkillPoints => ({
+                            ...prevSkillPoints,
+                            skill: prevSkillPoints.skill - 1
+                        }));
+                        setSkillsTaken(prevSkills => [
+                            ...prevSkills,
+                            {
+                                name: value,
+                                rating: 1,
+                                spec: 'No Selection'
+                            }
+                        ]);
+                    }
+                }
+                else if(!event.target.checked) {
+                    if(skillPoints.skill === skillPoints.maxSkill) {
+                        return;
+                    }
+                    else {
+                        setSkillPoints(prevSkillPoints => ({
+                            ...prevSkillPoints,
+                            skill: prevSkillPoints.skill + 1
+                        }));
+                        setSkillsTaken(prevSkills => prevSkills.filter(skillsTaken => skillsTaken.name !== value));
+                    }
+                }
+                break;
+            case 'add':
+                if( skillPoints.skill === 0 ||
+                    skillsTaken.find(skill => skill.name === value)?.rating === 6) {
+                    return;
+                }
+                else {
+                    setSkillPoints(prevSkillPoints => ({
+                        ...prevSkillPoints,
+                        skill: prevSkillPoints.skill - 1
+                    }));
+                    setSkillsTaken(prevSkills =>
+                        prevSkills.map(skill =>
+                            skill.name === value
+                            ? {
+                                ...skill,
+                                rating: skill.rating + 1
+                            }
+                            : skill
+                        )
+                    );
+                }
+                break;
+            case 'sub':
+                if( skillPoints.skill === skillPoints.maxSkill ||
+                    skillsTaken.find(skill => skill.name === value)?.rating === 1) {
+                    return;
+                }
+                else {
+                    if(skillsTaken.find(skill => skill.name === value)?.rating-1 < 5 && skillsTaken.find(skill => skill.name === value)?.spec !== 'No Selection') {
+                        setSkillPoints(prevSkillPoints => ({
+                            ...prevSkillPoints,
+                            skill: prevSkillPoints.skill + 2
+                        }));
+                        setSkillsTaken(prevSkills =>
+                            prevSkills.map(skill =>
+                                skill.name === value
+                                ? {
+                                    ...skill,
+                                    rating: skill.rating - 1,
+                                    spec: 'No Selection'
+                                }
+                                : skill
+                            )
+                        );
+                    }
+                    else {
+                        setSkillPoints(prevSkillPoints => ({
+                            ...prevSkillPoints,
+                            skill: prevSkillPoints.skill + 1
+                        }));
+                        setSkillsTaken(prevSkills =>
+                            prevSkills.map(skill =>
+                                skill.name === value
+                                ? {
+                                    ...skill,
+                                    rating: skill.rating - 1
+                                }
+                                : skill
+                            )
+                        );
+                    }
+                }
+                break;
+            case 'spec':
+                if(skillsTaken.find(skill => skill.name === value)?.spec === 'No Selection' && event.target.value !== 'No Selection') {
+                    if( skillPoints.skill === 0 ||
+                        skillsTaken.find(skill => skill.name === value)?.rating < 5) {
+                        return;
+                    }
+                    setSkillPoints(prevSkillPoints => ({
+                        ...prevSkillPoints,
+                        skill: prevSkillPoints.skill - 1
+                    }));
+                }
+                else if(event.target.value === 'No Selection') {
+                    if( skillPoints.skill === skillPoints.maxSkill ) {
+                        return;
+                    }
+                    setSkillPoints(prevSkillPoints => ({
+                        ...prevSkillPoints,
+                        skill: prevSkillPoints.skill + 1
+                    }));
+                }
+                setSkillsTaken(prevSkills =>
+                    prevSkills.map(skill =>
+                        skill.name === value
+                        ? {
+                            ...skill,
+                            spec: event.target.value
+                        }
+                        : skill
+                    )
+                );
+                break;
+            default:
+                break;
+        }
+    };
 
     // This section handles all the hooks needed for magic.js and magic_desc.js
     // These hooks are used to determine what magical subtype the runner will have
@@ -623,6 +785,39 @@ export default function Setting() {
     return (
         <Box sx={{flexGrow: 1, margin: 'auto', maxWidth: 1350, bgcolor: subHeaderBackground, padding: 1}}>
             <Grid container spacing={2}>
+                {/* This section handles the progress bar at the top */}
+                <Grid xs={12} sx={{display: 'flex', flexDirection: 'column'}}>
+                    <Item>
+                        <MobileStepper
+                            variant='progress'
+                            steps={totalSteps}
+                            position='static'
+                            activeStep={activeStep}
+                            sx={{flexGrow: 1, bgcolor: ''}}
+                            fullWidth={true}
+                            nextButton={
+                                <Button size='small' onClick={handleNext} disabled={activeStep === (totalSteps - 1)}>
+                                    Next
+                                    {progressTheme.direction === 'rtl' ? (
+                                        <KeyboardArrowLeft />
+                                    ) : (
+                                        <KeyboardArrowRight />
+                                    )}
+                                </Button>
+                            }
+                            backButton={
+                                <Button size='small' onClick={handleBack} disabled={activeStep === 0}>
+                                    {progressTheme.direction === 'rtl' ? (
+                                        <KeyboardArrowRight />
+                                    ) : (
+                                        <KeyboardArrowLeft />
+                                    )}
+                                    Back
+                                </Button>
+                            }
+                        />
+                    </Item>
+                </Grid>
                 <Grid xs={12} sx={{display: 'flex', flexDirection: 'column', height: 80}}>
                     <Item>
                         <Table>
@@ -630,6 +825,7 @@ export default function Setting() {
                                 <TableCell><Typography variant='h1' style={{ fontSize: 16, fontFamily: 'Segoe UI', fontWeight: 500 }}>Karma: {karma}</Typography></TableCell>
                                 <TableCell><Typography variant='h1' style={{ fontSize: 16, fontFamily: 'Segoe UI', fontWeight: 500 }}>Adjustment Points: {attributePoints.adjust}</Typography></TableCell>
                                 <TableCell><Typography variant='h1' style={{ fontSize: 16, fontFamily: 'Segoe UI', fontWeight: 500 }}>Attribute Points: {attributePoints.attrib}</Typography></TableCell>
+                                <TableCell><Typography variant='h1' style={{ fontSize: 16, fontFamily: 'Segoe UI', fontWeight: 500 }}>Skill Points: {skillPoints.skill}</Typography></TableCell>
                             </TableRow>
                         </Table>
                     </Item>
@@ -787,17 +983,18 @@ export default function Setting() {
                         <DerivedAttributes/>
                     </>
                 }
-                {((activeStep == 6 && buttonState == 0 && magicButton != 4) || (activeStep == 5 && buttonState == 0 && magicButton == 4)) &&
-                    <Skills skillsTakenArray={skillsTakenArray} handleUpdateSkillsTakenArray={handleUpdateSkillsTakenArray}/>
-                }
-                {((activeStep == 6 && buttonState == 0 && magicButton != 4) || (activeStep == 5 && buttonState == 0 && magicButton == 4)) &&
-                    <Knowledge/>
-                }
-                {((activeStep == 6 && buttonState == 0 && magicButton != 4) || (activeStep == 5 && buttonState == 0 && magicButton == 4)) &&
+                {((activeStep == 6 && buttonState == 0 && priorityButtons.magic != 4) ||  // Display on step 5 if magic != 4
+                  (activeStep == 5 && buttonState == 0 && priorityButtons.magic == 4)) && // Display on step 4 if magic == 4
+                  <>
+                    <Skills skillsTaken={skillsTaken} handleUpdateSkillsTaken={handleUpdateSkillsTaken} priorityButtons={priorityButtons}/>
                     <SkillDescription/>
+                  </>
                 }
-                {((activeStep == 7 && buttonState == 0 && magicButton != 4) || (activeStep == 6 && buttonState == 0 && magicButton == 4)) &&
+                {((activeStep == 7 && buttonState == 0 && priorityButtons.magic != 4) ||  // Display on step 7 if magic != 4
+                  (activeStep == 6 && buttonState == 0 && priorityButtons.magic == 4)) && // Display on step 6 if magic == 4
+                  <>
                     <Knowledge/>
+                  </>
                 }
                 {/* This section handles the progress bar at the bottom */}
                 <Grid xs={12} sx={{display: 'flex', flexDirection: 'column'}}>
