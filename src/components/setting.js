@@ -31,6 +31,7 @@ import DerivedAttributes from './derived_attributes.js';
 import Skills from './skills.js';
 import SkillDescription from './skill_desc.js';
 import Knowledge from './knowledge.js';
+import Language from './language.js';
 import max from '../json/metatype_max_attrib.json';
 
 const subHeaderBackground = grey[400];
@@ -371,6 +372,9 @@ export default function Setting() {
     useEffect(() => {
         console.log(attributePoints)
     }, [attributePoints])
+    useEffect(() => {
+        handleDefaultKnowledgePoints()
+    }, [attributes])
     const handleDefaultAttributePoints = () => {
         let adjustValue = 0
         let attribValue = 0
@@ -522,8 +526,8 @@ export default function Setting() {
         updateQualitiesArray([...qualitiesArray, valueResult])
     }
 
-    // This block handles all the information needed for skills.js, skill_desc.js, and knowledge.js
-    // This block holds the hooks that handle what skills and knowledge are taken versus available
+    // This block handles all the information needed for skills.js, skill_desc.js
+    // This block holds the hooks that handle what skills are taken versus available
     const [skillPoints, setSkillPoints] = React.useState({
         skill: 0,
         maxSkill: 0
@@ -697,6 +701,84 @@ export default function Setting() {
         }
     };
 
+    // This block handles all the information needed for knowledge.js, language.js
+    // This block holds the hooks that handle what knowledge and languages are taken versus available
+
+    const [knowledgePoints, setKnowledgePoints] = React.useState({
+        maxKnow: 0,
+        know: 0
+    })
+    const [knowledgeTaken, setKnowledgeTaken] = React.useState([]);
+    useEffect(() => {
+        console.log(knowledgeTaken)
+    }, [knowledgeTaken])
+    const [languageTaken, setLanguageTaken] = React.useState([]);
+    useEffect(() => {
+        console.log(languageTaken)
+    }, [languageTaken])
+
+    const handleDefaultKnowledgePoints = () => {
+        let knowValue = attributes.log
+
+        setKnowledgePoints(prevPoints => ({
+            ...prevPoints,
+            maxKnow: knowValue,
+            know: knowValue
+        }))
+    }
+    const handleKnowledgeTaken = (value, option) => {
+        switch(option) {
+            case 'add':
+                if( knowledgePoints.know === 0 ) {
+                    return;
+                }
+                setKnowledgePoints(prevPoints => ({
+                    ...prevPoints,
+                    know: prevPoints.know - 1
+                }))
+                setKnowledgeTaken((prevKnowledgeTaken) => [...prevKnowledgeTaken, value])
+                break;
+            case 'sub':
+                if( knowledgePoints.know === knowledgePoints.maxKnow ) {
+                    return;
+                }
+                setKnowledgePoints(prevPoints => ({
+                    ...prevPoints,
+                    know: prevPoints.know + 1
+                }))
+                setKnowledgeTaken(prevKnowledgeTaken => prevKnowledgeTaken.filter(item => item !== value))
+                break;
+            default:
+                break;
+        }
+    }
+    const handleLanguageTaken = (value, option) => {
+        switch(option) {
+            case 'add':
+                if( knowledgePoints.know === 0 ) {
+                    return;
+                }
+                setKnowledgePoints(prevPoints => ({
+                    ...prevPoints,
+                    know: prevPoints.know - 1
+                }))
+                setLanguageTaken((prevLanguageTaken) => [...prevLanguageTaken, value])
+                break;
+            case 'sub':
+                if( knowledgePoints.know === knowledgePoints.maxKnow ) {
+                    return;
+                }
+                setKnowledgePoints(prevPoints => ({
+                    ...prevPoints,
+                    know: prevPoints.know + 1
+                }))
+                setLanguageTaken(prevLanguageTaken => prevLanguageTaken.filter(item => item !== value))
+                break;
+            default:
+                break;
+        }
+    }
+
     // This section handles all the hooks needed for magic.js and magic_desc.js
     // These hooks are used to determine what magical subtype the runner will have
     // as well as allocate infromation required for certain subtypes
@@ -826,6 +908,7 @@ export default function Setting() {
                                 <TableCell><Typography variant='h1' style={{ fontSize: 16, fontFamily: 'Segoe UI', fontWeight: 500 }}>Adjustment Points: {attributePoints.adjust}</Typography></TableCell>
                                 <TableCell><Typography variant='h1' style={{ fontSize: 16, fontFamily: 'Segoe UI', fontWeight: 500 }}>Attribute Points: {attributePoints.attrib}</Typography></TableCell>
                                 <TableCell><Typography variant='h1' style={{ fontSize: 16, fontFamily: 'Segoe UI', fontWeight: 500 }}>Skill Points: {skillPoints.skill}</Typography></TableCell>
+                                <TableCell><Typography variant='h1' style={{ fontSize: 16, fontFamily: 'Segoe UI', fontWeight: 500 }}>Knowledge Points: {knowledgePoints.know}</Typography></TableCell>
                             </TableRow>
                         </Table>
                     </Item>
@@ -993,7 +1076,8 @@ export default function Setting() {
                 {((activeStep == 7 && buttonState == 0 && priorityButtons.magic != 4) ||  // Display on step 7 if magic != 4
                   (activeStep == 6 && buttonState == 0 && priorityButtons.magic == 4)) && // Display on step 6 if magic == 4
                   <>
-                    <Knowledge/>
+                    <Knowledge knowledgeTaken={knowledgeTaken} handleKnowledgeTaken={handleKnowledgeTaken}/>
+                    <Language languageTaken={languageTaken} handleLanguageTaken={handleLanguageTaken}/>
                   </>
                 }
                 {/* This section handles the progress bar at the bottom */}

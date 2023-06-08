@@ -39,7 +39,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-function KnowledgeDialog(props) {
+function LanguageDialog(props) {
     const { onClose, open } = props;
     const [tempValue, setTempValue] = React.useState('');
     useEffect(() => {
@@ -62,13 +62,13 @@ function KnowledgeDialog(props) {
 
     return (
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth='sm'>
-            <DialogTitle>Enter Knowledge Name:</DialogTitle>
+            <DialogTitle>Enter Language Name:</DialogTitle>
             <Table>
                 <TableRow>
                     <TableCell>
                         <FormControl fullWidth>
                         <TextField
-                            label='Knowledge Name' 
+                            label='Language Name' 
                             autoFocus
                             onChange={(e) => handleInputChange(e.target.value)}
                             onKeyDown={(e) => handleEnterKeyDown(e)}
@@ -83,12 +83,12 @@ function KnowledgeDialog(props) {
     );
 }
 
-KnowledgeDialog.propTypes = {
+LanguageDialog.propTypes = {
     onClose: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired
 };
 
-export default function Knowledge({knowledgeTaken, handleKnowledgeTaken}) {
+export default function Language({languageTaken, handleLanguageTaken}) {
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = (event) => {
@@ -97,10 +97,10 @@ export default function Knowledge({knowledgeTaken, handleKnowledgeTaken}) {
     }
     const handleClose = (value) => {
         setOpen(false);
-        handleKnowledgeTaken(value, 'add')
+        handleLanguageTaken(value, 'add')
     }
 
-    const knowledgeList = knowledgeTaken.sort(function(a, b) {
+    const languageList = languageTaken.sort(function(a, b) {
         const nameA = a.name.toLowerCase();
         const nameB = b.name.toLowerCase();
 
@@ -121,7 +121,7 @@ export default function Knowledge({knowledgeTaken, handleKnowledgeTaken}) {
                             <Table>
                             <TableRow>
                                 <TableCell sx={{ width: '20%' }}>
-                                    <IconButton color='primary' onClick={(e) => handleKnowledgeTaken(name, 'sub')}><RemoveCircleIcon/></IconButton>
+                                    <IconButton color='primary' onClick={(e) => handleLanguageTaken(name, 'sub')}><RemoveCircleIcon/></IconButton>
                                 </TableCell>
                                 <TableCell sx={{ width: '80%' }}>
                                     {name}
@@ -166,12 +166,12 @@ export default function Knowledge({knowledgeTaken, handleKnowledgeTaken}) {
                                     Add / Remove
                                 </TableCell>
                                 <TableCell sx={{ width: '80%' }}>
-                                    Knowledge Skill Name
+                                    Language Skill Name
                                 </TableCell>
                             </TableRow>
                         </Table>
                     </ListSubheader>
-                    {knowledgeList}
+                    {languageList}
                     <ListItem disablePadding={true}>
                             <ListItemText 
                                 primaryTypographyProps={{
@@ -187,7 +187,7 @@ export default function Knowledge({knowledgeTaken, handleKnowledgeTaken}) {
                                                     <AddCircleIcon/>
                                                 </TableCell>
                                                 <TableCell sx={{ width: '80%' }}>
-                                                    Add Knowledge Skill
+                                                    Add Language Skill
                                                 </TableCell>
                                             </TableRow>
                                         </Table>
@@ -195,7 +195,7 @@ export default function Knowledge({knowledgeTaken, handleKnowledgeTaken}) {
                                 }
                             />
                     </ListItem>
-                    <KnowledgeDialog
+                    <LanguageDialog
                         open={open}
                         onClose={handleClose}
                     />
