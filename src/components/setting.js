@@ -32,6 +32,7 @@ import Skills from './skills.js';
 import SkillDescription from './skill_desc.js';
 import Knowledge from './knowledge.js';
 import Language from './language.js';
+import Resources from './resources.js';
 import max from '../json/metatype_max_attrib.json';
 
 const subHeaderBackground = grey[400];
@@ -189,6 +190,7 @@ export default function Setting() {
     useEffect(() => {
         handleDefaultAttributePoints()
         handleDefaultSkillPoints()
+        handleDefaultResourcePoints()
         handleDefaultMysticAdept()
         console.log(
             priorityButtons,
@@ -779,6 +781,46 @@ export default function Setting() {
         }
     }
 
+    // This block handles all the information needed for resources.js
+    // This block holds the hooks that handle what resources are taken versus available
+
+    const [resourcePoints, setResourcePoints] = React.useState({
+        resource: 0,
+        maxResourecs: 0
+    })
+    useEffect(() => {
+        console.log(resourcePoints)
+    }, [resourcePoints])
+    const handleDefaultResourcePoints = () => {
+        let resourceValue = 0
+
+        switch(priorityButtons.resource) {
+            case 0:
+                resourceValue = 450000
+                break;
+            case 1:
+                resourceValue = 275000
+                break;
+            case 2:
+                resourceValue = 150000
+                break;
+            case 3:
+                resourceValue = 50000
+                break;
+            case 4:
+                resourceValue = 8000
+                break;
+            default:
+                break;
+        }
+
+        setResourcePoints(prevResourcePoints => ({
+            ...prevResourcePoints,
+            maxResourecs: resourceValue,
+            resource: resourceValue
+        }))
+    }
+
     // This section handles all the hooks needed for magic.js and magic_desc.js
     // These hooks are used to determine what magical subtype the runner will have
     // as well as allocate infromation required for certain subtypes
@@ -909,6 +951,7 @@ export default function Setting() {
                                 <TableCell><Typography variant='h1' style={{ fontSize: 16, fontFamily: 'Segoe UI', fontWeight: 500 }}>Attribute Points: {attributePoints.attrib}</Typography></TableCell>
                                 <TableCell><Typography variant='h1' style={{ fontSize: 16, fontFamily: 'Segoe UI', fontWeight: 500 }}>Skill Points: {skillPoints.skill}</Typography></TableCell>
                                 <TableCell><Typography variant='h1' style={{ fontSize: 16, fontFamily: 'Segoe UI', fontWeight: 500 }}>Knowledge Points: {knowledgePoints.know}</Typography></TableCell>
+                                <TableCell><Typography variant='h1' style={{ fontSize: 16, fontFamily: 'Segoe UI', fontWeight: 500 }}>Nuyen: {resourcePoints.resource}</Typography></TableCell>
                             </TableRow>
                         </Table>
                     </Item>
@@ -1068,17 +1111,23 @@ export default function Setting() {
                 }
                 {((activeStep == 6 && buttonState == 0 && priorityButtons.magic != 4) ||  // Display on step 5 if magic != 4
                   (activeStep == 5 && buttonState == 0 && priorityButtons.magic == 4)) && // Display on step 4 if magic == 4
-                  <>
-                    <Skills skillsTaken={skillsTaken} handleUpdateSkillsTaken={handleUpdateSkillsTaken} priorityButtons={priorityButtons}/>
-                    <SkillDescription/>
-                  </>
+                    <>
+                        <Skills skillsTaken={skillsTaken} handleUpdateSkillsTaken={handleUpdateSkillsTaken} priorityButtons={priorityButtons}/>
+                        <SkillDescription/>
+                    </>
                 }
                 {((activeStep == 7 && buttonState == 0 && priorityButtons.magic != 4) ||  // Display on step 7 if magic != 4
                   (activeStep == 6 && buttonState == 0 && priorityButtons.magic == 4)) && // Display on step 6 if magic == 4
-                  <>
-                    <Knowledge knowledgeTaken={knowledgeTaken} handleKnowledgeTaken={handleKnowledgeTaken}/>
-                    <Language languageTaken={languageTaken} handleLanguageTaken={handleLanguageTaken}/>
-                  </>
+                    <>
+                        <Knowledge knowledgeTaken={knowledgeTaken} handleKnowledgeTaken={handleKnowledgeTaken}/>
+                        <Language languageTaken={languageTaken} handleLanguageTaken={handleLanguageTaken}/>
+                    </>
+                }
+                {((activeStep == 8 && buttonState == 0 && priorityButtons.magic != 4) ||  // Display on step 8 if magic != 4
+                  (activeStep == 7 && buttonState == 0 && priorityButtons.magic == 4)) && // Display on step 7 if magic == 4
+                    <>
+                        <Resources/>
+                    </>
                 }
                 {/* This section handles the progress bar at the bottom */}
                 <Grid xs={12} sx={{display: 'flex', flexDirection: 'column'}}>

@@ -1,0 +1,2952 @@
+{
+    "Blades": {
+        "Core Rulebook": [
+            {
+                "Weapon": "Combat Axe",
+                "DV": "5P",
+                "Close": 9,
+                "Near": null,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 4,
+                "Concealability": 0,
+                "Cost": 500,
+                "Ability": "",
+                "Wireless": "",
+                "Ranged": false
+            },
+            {
+                "Weapon": "Combat Knife",
+                "DV": "3P",
+                "Close": 8,
+                "Near": 2,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 220,
+                "Ability": "Max range is 20 meters.",
+                "Wireless": "The knife displays an ARO of local maps and your GPS position, along with providing basic biomonitor data when in your hand.",
+                "Ranged": false
+            },
+            {
+                "Weapon": "Survival Knife",
+                "DV": "3P",
+                "Close": 8,
+                "Near": 2,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 220,
+                "Ability": "Max range is 20 meters.",
+                "Wireless": "",
+                "Ranged": false
+            },
+            {
+                "Weapon": "Forearm Snap Blades",
+                "DV": "3P",
+                "Close": 6,
+                "Near": null,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 185,
+                "Ability": "Can extend or retract wirelessly or mechanically. Costs a Minor Action.",
+                "Wireless": "Grants an Extra Minor Action on the turn when they are extended or retracted",
+                "Ranged": false
+            },
+            {
+                "Weapon": "Knife",
+                "DV": "2P",
+                "Close": 6,
+                "Near": 1,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 1,
+                "Concealability": 0,
+                "Cost": 20,
+                "Ability": "",
+                "Wireless": "",
+                "Ranged": false
+            },
+            {
+                "Weapon": "Katana",
+                "DV": "4P",
+                "Close": 10,
+                "Near": null,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 350,
+                "Ability": "",
+                "Wireless": "",
+                "Ranged": false
+            },
+            {
+                "Weapon": "Polearm",
+                "DV": "4P",
+                "Close": 8,
+                "Near": null,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 210,
+                "Ability": "",
+                "Wireless": "",
+                "Ranged": false
+            },
+            {
+                "Weapon": "Sword",
+                "DV": "3P",
+                "Close": 9,
+                "Near": null,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 320,
+                "Ability": "",
+                "Wireless": "",
+                "Ranged": false
+            }
+        ],
+        "Firing Squad": [
+            {
+                "WEAPON": "Hand Talons",
+                "DV": "2P",
+                "ATTACK RATINGS": "8/—/—/—/—",
+                "AVAILABILITY": "4(L)",
+                "COST": "75¥ (per individual blade)"
+            },
+            {
+                "WEAPON": "Horizon-Flynn Pilum",
+                "DV": "4P",
+                "ATTACK RATINGS": "10/8/—/—/—",
+                "AVAILABILITY": "4(L)",
+                "COST": "750¥"
+            },
+            {
+                "WEAPON": "Horizon-Flynn Pilum Movie Prop",
+                "DV": "3S",
+                "ATTACK RATINGS": "6/4/—/—/—",
+                "AVAILABILITY": "1(L)",
+                "COST": "250¥"
+            },
+            {
+                "WEAPON": "Kami (standard)",
+                "DV": "3P",
+                "ATTACK RATINGS": "8/—/—/—/—",
+                "AVAILABILITY": "3",
+                "COST": "100¥"
+            },
+            {
+                "WEAPON": "Kami (folding)",
+                "DV": "3P",
+                "ATTACK RATINGS": "8/—/—/—/—",
+                "AVAILABILITY": "3",
+                "COST": "100¥"
+            },
+            {
+                "WEAPON": "Kukri",
+                "DV": "3P",
+                "ATTACK RATINGS": "9/—/—/—/—",
+                "AVAILABILITY": "5",
+                "COST": "200¥"
+            },
+            {
+                "WEAPON": "Nodachi",
+                "DV": "5P",
+                "ATTACK RATINGS": "10/—/—/—/—",
+                "AVAILABILITY": "4",
+                "COST": "900¥"
+            },
+            {
+                "WEAPON": "Trench knife",
+                "DV": "3P/S",
+                "ATTACK RATINGS": "7/—/—/—/—",
+                "AVAILABILITY": "3",
+                "COST": "100¥"
+            }
+        ]
+    },
+    
+    "Clubs": {
+        "Core Rulebook": [
+            {
+                "Weapon": "Club",
+                "DV": "3S",
+                "Close": 6,
+                "Near": null,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 1,
+                "Concealability": 0,
+                "Cost": 65,
+                "Ability": "",
+                "Wireless": "",
+                "Ranged": false
+            },
+            {
+                "Weapon": "Extendable baton",
+                "DV": "2S",
+                "Close": 5,
+                "Near": null,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 52,
+                "Ability": "Can be extended and retracted wirelessly or mechanically. Costs a Minor Action. When extended has a Concealability Threshold of 4. This is reduced to 2 when retracted.",
+                "Wireless": "You gain a bonus Minor Action on a turn when you retract or extend the baton.",
+                "Ranged": false
+            },
+            {
+                "Weapon": "Sap",
+                "DV": "2S",
+                "Close": 6,
+                "Near": null,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 1,
+                "Concealability": 0,
+                "Cost": 75,
+                "Ability": "Has a Concealability Threshold of 4.",
+                "Wireless": "",
+                "Ranged": false
+            },
+            {
+                "Weapon": "Staff",
+                "DV": "4S",
+                "Close": 8,
+                "Near": null,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 1,
+                "Concealability": 0,
+                "Cost": 150,
+                "Ability": "",
+                "Wireless": "",
+                "Ranged": false
+            },
+            {
+                "Weapon": "Stun baton",
+                "DV": "5S(e)",
+                "Close": 6,
+                "Near": null,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 600,
+                "Ability": "The Stun Baton inflicts the Zapped status and is good for 10 charges before needing to recharge. Regains one charge per 10 seconds when plugged in. The charge can be activated wirelessly or mechanically, which takes a Minor Action.",
+                "Wireless": "You gain a bonus Minor Action on a turn when you activate a charge. The stun baton recharges without being plugged in, regaining one charge per half hour of wireless-enabled time.",
+                "Ranged": false
+            },
+            {
+                "Weapon": "Telescoping staff",
+                "DV": "4S",
+                "Close": 8,
+                "Near": null,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 250,
+                "Ability": "Can be extended and retracted wirelessly or mechanically. Costs a Minor Action.",
+                "Wireless": "You gain a bonus Minor Action on a turn when you retract or extend the staff.",
+                "Ranged": false
+            }
+        ],
+        "Firing Squad": [
+            {
+                "WEAPON": "Cougar Collapsible Staff/Spear",
+                "DV": "4S/4P",
+                "ATTACK RATINGS": "9/4/—/—/—",
+                "AVAILABILITY": "4",
+                "COST": "300¥"
+            },
+            {
+                "WEAPON": "Detachable blade",
+                "DV": "4P/4P",
+                "ATTACK RATINGS": "8/—/—/—/—",
+                "AVAILABILITY": "3",
+                "COST": "250¥"
+            },
+            {
+                "WEAPON": "Dassault Alpenstock",
+                "DV": "4S",
+                "ATTACK RATINGS": "8/—/—/—/—",
+                "AVAILABILITY": "3(L)",
+                "COST": "500¥"
+            },
+            {
+                "WEAPON": "Spear configuration (Blade)",
+                "DV": "4P",
+                "ATTACK RATINGS": "8/—/—/—/—",
+                "AVAILABILITY": "—",
+                "COST": "—"
+            },
+            {
+                "WEAPON": "Knife configuration (Blade)",
+                "DV": "2P",
+                "ATTACK RATINGS": "8/—/—/—/—",
+                "AVAILABILITY": "—",
+                "COST": "—"
+            },
+            {
+                "WEAPON": "Tactical hammer (short)",
+                "DV": "2P",
+                "ATTACK RATINGS": "8/—/—/—/—",
+                "AVAILABILITY": "4",
+                "COST": "200¥"
+            },
+            {
+                "WEAPON": "Tactical hammer (long)",
+                "DV": "4P",
+                "ATTACK RATINGS": "9/—/—/—/—",
+                "AVAILABILITY": "4",
+                "COST": "300¥"
+            },
+            {
+                "WEAPON": "Tactical hammer (knife/spike)",
+                "DV": "3P",
+                "ATTACK RATINGS": "8/—/—/—/—",
+                "AVAILABILITY": "4",
+                "COST": "additional 100¥"
+            }   
+        ]
+    },
+    "Exotic Melee Weapons": {
+        "Core Rulebook": [
+        ],
+        "Firing Squad": [
+            {
+                "WEAPON": "Ash Arms Standard Combat Chainsaw",
+                "DV": "4P",
+                "ATTACK RATINGS": "10/—/—/—/—",
+                "AVAILABILITY": "3",
+                "COST": "1,000¥"
+            },
+            {
+                "WEAPON": "Ash Arms Monofilament Combat Chainsaw",
+                "DV": "6P",
+                "ATTACK RATINGS": "10/—/—/—/—",
+                "AVAILABILITY": "3",
+                "COST": "3,000¥"
+            },
+            {
+                "WEAPON": "Bates-Brown Combat Boots",
+                "DV": "3S (STR x 2)",
+                "ATTACK RATINGS": "—/—/—/—/—",
+                "AVAILABILITY": "2",
+                "COST": "200¥"
+            },
+            {
+                "WEAPON": "Manriki chain",
+                "DV": "4S",
+                "ATTACK RATINGS": "5/6/—/—/—",
+                "AVAILABILITY": "2",
+                "COST": "150¥"
+            },
+            {
+                "WEAPON": "Tonfa",
+                "DV": "3S",
+                "ATTACK RATINGS": "6/—/—/—/—",
+                "AVAILABILITY": "1",
+                "COST": "75¥"
+            },
+            {
+                "WEAPON": "Urban Tribe Tomahawk Mk II",
+                "DV": "2P",
+                "ATTACK RATINGS": "10/9/—/—/—",
+                "AVAILABILITY": "3",
+                "COST": "150¥"
+            },
+            {
+                "WEAPON": "Xiphos Gladius",
+                "DV": "3P",
+                "ATTACK RATINGS": "10/—/—/—/—",
+                "AVAILABILITY": "4",
+                "COST": "300¥"
+            }   
+        ]
+    },
+    "Heritage Line": {
+        "Core Rulebook": [
+        ],
+        "Firing Squad": [
+            {
+                "WEAPON": "Bearded Axe",
+                "TYPE": "Blades",
+                "DV": "3P",
+                "ATTACK RATINGS": "11/—/—/—/—",
+                "AVAILABILITY": "3(L)",
+                "COST": "600¥"
+            },
+            {
+                "WEAPON": "Claymore",
+                "TYPE": "Blades",
+                "DV": "4P",
+                "ATTACK RATINGS": "12/—/—/—/—",
+                "AVAILABILITY": "3(L)",
+                "COST": "750¥"
+            },
+            {
+                "WEAPON": "Labrys",
+                "TYPE": "Blades",
+                "DV": "4P",
+                "ATTACK RATINGS": "10/—/—/—/—",
+                "AVAILABILITY": "3(L)",
+                "COST": "1,000¥"
+            },
+            {
+                "WEAPON": "Tomahawk",
+                "TYPE": "Blades",
+                "DV": "2P",
+                "ATTACK RATINGS": "10/9/—/—/—",
+                "AVAILABILITY": "3(L)",
+                "COST": "225¥"
+            },
+            {
+                "WEAPON": "Gunstock Warclub",
+                "TYPE": "Clubs",
+                "DV": "4S",
+                "ATTACK RATINGS": "10/6/—/—/—",
+                "AVAILABILITY": "3(L)",
+                "COST": "200¥"
+            },
+            {
+                "WEAPON": "Macuahuitl",
+                "TYPE": "Blade",
+                "DV": "3P",
+                "ATTACK RATINGS": "9/—/—/—/—",
+                "AVAILABILITY": "3(L)",
+                "COST": "200¥"
+            },
+            {
+                "WEAPON": "Shillelagh",
+                "TYPE": "Clubs",
+                "DV": "3S",
+                "ATTACK RATINGS": "8/—/—/—/—",
+                "AVAILABILITY": "3(L)",
+                "COST": "150¥"
+            },
+            {
+                "WEAPON": "Taiaha",
+                "TYPE": "Clubs",
+                "DV": "4S",
+                "ATTACK RATINGS": "9/—/—/—/—",
+                "AVAILABILITY": "3(L)",
+                "COST": "200¥"
+            },
+            {
+                "WEAPON": "Tonfa",
+                "TYPE": "Clubs",
+                "DV": "2S",
+                "ATTACK RATINGS": "7/—/—/—/—",
+                "AVAILABILITY": "3(L)",
+                "COST": "125¥"
+            },
+            {
+                "WEAPON": "War Fan",
+                "TYPE": "Exotic",
+                "DV": "1P",
+                "ATTACK RATINGS": "6/—/—/—/—",
+                "AVAILABILITY": "3(L)",
+                "COST": "175¥"
+            },
+            {
+                "WEAPON": "Chakram",
+                "TYPE": "Thrown",
+                "DV": "2P",
+                "ATTACK RATINGS": "10/9/3/—/—",
+                "AVAILABILITY": "3(L)",
+                "COST": "200¥"
+            },
+            {
+                "WEAPON": "Katar",
+                "TYPE": "Unarmed",
+                "DV": "3P",
+                "ATTACK RATINGS": "8/—/—/—/—",
+                "AVAILABILITY": "3(L)",
+                "COST": "200¥"
+            }   
+        ]
+    },
+    "Other Melee Weapons": {
+        "Core Rulebook": [
+            {
+                "Weapon": "Bike Chain",
+                "Type": "Unarmed",
+                "DV": "2S",
+                "Close": 5,
+                "Near": null,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 1,
+                "Concealability": 0,
+                "Cost": 15,
+                "Ability": "You gain a bonus Minor Action on a turn when you use the Trip Minor Action with this weapon.",
+                "Wireless": "",
+                "Ranged": false
+            },
+            {
+                "Weapon": "Bullwhip",
+                "Type": "Exotic",
+                "DV": "1P",
+                "Close": 6,
+                "Near": null,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 4,
+                "Concealability": 0,
+                "Cost": 255,
+                "Ability": "Add the attacker's Reaction instead of Strength for the Attack Rating on this weapon. You gain a bonus Minor Action on a turn when you use the Trip Minor Action with this weapon.",
+                "Wireless": "",
+                "Ranged": false
+            },
+            {
+                "Weapon": "Knucks",
+                "Type": "Unarmed",
+                "DV": "3P",
+                "Close": 6,
+                "Near": null,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 1,
+                "Concealability": 0,
+                "Cost": 100,
+                "Ability": "",
+                "Wireless": "",
+                "Ranged": false
+            },
+            {
+                "Weapon": "Shock Gloves",
+                "Type": "Unarmed",
+                "DV": "4S(e)",
+                "Close": 5,
+                "Near": null,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 4,
+                "Concealability": 0,
+                "Cost": 790,
+                "Ability": "The Shock Gloves inflict the Zapped status and are good for 10 charges before needing to recharge. Regains one charge per 10 seconds when plugged in. The charge can be activated wirelessly or mechanically, which takes a Minor Action.",
+                "Wireless": "You gain a bonus Minor Action on a turn when you activate a charge. The shock gloves regain one charge per half hour of wireless-enabled time.",
+                "Ranged": false
+            },
+            {
+                "Weapon": "Monofilament Whip",
+                "Type": "Exotic",
+                "DV": "6P",
+                "Close": 14,
+                "Near": null,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 6,
+                "Concealability": 0,
+                "Cost": 1300,
+                "Ability": "Add the attacker's Reaction instead of Strength for the Attack Rating on this weapon. On a critical glitch, the wielder always resists the base damage of the weapon.",
+                "Wireless": "The Monofilament Whip gains an Attack Rating increase of 2. The Monofilament Whip does not hit you on a critical glitch.",
+                "Ranged": false
+            }
+        ]
+    },
+    "Throwing Weapons / Projectiles (Figure out how to do this later)": {
+        "Core Rulebook": [
+            {
+                "WEAPON": "Bow",
+                "DV": "(Rating/2)P",
+                "ATTACK RATINGS": "(Rating/2)/(Rating)/(Rating/4)/—/—",
+                "AVAILABILITY": "(Rating/3)(L)",
+                "COST": "100 + (rating x 10)¥",
+                "Ability": "Nocking an arrow takes a Minor Action (Ready Weapon, p. 43). Bows have a rating that indicates the minimum Strength you need to use the weapon. The weapon's rating is also used to determine the damage. (Maximum rating is 14). Arrows also have ratings, and must equal or exceed that of the bow.",
+                "Wireless": ""
+            },
+            {
+                "WEAPON": "Arrow",
+                "DV": "—",
+                "ATTACK RATINGS": "—",
+                "AVAILABILITY": "(Rating/3)",
+                "COST": "(Rating x 2)¥",
+                "Ability": "",
+                "Wireless": ""
+            },
+            {
+                "WEAPON": "Injection arrow",
+                "DV": "—",
+                "ATTACK RATINGS": "4",
+                "AVAILABILITY": "(Rating x 20)¥",
+                "COST": "",
+                "Ability": "The injection arrow or bolt causes its base damage while also delivering a payload of one dose of a drug or toxin. A successful hit must deal at least one box of damage after the Damage Resistance test. Injection arrows and bolts come at a base rating of 8. Higher-rating models are available for heavier bows, but lower-rating models aren’t sturdy enough to deliver this heavier projectile.",
+                "Wireless": "The injection can be delayed until a wireless signal is sent. The injection also doesn’t need a box of damage; it just needs at least 1 net hit."
+            },
+            {
+                "WEAPON": "Light Crossbow",
+                "DV": "2P",
+                "ATTACK RATINGS": "6/8/2/—/—",
+                "AVAILABILITY": "3",
+                "COST": "150¥",
+                "Ability": "",
+                "Wireless": ""
+            },
+            {
+                "WEAPON": "Standard Crossbow",
+                "DV": "3P",
+                "ATTACK RATINGS": "2/10/4/2/—",
+                "AVAILABILITY": "3(L)",
+                "COST": "290¥",
+                "Ability": "",
+                "Wireless": ""
+            },
+            {
+                "WEAPON": "Heavy Crossbow",
+                "DV": "4P",
+                "ATTACK RATINGS": "2/8/6/4/—",
+                "AVAILABILITY": "4(L)",
+                "COST": "425¥",
+                "Ability": "",
+                "Wireless": ""
+            },
+            {
+                "WEAPON": "Bolt",
+                "DV": "—",
+                "ATTACK RATINGS": "—",
+                "AVAILABILITY": "2",
+                "COST": "5¥",
+                "Ability": "",
+                "Wireless": ""
+            },
+            {
+                "WEAPON": "Injection bolt",
+                "DV": "—",
+                "ATTACK RATINGS": "—",
+                "AVAILABILITY": "4",
+                "COST": "50¥",
+                "Ability": "The injection arrow or bolt causes its base damage while also delivering a payload of one dose of a drug or toxin. A successful hit must deal at least one box of damage after the Damage Resistance test. Injection arrows and bolts come at a base rating of 8. Higher-rating models are available for heavier bows, but lower-rating models aren’t sturdy enough to deliver this heavier projectile.",
+                "Wireless": "The injection can be delayed until a wireless signal is sent. The injection also doesn’t need a box of damage; it just needs at least 1 net hit."
+            },
+            {
+                "WEAPON": "Throwing knives",
+                "DV": "2P",
+                "ATTACK RATINGS": "10/9/3/—/—",
+                "AVAILABILITY": "2",
+                "COST": "155¥",
+                "Ability": "Up to (Agility/2) of these weapons can be readied for throwing with a Ready Weapon action.",
+                "Wireless": "Successful hits leave wireless weapons in targets that can be used to predict movement patterns and offer an estimated location. A successful hit offers anyone wirelessly linked to the throwing weapon and using a smartlink system a +1 dice pool bonus for their attacks."
+            },
+            {
+                "WEAPON": "Throwing stars",
+                "DV": "2P",
+                "ATTACK RATINGS": "9/11/5/—/—",
+                "AVAILABILITY": "2",
+                "COST": "160¥",
+                "Ability": "Up to (Agility/2) of these weapons can be readied for throwing with a Ready Weapon action.",
+                "Wireless": "Successful hits leave wireless weapons in targets that can be used to predict movement patterns and offer an estimated location. A successful hit offers anyone wirelessly linked to the throwing weapon and using a smartlink system a +1 dice pool bonus for their attacks."
+            }
+        ],
+        "Firing Squad": [
+            {
+                "WEAPON": "Light Bow",
+                "TYPE": "2P",
+                "DV": "SS",
+                "MODE": "6/8/2/—/—",
+                "ATTACK RATINGS": "4(m)",
+                "AMMO": "3(L)",
+                "AVAILABILITY": "300¥",
+                "Comments": "collapsible crossbows"
+            },
+            {
+                "WEAPON": "Standard Bow",
+                "TYPE": "3P",
+                "DV": "SS",
+                "MODE": "2/10/4/2/—",
+                "ATTACK RATINGS": "4(m)",
+                "AMMO": "3(L)",
+                "AVAILABILITY": "600¥",
+                "Comments": "collapsible crossbows"
+            },
+            {
+                "WEAPON": "Heavy Bow",
+                "TYPE": "4P",
+                "DV": "SS",
+                "MODE": "2/8/6/4/—",
+                "ATTACK RATINGS": "4(m)",
+                "AMMO": "4(L)",
+                "AVAILABILITY": "850¥",
+                "Comments": "collapsible crossbows"
+            }
+        ]
+    },
+    "Tasers": {
+        "Core Rulebook": [
+            {
+                "Weapon": "Defiance Super Shock",
+                "DV": "6S(e)",
+                "Close": 10,
+                "Near": 6,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 1,
+                "Concealability": 0,
+                "Cost": 340,
+                "Ability": "Max range 20 meters. After a successful hit, if the target does not knock the lines free, the attacker may use a Major Action to inflict the base damage of the weapon again.",
+                "Wireless": "A successful hit informs you of the status of the target’s basic health in terms of Condition Monitors (general statements, rather than exact number of boxes left).",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": false,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Yamaha Pulsar I",
+                "DV": "4S(e)",
+                "Close": 9,
+                "Near": 9,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 1,
+                "Concealability": 0,
+                "Cost": 325,
+                "Ability": "Max range 50 meters. The Pulsar I has no melee contacts.",
+                "Wireless": "A successful hit informs you of the status of the target’s basic health and Condition Monitors (general statements, rather than exact number of boxes left)",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": false,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Yamaha Pulsar II",
+                "DV": "4S(e)",
+                "Close": 9,
+                "Near": 9,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 1,
+                "Concealability": 0,
+                "Cost": 350,
+                "Ability": "Max range 50 meters. The Pulsar II includes a pair of contacts on the base of the grip to use in melee (treat these as a Close Combat attack as a Club)",
+                "Wireless": "A successful hit informs you of the status of the target’s basic health and Condition Monitors (general statements, rather than exact number of boxes left)",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": false,
+                "Underbarrel": false,
+                "Mods": []
+            }
+        ],
+        "Firing Squad": [   
+        ]
+    },
+    "Hold-Outs": {
+        "Core Rulebook": [
+            {
+                "Weapon": "Fichetti Tiffani Needler",
+                "DV": "3P",
+                "Close": 10,
+                "Near": 6,
+                "Medium": 2,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 435,
+                "Ability": "",
+                "Wireless": "You can change the color of the Fichetti Tiffani Needler with a Minor Action. Applying a camouflage pattern to the Needler increases the concealability threshold by 1 for visual Perception tests.",
+                "Ranged": true,
+                "Top": false,
+                "Barrel": false,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Streetline Special",
+                "DV": "2P",
+                "Close": 8,
+                "Near": 8,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 200,
+                "Ability": "",
+                "Wireless": "Designed for cheap 3D nanoprinting, the Streetline Special is made of composite materials, making it harder to detect with MAD scanners (increasing the threshold to detect it by 1).",
+                "Ranged": true,
+                "Top": false,
+                "Barrel": false,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Walther Palm Pistol",
+                "DV": "2P",
+                "Close": 12,
+                "Near": 7,
+                "Medium": null,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 345,
+                "Ranged": true,
+                "Top": false,
+                "Barrel": false,
+                "Underbarrel": false,
+                "Mods": []
+            }
+        ],
+        "Firing Squad": [ 
+            {
+                "WEAPON": "Colt Secret Agent",
+                "DV": "2P",
+                "MODE": "SS",
+                "ATTACK RATINGS": "9/7/—/—/—",
+                "AMMO": "6(c)",
+                "AVAILABILITY": "3",
+                "COST": "550¥"
+            }  
+        ]
+    },
+    "Light Pistols": {
+        "Core Rulebook": [
+            {
+                "Weapon": "Ares Light Fire 70",
+                "DV": "2P",
+                "Close": 10,
+                "Near": 7,
+                "Medium": 6,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 350,
+                "Ability": "",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Ares Light Fire 75",
+                "DV": "2P",
+                "Close": 10,
+                "Near": 7,
+                "Medium": 6,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 400,
+                "Ability": "The 75 comes preloaded with smartlink hardware and software, and both come with a laser sight. The silencer for these models increases the threshold for audio Perception tests by 3 for the Light Fire Series when equipped and costs 750¥.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Beretta 101T",
+                "DV": "2P",
+                "Close": 9,
+                "Near": 8,
+                "Medium": 6,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 260,
+                "Ability": "",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Beretta 201T",
+                "DV": "2P",
+                "Close": 9,
+                "Near": 8,
+                "Medium": 6,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 460,
+                "Ability": "The 201 also comes with a detachable shoulder stock, though it is often lost before the gun reaches the street market.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Colt America L36",
+                "DV": "2P",
+                "Close": 8,
+                "Near": 8,
+                "Medium": 6,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 230,
+                "Ability": "",
+                "Wireless": "The user can alter ownership data with a Minor Action.",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Fichetti Security 600",
+                "DV": "2P",
+                "Close": 10,
+                "Near": 9,
+                "Medium": 6,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 390,
+                "Ability": "The Security 600 comes with a detachable folding stock and laser sight.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Ruger Redhawk",
+                "DV": "3P",
+                "Close": 7,
+                "Near": 10,
+                "Medium": 7,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 250,
+                "Ability": "",
+                "Wireless": " You get an extra Minor Action in a turn where you change the action selection.",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            }
+        ],
+        "Firing Squad": [   
+            {
+                "WEAPON": "Colt Agent Special",
+                "DV": "3P",
+                "MODE": "SS/SA",
+                "ATTACK RATINGS": "10/8/—/—/—",
+                "AMMO": "8(c)",
+                "AVAILABILITY": "3",
+                "COST": "400¥"
+            },
+            {
+                "WEAPON": "HK P50",
+                "DV": "2P",
+                "MODE": "SA",
+                "ATTACK RATINGS": "10/8/5/—/—",
+                "AMMO": "15(c)",
+                "AVAILABILITY": "2(L)",
+                "COST": "450¥"
+            }
+        ]
+    },
+    "Machine Pistols": {
+        "Core Rulebook": [
+            {
+                "Weapon": "Ares Crusader II",
+                "DV": "2P",
+                "Close": 9,
+                "Near": 9,
+                "Medium": 7,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 4,
+                "Concealability": 0,
+                "Cost": 520,
+                "Ability": "The Ares brand is synonymous with functionality, and the Crusader II integrates a gas-vent recoil compensation system and comes standard with smartgun systems and software preloaded.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Ceska Black Scorpion",
+                "DV": "2P",
+                "Close": 10,
+                "Near": 9,
+                "Medium": 8,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 510,
+                "Ability": "Small and lethal, but not designed for beauty. Burst Fire capable from the get-go, it also comes equipped with an integral folding stock.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Steyr TMP",
+                "DV": "2P",
+                "Close": 8,
+                "Near": 8,
+                "Medium": 6,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 690,
+                "Ability": "A top-mounted laser sight comes standard to make users think they’ll be aiming.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            }
+        ],
+        "Firing Squad": [
+            {
+                "WEAPON": "Colt M-24",
+                "DV": "3P",
+                "MODE": "SA/BF/FA",
+                "ATTACK RATINGS": "8/9/8/—/—",
+                "AMMO": "30(c)",
+                "AVAILABILITY": "4(L)",
+                "COST": "720¥"
+            },
+            {
+                "WEAPON": "Ultimax 71",
+                "DV": "2P",
+                "MODE": "BF/FA",
+                "ATTACK RATINGS": "10/8/8/—/—",
+                "AMMO": "15(c)",
+                "AVAILABILITY": "3(L)",
+                "COST": "550¥"
+            }
+        ]
+    },
+    "Heavy Pistols": {
+        "Core Rulebook": [
+            {
+                "Weapon": "Ares Predator VI",
+                "DV": "3P",
+                "Close": 10,
+                "Near": 10,
+                "Medium": 8,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 750,
+                "Ability": "The variable ammunition system allows a single specially designed magazine (30¥ per spare) to be loaded with different ammo types. The smartgun is used to select ammo types and cycles them to the chamber in whatever quantity is necessary and available. If there aren’t enough rounds of a particular kind, the ammo counter reads empty and the weapon stops firing.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Ares Viper Slivergun",
+                "DV": "4P(fl)",
+                "Close": 12,
+                "Near": 8,
+                "Medium": 6,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 4,
+                "Concealability": 0,
+                "Cost": 610,
+                "Ability": "",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Browning Ultra Power",
+                "DV": "3P",
+                "Close": 10,
+                "Near": 9,
+                "Medium": 6,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 315,
+                "Ability": "",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Colt Government 2076",
+                "DV": "3P",
+                "Close": 10,
+                "Near": 8,
+                "Medium": 6,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 275,
+                "Ability": "The 2076 takes a jump back to the style of the classic Manhunter and comes with an integral laser sight.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Manhunter",
+                "DV": "3P",
+                "Close": 10,
+                "Near": 8,
+                "Medium": 6,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 500,
+                "Ability": "",
+                "Wireless": "Comes with an integral laser sight and smartgun system.",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Ruger Super Warhawk",
+                "DV": "4P",
+                "Close": 8,
+                "Near": 11,
+                "Medium": 8,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 400,
+                "Ability": "",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            }
+        ],
+        "Firing Squad": [  
+            {
+                "WEAPON": "Cavalier Marshal",
+                "DV": "3P",
+                "MODE": "SS/SA",
+                "ATTACK RATINGS": "8/10/6/—/—/—",
+                "AMMO": "6(cy)",
+                "AVAILABILITY": "2(L)",
+                "COST": "650¥"
+            },
+            {
+                "WEAPON": "HK P60 Tactical",
+                "DV": "3P",
+                "MODE": "SA",
+                "ATTACK RATINGS": "9/10/6/—/—",
+                "AMMO": "15(c)",
+                "AVAILABILITY": "2(L)",
+                "COST": "700¥"
+            },
+            {
+                "WEAPON": "Nemesis Arms Praetorian II",
+                "DV": "3P",
+                "MODE": "SA",
+                "ATTACK RATINGS": "9/8/8/—/—",
+                "AMMO": "12(c)",
+                "AVAILABILITY": "3(L)",
+                "COST": "500¥"
+            },
+            {
+                "WEAPON": "Praetorian II",
+                "DV": "Blade 2P",
+                "MODE": "—",
+                "ATTACK RATINGS": "6/—/—/—/—",
+                "AMMO": "—",
+                "AVAILABILITY": "—",
+                "COST": "—"
+            } 
+        ]
+    },
+    "Submachine Guns": {
+        "Core Rulebook": [
+            {
+                "Weapon": "Colt Cobra TZ-100",
+                "DV": "3P",
+                "Close": 9,
+                "Near": 9,
+                "Medium": 6,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 730,
+                "Ability": "The 100 is the base model with an integral folding stock.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Colt Cobra TZ-110",
+                "DV": "3P",
+                "Close": 10,
+                "Near": 10,
+                "Medium": 7,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 785,
+                "Ability": "The 110 is the model with an integral folding stock and top-mounted laser sight.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Colt Cobra TZ-120",
+                "DV": "3P",
+                "Close": 10,
+                "Near": 11,
+                "Medium": 8,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 840,
+                "Ability": "The 120 is the model with an integral folding stock, top-mounted laser sight, and barrel-mounted gas-vent system.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "FN P93 Praetor",
+                "DV": "4P",
+                "Close": 9,
+                "Near": 12,
+                "Medium": 7,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 4,
+                "Concealability": 0,
+                "Cost": 925,
+                "Ability": "The Praetor offers an integrated rigid stock, a laser sight, and a flashlight with three settings to benefit low-light, thermographic, or regular vision.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "HK-227",
+                "DV": "3P",
+                "Close": 10,
+                "Near": 11,
+                "Medium": 8,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 825,
+                "Ability": "the HK–227 offers a retractable stock, integrated smartgun system, and an integral barrel-mounted silencer.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Ingram Smartgun XI",
+                "DV": "3P",
+                "Close": 11,
+                "Near": 9,
+                "Medium": 6,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 750,
+                "Ability": "Ingram Smartgun comes tricked out with a gas-vent system, a smartgun system, and an integral silencer.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "SCK Model 100",
+                "DV": "3P",
+                "Close": 10,
+                "Near": 10,
+                "Medium": 7,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 725,
+                "Ability": "The Model 100 features an internal smartgun system and a folding stock.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Uzi V",
+                "DV": "3P",
+                "Close": 8,
+                "Near": 8,
+                "Medium": 7,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 455,
+                "Ability": "The V model features an integral folding stock and built-in top-mounted laser sight.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": false,
+                "Mods": []
+            }
+        ],
+        "Firing Squad": [
+            {
+                "WEAPON": "Cavalier-Parashield Emergency Responder",
+                "DV": "3P",
+                "MODE": "SA/BF",
+                "ATTACK RATINGS": "10/8/8/—/—",
+                "AMMO": "32(c)",
+                "AVAILABILITY": "3(L)",
+                "COST": "800¥"
+            },
+            {
+                "WEAPON": "Dart Gun",
+                "DV": "Per toxin",
+                "MODE": "SS/SA",
+                "ATTACK RATINGS": "10/8/—/—/—",
+                "AMMO": "6(c)",
+                "AVAILABILITY": "—",
+                "COST": "—"
+            },
+            {
+                "WEAPON": "Shiawase Arms Tactical Model 72",
+                "DV": "2P",
+                "MODE": "SA/BF/FA",
+                "ATTACK RATINGS": "10/11/9/—/—",
+                "AMMO": "28(c)",
+                "AVAILABILITY": "4(L)",
+                "COST": "900¥"
+            }
+        ]
+    },
+    "Shotguns": {
+        "Core Rulebook": [
+            {
+                "Weapon": "Standard Defiance T-250",
+                "DV": "4P",
+                "Close": 7,
+                "Near": 10,
+                "Medium": 6,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 330,
+                "Ability": "Glitch jams can be cleared with a minor action.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "Short-Barrel Defiance T-250",
+                "DV": "3P",
+                "Close": 8,
+                "Near": 8,
+                "Medium": 4,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 3,
+                "Cost": 330,
+                "Ability": "Glitch jams can be cleared with a minor action. Concealability Threshold of 3.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "Mossberg CMDT",
+                "DV": "4P",
+                "Close": 4,
+                "Near": 11,
+                "Medium": 7,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 4,
+                "Concealability": 0,
+                "Cost": 700,
+                "Ability": "Top-mounted laser sight.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "PJSS Model 55",
+                "DV": "4P",
+                "Close": 3,
+                "Near": 12,
+                "Medium": 8,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 5,
+                "Concealability": 0,
+                "Cost": 325,
+                "Ability": "The Model 55 comes with a rigid stock equipped with an integrated shock pad. Both barrels can be shot at once as a short burst (see Not Enough Rounds, p. 109).",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "Remington Roomsweeper",
+                "DV": "5P",
+                "Close": 9,
+                "Near": 8,
+                "Medium": 4,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 325,
+                "Ability": "",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            }
+        ],
+        "Firing Squad": [
+            {
+                "WEAPON": "Colt MS-27",
+                "DV": "4P",
+                "MODE": "SA/BF/FA",
+                "ATTACK RATINGS": "5/11/8/—/—",
+                "AMMO": "12(c)",
+                "AVAILABILITY": "3(L)",
+                "COST": "950¥"
+            },
+            {
+                "WEAPON": "Defiance T-285",
+                "DV": "4P",
+                "MODE": "SS",
+                "ATTACK RATINGS": "8/11/6/—/—",
+                "AMMO": "3(m)",
+                "AVAILABILITY": "2(L)",
+                "COST": "275¥"
+            },
+            {
+                "WEAPON": "Franchi Spas-24",
+                "DV": "4P",
+                "MODE": "SA/BF",
+                "ATTACK RATINGS": "4/11/6/—/—",
+                "AMMO": "10(m)",
+                "AVAILABILITY": "3(L)",
+                "COST": "750¥"
+            },
+            {
+                "WEAPON": "Ranger Arms AA-16",
+                "DV": "5P",
+                "MODE": "SA/BF/FA",
+                "ATTACK RATINGS": "5/11/7/—/—",
+                "AMMO": "12(c)",
+                "AVAILABILITY": "6(I)",
+                "COST": "2,050¥"
+            }
+        ]
+    },
+    "Rifles": {
+        "Core Rulebook": [
+            {
+                "Weapon": "AK-97",
+                "DV": "5P",
+                "Close": 4,
+                "Near": 11,
+                "Medium": 9,
+                "Far": 7,
+                "Extreme": 1,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 2100,
+                "Ability": "",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "Ares Alpha",
+                "DV": "4P",
+                "Close": 4,
+                "Near": 10,
+                "Medium": 9,
+                "Far": 7,
+                "Extreme": 2,
+                "Availability": 5,
+                "Concealability": 0,
+                "Cost": 3400,
+                "Ability": "The integrated underbarrel grenade launcher, smartgun system, and an innovative design for superior handling make it special.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "Colt M23",
+                "DV": "4P",
+                "Close": 5,
+                "Near": 8,
+                "Medium": 8,
+                "Far": 8,
+                "Extreme": 1,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 2100,
+                "Ability": "The M23 can accept two additional underbarrel accessories for a total of three.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "FN-HAR",
+                "DV": "5P",
+                "Close": 3,
+                "Near": 11,
+                "Medium": 10,
+                "Far": 6,
+                "Extreme": 1,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 2100,
+                "Ability": "They made this weapon, which features a laser sight and a gas-vent system.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "Yamaha Raiden",
+                "DV": "4P",
+                "Close": 4,
+                "Near": 11,
+                "Medium": 10,
+                "Far": 7,
+                "Extreme": 2,
+                "Availability": 5,
+                "Concealability": 0,
+                "Cost": 3200,
+                "Ability": "It features an integral silencer, smartgun system, and underbarrel shotgun/grenade launcher.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "Ares Desert Strike",
+                "DV": "5P",
+                "Close": 3,
+                "Near": 10,
+                "Medium": 10,
+                "Far": 10,
+                "Extreme": 10,
+                "Availability": 4,
+                "Concealability": 0,
+                "Cost": 11000,
+                "Ability": "Built to fight in the harshest conditions, the Desert Strike comes equipped with a rigid stock with shock pad and a detachable imaging scope.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "Cavalier Arms Crockett EBR",
+                "DV": "5P",
+                "Close": 3,
+                "Near": 8,
+                "Medium": 11,
+                "Far": 8,
+                "Extreme": 8,
+                "Availability": 5,
+                "Concealability": 0,
+                "Cost": 9050,
+                "Ability": "The Crockett comes standard with a rigid stock with shock pad and a detachable imaging scope.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "Ranger Arms SM-6",
+                "DV": "5P",
+                "Close": 3,
+                "Near": 6,
+                "Medium": 9,
+                "Far": 11,
+                "Extreme": 12,
+                "Availability": 5,
+                "Concealability": 0,
+                "Cost": 13200,
+                "Ability": "This sniper rifle features a silencer, an imaging scope, a smartgun system, and a rigid stock with shock pad. The SM–6 carries on the line’s ability to quickly get into the action and then get out just as fast. It can fit into a standard briefcase; setting it up or breaking it down takes a Firearms + Logic (6, Major Action) Extended test. The SM-6 has dealt with the line’s fragility issues, and once put together it has no problem operating in any capacity.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "Remington 900",
+                "DV": "5P",
+                "Close": 2,
+                "Near": 7,
+                "Medium": 10,
+                "Far": 12,
+                "Extreme": 11,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 12000,
+                "Ability": "The base model is sold with a top-mounted imaging scope, but it cannot mount underbarrel accessories.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "Ruger 101",
+                "DV": "5P",
+                "Close": 2,
+                "Near": 6,
+                "Medium": 10,
+                "Far": 12,
+                "Extreme": 11,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 11100,
+                "Ability": " It features a built-in imaging scope and a rigid stock with shock pad.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "Barret Model 122",
+                "DV": "6P",
+                "Close": 1,
+                "Near": 8,
+                "Medium": 11,
+                "Far": 16,
+                "Extreme": 14,
+                "Availability": 6,
+                "Concealability": 0,
+                "Cost": 15200,
+                "Ability": "It has a silencer, smartgun system, and folding bipod.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            }
+        ],
+        "Firing Squad": [
+            {
+                "WEAPON": "Izom Artemis",
+                "DV": "3P",
+                "MODE": "BF/FA",
+                "ATTACK RATINGS": "4/10/8/—/—",
+                "AMMO": "8(c)",
+                "AVAILABILITY": "4(L)",
+                "COST": "1,800¥"
+            },
+            {
+                "WEAPON": "Grenade Launcher",
+                "DV": "DV",
+                "MODE": "As grenade",
+                "ATTACK RATINGS": "SS",
+                "AMMO": "3/9/5/1/—",
+                "AVAILABILITY": "1(m)",
+                "COST": "—"
+            },
+            {
+                "WEAPON": "Onotari Arms JP-K51",
+                "DV": "5P",
+                "MODE": "SA/BF",
+                "ATTACK RATINGS": "1/8/12/8/8",
+                "AMMO": "26(m)",
+                "AVAILABILITY": "4(L)",
+                "COST": "9,600¥"
+            },
+            {
+                "WEAPON": "Onotari Arms Kali II",
+                "DV": "4P",
+                "MODE": "SA/BF/FA",
+                "ATTACK RATINGS": "7/11/9/4/—",
+                "AMMO": "32(c)",
+                "AVAILABILITY": "4(L)",
+                "COST": "2,900¥"
+            },
+            {
+                "WEAPON": "Onotari Arms Rhino Hunter Alpha/Beta",
+                "DV": "6P",
+                "MODE": "SS",
+                "ATTACK RATINGS": "1/4/11/11/10",
+                "AMMO": "7(m)",
+                "AVAILABILITY": "4(L)",
+                "COST": "12,500¥"
+            },
+            {
+                "WEAPON": "Onotari Arms War Hound",
+                "DV": "5P",
+                "MODE": "SA/BF/FA",
+                "ATTACK RATINGS": "4/11/9/6/2",
+                "AMMO": "38(c)",
+                "AVAILABILITY": "5(L)",
+                "COST": "3,100¥"
+            },
+            {
+                "WEAPON": "Shotgun",
+                "DV": "3P",
+                "MODE": "SS/SA",
+                "ATTACK RATINGS": "7/10/6/—/—",
+                "AMMO": "6(c)",
+                "AVAILABILITY": "—",
+                "COST": "—"
+            },
+            {
+                "WEAPON": "PSG Enforcer II",
+                "DV": "5P",
+                "MODE": "SS",
+                "ATTACK RATINGS": "1/8/12/12/6",
+                "AMMO": "12",
+                "AVAILABILITY": "x2(c)",
+                "COST": "7(L)"
+            },
+            {
+                "WEAPON": "Ranger Arms M-1400 “Springfield”",
+                "DV": "5P",
+                "MODE": "SA/BF",
+                "ATTACK RATINGS": "1/7/10/9/8",
+                "AMMO": "20(m)",
+                "AVAILABILITY": "4(L)",
+                "COST": "7,500¥"
+            },
+            {
+                "WEAPON": "Shiawase Arms Model 73",
+                "DV": "4P",
+                "MODE": "SA/BF/FA",
+                "ATTACK RATINGS": "4/11/10/8/3",
+                "AMMO": "100(c)",
+                "AVAILABILITY": "5(L)",
+                "COST": "5,500¥"
+            },
+            {
+                "WEAPON": "Shiawase Arms Tactical Model 69",
+                "DV": "6P",
+                "MODE": "SA",
+                "ATTACK RATINGS": "1/8/12/16/12",
+                "AMMO": "10(m)",
+                "AVAILABILITY": "5(I)",
+                "COST": "16,000¥"
+            },
+            {
+                "WEAPON": "Ultimax 83",
+                "DV": "5P",
+                "MODE": "FA",
+                "ATTACK RATINGS": "4/8/8/6/4",
+                "AMMO": "48(c)",
+                "AVAILABILITY": "2(L)",
+                "COST": "1,800¥"
+            }
+        ]
+    },
+    "Light Machine Guns": {
+        "Core Rulebook": [
+            {
+                "Weapon": "Ingram Valiant",
+                "DV": "4P",
+                "Close": 2,
+                "Near": 11,
+                "Medium": 12,
+                "Far": 7,
+                "Extreme": 3,
+                "Availability": 4,
+                "Concealability": 0,
+                "Cost": 4175,
+                "Ability": "Basic equipment includes a rigid stock with shock pad, a laser sight, and a barrel-mounted gas-vent system.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            }            
+        ],
+        "Firing Squad": [
+        ]
+    },
+    "Medium Machine Guns": {
+        "Core Rulebook": [
+            {
+                "Weapon": "Stoner-Ares M202",
+                "DV": "5P",
+                "Close": 1,
+                "Near": 10,
+                "Medium": 11,
+                "Far": 7,
+                "Extreme": 6,
+                "Availability": 4,
+                "Concealability": 0,
+                "Cost": 6900,
+                "Ability": "Requires 3+ Strength to use.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            }
+            
+        ],
+        "Firing Squad": [
+        ]
+    },
+    "Heavy Machine Guns": {
+        "Core Rulebook": [
+            {
+                "Weapon": "RPK HMG",
+                "DV": "6P",
+                "Close": 1,
+                "Near": 10,
+                "Medium": 12,
+                "Far": 8,
+                "Extreme": 7,
+                "Availability": 5,
+                "Concealability": 0,
+                "Cost": 8000,
+                "Ability": "Usually set up as a vehicle-mounted weapon, it comes standard with a detachable tripod, as the RPK is best fired from a prone, sitting, or kneeling position when not mounted on a vehicle. Requires a 5+ Strength to use.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            }
+            
+        ],
+        "Firing Squad": [
+        ]
+    },
+    "Assault Cannons": {
+        "Core Rulebook": [
+            {
+                "Weapon": "Panther XXL",
+                "DV": "7P",
+                "Close": 1,
+                "Near": 9,
+                "Medium": 12,
+                "Far": 8,
+                "Extreme": 6,
+                "Availability": 6,
+                "Concealability": 0,
+                "Cost": 10000,
+                "Ability": "To make sure every shot counts, it comes with a built-in smartgun system. Requires a 5+ Strength to use.",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": true,
+                "Underbarrel": true,
+                "Mods": []
+            }
+            
+        ],
+        "Firing Squad - Still Assumes Machine Guns / Assault Cannons": [
+            {
+                "WEAPON": "Ares M-22A1 “Mad Mamma”",
+                "DV": "7P",
+                "MODE": "FA",
+                "ATTACK RATINGS": "1/10/10/10/8",
+                "AMMO": "100(belt)",
+                "AVAILABILITY": "6(I)",
+                "COST": "15,000¥",
+                "Comments": "machine guns"
+            },
+            {
+                "WEAPON": "Crackshot Arms Roaring Thunder",
+                "DV": "3P",
+                "MODE": "BF/FA",
+                "ATTACK RATINGS": "4/12/10/—/—",
+                "AMMO": "100(belt)",
+                "AVAILABILITY": "4(L)",
+                "COST": "5,500¥",
+                "Comments": "machine guns"
+            },
+            {
+                "WEAPON": "Ingram Black Knight",
+                "DV": "6P",
+                "MODE": "BF/FA",
+                "ATTACK RATINGS": "1/10/11/8/8",
+                "AMMO": "10(m)",
+                "AVAILABILITY": "3(L)",
+                "COST": "9,200¥",
+                "Comments": "machine guns"
+            },
+            {
+                "WEAPON": "Ingram Grey Knight",
+                "DV": "5P",
+                "MODE": "BF/FA",
+                "ATTACK RATINGS": "2/10/10/8/6",
+                "AMMO": "50(c) or 100 (belt)",
+                "AVAILABILITY": "5(L)",
+                "COST": "7,500¥",
+                "Comments": "machine guns"
+            },
+            {
+                "WEAPON": "Ingram White Knight Mod 1",
+                "DV": "4P",
+                "MODE": "SA/BF/FA",
+                "ATTACK RATINGS": "2/11/12/8/2",
+                "AMMO": "50(c) or 100 (belt)",
+                "AVAILABILITY": "4(L)",
+                "COST": "5,650¥",
+                "Comments": "machine guns"
+            },
+            {
+                "WEAPON": "Ingram White Knight Mod 2",
+                "DV": "3P",
+                "MODE": "SS/SA/BF",
+                "ATTACK RATINGS": "4/10/10/4/—",
+                "AMMO": "50(c) or 100 (belt)",
+                "AVAILABILITY": "3(L)",
+                "COST": "750¥",
+                "Comments": "machine guns"
+            },
+            {
+                "WEAPON": "Shiawase Arms Nemesis",
+                "DV": "4P",
+                "MODE": "BF/FA",
+                "ATTACK RATINGS": "4/11/11/8/2",
+                "AMMO": "50(c) or 100 (belt)",
+                "AVAILABILITY": "4(L)",
+                "COST": "4,550¥",
+                "Comments": "machine guns"
+            }
+        ]
+    },
+    "Special Weapons (Exotic)": {
+        "Core Rulebook": [
+            {
+                "Weapon": "Ares Super Squirt Special",
+                "DV": "SS",
+                "Close": 8,
+                "Near": 12,
+                "Medium": 9,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 560,
+                "Concealability": 0,
+                "Cost": 0,
+                "Ability": "The attack itself causes no damage, but when the target is hit successfully, the DMSO delivers the substance directly into the target’s bloodstream as a Contact-vector toxin (see Toxins and Drugs, p. 121).",
+                "Wireless": "",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": false,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Parashield DART Pistol",
+                "DV": "1P + special",
+                "Close": 9,
+                "Near": 10,
+                "Medium": 8,
+                "Far": null,
+                "Extreme": null,
+                "Availability": 2,
+                "Concealability": 0,
+                "Cost": 510,
+                "Ability": "",
+                "Wireless": "The dart reports whether or not it has struck home and successfully injected along with the effect based on heart rate and pulse levels, although its medical sensors are not very sophisticated (Device Rating of 1 for the dart).",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": false,
+                "Underbarrel": false,
+                "Mods": []
+            },
+            {
+                "Weapon": "Parashield DART Rifle",
+                "DV": "1P + special",
+                "Close": 5,
+                "Near": 8,
+                "Medium": 11,
+                "Far": 3,
+                "Extreme": null,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 710,
+                "Ability": "The rifle includes a top-mounted imaging scope and can mount top and underbarrel accessories.",
+                "Wireless": "The dart reports whether or not it has struck home and successfully injected along with the effect based on heart rate and pulse levels, although its medical sensors are not very sophisticated (Device Rating of 1 for the dart).",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": false,
+                "Underbarrel": true,
+                "Mods": []
+            }
+            
+        ],
+        "Firing Squad": [
+            {
+                "WEAPON": "Ares Arms Vigorous",
+                "DV": "7P",
+                "MODE": "SA",
+                "ATTACK RATINGS": "1/19/11/9/6",
+                "AMMO": "15(c)",
+                "AVAILABILITY": "4(I)",
+                "COST": "12,500¥",
+                "Comments": "special"
+            },
+            {
+                "WEAPON": "Ares Charybdis",
+                "DV": "6S",
+                "MODE": "SS",
+                "ATTACK RATINGS": "10/12/8/—/—",
+                "AMMO": "Special",
+                "AVAILABILITY": "5(L)",
+                "COST": "6,000¥",
+                "Comments": "special"
+            },
+            {
+                "WEAPON": "Ares Scylla",
+                "DV": "7S",
+                "MODE": "SS",
+                "ATTACK RATINGS": "8/10/6/—/—",
+                "AMMO": "Special",
+                "AVAILABILITY": "8(I)",
+                "COST": "15,000¥",
+                "Comments": "special"
+            },
+            {
+                "WEAPON": "Crackshot Arms Regulator",
+                "DV": "All stats as weapon",
+                "MODE": "—",
+                "ATTACK RATINGS": "—",
+                "AMMO": "—",
+                "AVAILABILITY": "3(L)",
+                "COST": "850¥",
+                "Comments": "special"
+            },
+            {
+                "WEAPON": "Narcoject Hornet",
+                "DV": "as toxin",
+                "MODE": "SS",
+                "ATTACK RATINGS": "6/8/10/—/—",
+                "AMMO": "9(m)",
+                "AVAILABILITY": "3",
+                "COST": "500¥",
+                "Comments": "special"
+            },
+            {
+                "WEAPON": "Shiawase Blazer",
+                "DV": "6P",
+                "MODE": "SS",
+                "ATTACK RATINGS": "14/12/10/—/—",
+                "AMMO": "5(m)",
+                "AVAILABILITY": "4(L)",
+                "COST": "2,500¥",
+                "Comments": "special"
+            },
+            {
+                "WEAPON": "Sungard Jewelry",
+                "DV": "Special",
+                "MODE": "Special",
+                "ATTACK RATINGS": "Special",
+                "AMMO": "Special",
+                "AVAILABILITY": "5(L)",
+                "COST": "2,000+¥",
+                "Comments": "special"
+            }
+        ]
+    },
+    "Horizon-Flynn Defense-Com Weapons": {
+        "Core Rulebook": [
+        ],
+        "Firing Squad": [
+            {
+                "WEAPON": "Hold-out Pistol",
+                "DV": "2P",
+                "MODE": "SS",
+                "ATTACK RATINGS": "10/10/—/—/—",
+                "AMMO": "8(m)",
+                "AVAILABILITY": "3",
+                "COST": "250¥"
+            },
+            {
+                "WEAPON": "Light Pistol",
+                "DV": "2P",
+                "MODE": "SS/SA",
+                "ATTACK RATINGS": "8/10/4/—/—",
+                "AMMO": "6(m)",
+                "AVAILABILITY": "3(L)",
+                "COST": "350¥"
+            },
+            {
+                "WEAPON": "Taser/Stun Gun",
+                "DV": "5S(e)",
+                "MODE": "SS",
+                "ATTACK RATINGS": "8/8/6/—/—",
+                "AMMO": "4(m)",
+                "AVAILABILITY": "3",
+                "COST": "350¥"
+            },
+            {
+                "WEAPON": "Knife",
+                "DV": "2P",
+                "MODE": "n/a",
+                "ATTACK RATINGS": "6/—/—/—/—",
+                "AMMO": "n/a",
+                "AVAILABILITY": "3",
+                "COST": "200¥"
+            },
+            {
+                "WEAPON": "Garrote",
+                "DV": "3P",
+                "MODE": "n/a",
+                "ATTACK RATINGS": "8/—/—/—/—",
+                "AMMO": "n/a",
+                "AVAILABILITY": "4(L)",
+                "COST": "200¥"
+            } 
+        ]
+    },
+    "Launchers": {
+        "Core Rulebook": [
+            {
+                "Weapon": "Ares Antioch II",
+                "DV": "Grenade",
+                "Close": null,
+                "Near": 6,
+                "Medium": 8,
+                "Far": 6,
+                "Extreme": 5,
+                "Availability": 3,
+                "Concealability": 0,
+                "Cost": 5900,
+                "Ability": "Complete with an integral smartgun system.",
+                "Wireless": "You can use the wireless link trigger for your grenades, even if you don’t have DNI.",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": false,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "ArmTech MGL-6",
+                "DV": "Grenade",
+                "Close": null,
+                "Near": 8,
+                "Medium": 8,
+                "Far": 3,
+                "Extreme": null,
+                "Availability": 4,
+                "Concealability": 0,
+                "Cost": 1800,
+                "Ability": "",
+                "Wireless": "When active the launcher will not detonate any ordnance loaded into the weapon within five meters of the weapon, even if a spoofed command tells it to do otherwise.",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": false,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "ArmTech MGL-12",
+                "DV": "Grenade",
+                "Close": null,
+                "Near": 8,
+                "Medium": 9,
+                "Far": 6,
+                "Extreme": 2,
+                "Availability": 4,
+                "Concealability": 0,
+                "Cost": 5000,
+                "Ability": "",
+                "Wireless": "When active the launcher will not detonate any ordnance loaded into the weapon within five meters of the weapon, even if a spoofed command tells it to do otherwise.",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": false,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "Aztechnology Striker",
+                "DV": "Missile",
+                "Close": null,
+                "Near": 4,
+                "Medium": 10,
+                "Far": 9,
+                "Extreme": 6,
+                "Availability": 5,
+                "Concealability": 0,
+                "Cost": 7000,
+                "Ability": "",
+                "Wireless": "Connecting this launcher to the local Matrix provides a +1 dice pool bonus as long as no other bonus-applying systems are in use.",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": false,
+                "Underbarrel": true,
+                "Mods": []
+            },
+            {
+                "Weapon": "Onotari Interceptor",
+                "DV": "Missile",
+                "Close": null,
+                "Near": 5,
+                "Medium": 9,
+                "Far": 10,
+                "Extreme": 8,
+                "Availability": 5,
+                "Concealability": 0,
+                "Cost": 9000,
+                "Ability": "It features an internal smartgun system that controls the fire-safety system. Firing both barrels launches both weapons. Split the attack dice pool and resolve each projectile independently. The firer must resist 6P Fire damage when launching both tubes.",
+                "Wireless": "The safety system cannot be disengaged, but the firer gains the smartlink wireless bonus.",
+                "Ranged": true,
+                "Top": true,
+                "Barrel": false,
+                "Underbarrel": true,
+                "Mods": []
+            }            
+        ],
+        "Firing Squad": [
+            {
+                "WEAPON": "Krime Thumper Grenade",
+                "DV": "SA",
+                "MODE": "—/8/7/5/—",
+                "ATTACK RATINGS": "3(m)",
+                "AMMO": "3(L)",
+                "AVAILABILITY": "1,500¥",
+                "COST": "3(L)"
+            },
+            {
+                "WEAPON": "Shotgun configuration",
+                "DV": "4P",
+                "MODE": "SS",
+                "ATTACK RATINGS": "12/6/3/—/—",
+                "AMMO": "—",
+                "AVAILABILITY": "—",
+                "COST": "—"
+            } 
+        ]
+    },
+    "Weapon Accessories": {
+        "Core Rulebook": [
+            {
+                "ACCESSORY": "Airburst link",
+                "MOUNT": "—",
+                "AVAILABILITY": "3",
+                "COST": "600¥"
+            },
+            {
+                "ACCESSORY": "Bipod",
+                "MOUNT": "Under",
+                "AVAILABILITY": "1",
+                "COST": "200¥"
+            },
+            {
+                "ACCESSORY": "Concealable holster",
+                "MOUNT": "—",
+                "AVAILABILITY": "1",
+                "COST": "150¥"
+            },
+            {
+                "ACCESSORY": "Gas-vent system",
+                "MOUNT": "Barrel",
+                "AVAILABILITY": "3",
+                "COST": "500¥"
+            },
+            {
+                "ACCESSORY": "Gyro mount",
+                "MOUNT": "Under",
+                "AVAILABILITY": "3",
+                "COST": "1,400¥"
+            },
+            {
+                "ACCESSORY": "Hidden arm slide",
+                "MOUNT": "—",
+                "AVAILABILITY": "2",
+                "COST": "350¥"
+            },
+            {
+                "ACCESSORY": "Imaging scope",
+                "MOUNT": "Top",
+                "AVAILABILITY": "1",
+                "COST": "350¥"
+            },
+            {
+                "ACCESSORY": "Laser sight",
+                "MOUNT": "Top or Under",
+                "AVAILABILITY": "1",
+                "COST": "125¥"
+            },
+            {
+                "ACCESSORY": "Periscope",
+                "MOUNT": "Top",
+                "AVAILABILITY": "2",
+                "COST": "70¥"
+            },
+            {
+                "ACCESSORY": "Quick-draw holster",
+                "MOUNT": "—",
+                "AVAILABILITY": "2",
+                "COST": "175¥"
+            },
+            {
+                "ACCESSORY": "Shock pad",
+                "MOUNT": "—",
+                "AVAILABILITY": "2",
+                "COST": "50¥"
+            },
+            {
+                "ACCESSORY": "Silencer/suppressor",
+                "MOUNT": "Barrel",
+                "AVAILABILITY": "4",
+                "COST": "500¥"
+            },
+            {
+                "ACCESSORY": "Smart firing platform",
+                "MOUNT": "Under",
+                "AVAILABILITY": "5",
+                "COST": "2,500¥"
+            },
+            {
+                "ACCESSORY": "Smartgun system, internal",
+                "MOUNT": "—",
+                "AVAILABILITY": "1(L)",
+                "COST": "+500¥"
+            },
+            {
+                "ACCESSORY": "Smartgun system, external",
+                "MOUNT": "Top or Under",
+                "AVAILABILITY": "2(L)",
+                "COST": "200¥"
+            },
+            {
+                "ACCESSORY": "Spare clip",
+                "MOUNT": "—",
+                "AVAILABILITY": "2",
+                "COST": "5¥"
+            },
+            {
+                "ACCESSORY": "Speed loader",
+                "MOUNT": "—",
+                "AVAILABILITY": "1",
+                "COST": "25¥"
+            },
+            {
+                "ACCESSORY": "Tripod",
+                "MOUNT": "Under",
+                "AVAILABILITY": "2",
+                "COST": "500¥"
+            }
+        ]
+    },
+    "Ammo Types": {
+        "Core Rulebook": [
+            {
+                "TYPES": "APDS",
+                "AR": "+2",
+                "DV": "–1",
+                "COST": "x3"
+            },
+            {
+                "TYPES": "Explosive",
+                "AR": "—",
+                "DV": "+1",
+                "COST": "x2"
+            },
+            {
+                "TYPES": "Flechette",
+                "AR": "+1",
+                "DV": "–1",
+                "COST": "x1.5"
+            },
+            {
+                "TYPES": "Gel",
+                "AR": "—",
+                "DV": "S",
+                "COST": "x1.5"
+            },
+            {
+                "TYPES": "Stick-n-Shock",
+                "AR": "+1",
+                "DV": "–1S(e)",
+                "COST": "x2"
+            },
+            {
+                "TYPES": "Caseless",
+                "AR": "—",
+                "DV": "—",
+                "COST": "x2"
+            }
+        ],
+        "Firing Squad": [ 
+            {
+                "TYPE": "Handloaded Ammo",
+                "DV": "—",
+                "ATTACK RATINGS": "+1/+1/+1/+1/+1",
+                "AVAILABILITY": "2(L)",
+                "COST": "x1.5",
+                "MULTIPLIER": "x1.5"
+            },
+            {
+                "TYPE": "Match-Grade Ammo",
+                "DV": "–1",
+                "ATTACK RATINGS": "+1/+2/+3/+3/+2",
+                "AVAILABILITY": "3(L)",
+                "COST": "x4",
+                "MULTIPLIER": "x4"
+            } 
+        ]
+    },
+    "Ammo Cost by Weapon Types": {
+        "Core Rulebook": [
+            {
+                "CLASS": "Holdout/Light Pistol/Machine Pistol",
+                "AVAIL": "1",
+                "COST (PER 10 ROUNDS)": "5¥"
+            },
+            {
+                "CLASS": "Heavy Pistol/SMG",
+                "AVAIL": "1",
+                "COST (PER 10 ROUNDS)": "10¥"
+            },
+            {
+                "CLASS": "Rifles",
+                "AVAIL": "2(L)",
+                "COST (PER 10 ROUNDS)": "20¥"
+            },
+            {
+                "CLASS": "Taser",
+                "AVAIL": "1",
+                "COST (PER 10 ROUNDS)": "10¥"
+            },
+            {
+                "CLASS": "Injection Dart",
+                "AVAIL": "2",
+                "COST (PER 10 ROUNDS)": "5¥ + Toxin"
+            },
+            {
+                "CLASS": "Assault Cannon",
+                "AVAIL": "4(I)",
+                "COST (PER 10 ROUNDS)": "50¥"
+            },
+            {
+                "CLASS": "Machine Gun",
+                "AVAIL": "2(L)",
+                "COST (PER 10 ROUNDS)": "15¥ per 10"
+            },
+            {
+                "CLASS": "DMSO",
+                "AVAIL": "1",
+                "COST (PER 10 ROUNDS)": "10¥ per 10"
+            },
+            {
+                "CLASS": "Shotgun",
+                "AVAIL": "2(L)",
+                "COST (PER 10 ROUNDS)": "15¥"
+            }
+        ]
+    },
+    "Explosives": {
+        "Core Rulebook": [
+            {
+                "GRENADES": "Stun",
+                "DV": "10S",
+                "GZ DV": "8S",
+                "CLOSE DV": "6S",
+                "NEAR BLAST": "15m",
+                "BLAST AVAIL": "4(L)",
+                "COST": "100¥"
+            },
+            {
+                "GRENADES": "Fragmentation",
+                "DV": "16P",
+                "GZ DV": "12P",
+                "CLOSE DV": "8P",
+                "NEAR BLAST": "20m",
+                "BLAST AVAIL": "4(I)",
+                "COST": "150¥"
+            },
+            {
+                "GRENADES": "High explosive",
+                "DV": "16P",
+                "GZ DV": "10P",
+                "CLOSE DV": "4P",
+                "NEAR BLAST": "15m",
+                "BLAST AVAIL": "4(I)",
+                "COST": "150¥"
+            },
+            {
+                "GRENADES": "Gas",
+                "DV": "—",
+                "GZ DV": "—",
+                "CLOSE DV": "—",
+                "NEAR BLAST": "—",
+                "BLAST AVAIL": "4(I)",
+                "COST": "50¥ + 20 doses"
+            },
+            {
+                "GRENADES": "chemical Smoke/thermal smoke",
+                "DV": "—",
+                "GZ DV": "—",
+                "CLOSE DV": "—",
+                "NEAR BLAST": "—",
+                "BLAST AVAIL": "4(I)",
+                "COST": "50¥"
+            },
+            {
+                "GRENADES": "Flash-pak*",
+                "DV": "BIII",
+                "GZ DV": "BII",
+                "CLOSE DV": "BI",
+                "NEAR BLAST": "10m",
+                "BLAST AVAIL": "4(L)",
+                "COST": "125¥",
+                "Notes": "Blinded status is based on Normal vision. The penalty is bumped up one level with low-light, bumped down one level with flare compensation, and doesn’t apply to thermographic or ultrasound."
+            }
+        ],
+        "Firing Squad": [   
+            {
+                "WEAPON": "Crackshot Arms Thrust Grenade",
+                "STATS": "All stats as grenade",
+                "AVAILABILITY": "4(L)",
+                "COST": "Special",
+                "Comments": "explosives and scatter weapons"
+            },
+            {
+                "WEAPON": "Caltrops",
+                "DV": "1P",
+                "GZ": "—",
+                "DV CLOSE": "—",
+                "DV NEAR": "2m",
+                "BLAST": "2(L)",
+                "AVAILABILITY": "50¥",
+                "COST": "50¥",
+                "Comments": "grenades"
+            },
+            {
+                "WEAPON": "Chemical",
+                "DV": "6P",
+                "GZ": "4P",
+                "DV CLOSE": "2P",
+                "DV NEAR": "15m",
+                "BLAST": "4(I)",
+                "AVAILABILITY": "200¥",
+                "COST": "200¥",
+                "Comments": "grenades"
+            },
+            {
+                "WEAPON": "Cryo",
+                "DV": "6S",
+                "GZ": "4S",
+                "DV CLOSE": "2S",
+                "DV NEAR": "15m",
+                "BLAST": "5(I)",
+                "AVAILABILITY": "200¥",
+                "COST": "200¥",
+                "Comments": "grenades"
+            },
+            {
+                "WEAPON": "Glitter",
+                "DV": "—",
+                "GZ": "—",
+                "DV CLOSE": "—",
+                "DV NEAR": "20m",
+                "BLAST": "3(L)",
+                "AVAILABILITY": "100¥",
+                "COST": "100¥",
+                "Comments": "grenades"
+            },
+            {
+                "WEAPON": "Incendiary",
+                "DV": "6P",
+                "GZ": "4P",
+                "DV CLOSE": "2P",
+                "DV NEAR": "15m",
+                "BLAST": "4(I)",
+                "AVAILABILITY": "200¥",
+                "COST": "200¥",
+                "Comments": "grenades"
+            },
+            {
+                "WEAPON": "Krime Kaltrops",
+                "DV": "1P",
+                "GZ": "—",
+                "DV CLOSE": "—",
+                "DV NEAR": "4m",
+                "BLAST": "3(L)",
+                "AVAILABILITY": "35¥",
+                "COST": "35¥",
+                "Comments": "grenades"
+            },
+            {
+                "WEAPON": "Nano",
+                "DV": "As grenade",
+                "GZ": "As grenade",
+                "DV CLOSE": "As grenade",
+                "DV NEAR": "As grenade",
+                "BLAST": "7(I)",
+                "AVAILABILITY": "1,000¥",
+                "COST": "1,000¥",
+                "Comments": "grenades"
+            },
+            {
+                "WEAPON": "Noise",
+                "DV": "—",
+                "GZ": "—",
+                "DV CLOSE": "—",
+                "DV NEAR": "10m",
+                "BLAST": "4(L)",
+                "AVAILABILITY": "150¥",
+                "COST": "150¥",
+                "Comments": "grenades"
+            },
+            {
+                "WEAPON": "Paint Grenade (standard)",
+                "DV": "—",
+                "GZ": "2m",
+                "DV CLOSE": "—",
+                "DV NEAR": "3(L)",
+                "BLAST": "50¥",
+                "AVAILABILITY": "50¥",
+                "COST": "50¥",
+                "Comments": "grenades"
+            },
+            {
+                "WEAPON": "Paint Grenade (large)",
+                "DV": "—",
+                "GZ": "5m",
+                "DV CLOSE": "—",
+                "DV NEAR": "3(L)",
+                "BLAST": "75¥",
+                "AVAILABILITY": "75¥",
+                "COST": "75¥",
+                "Comments": "grenades"
+            },
+            {
+                "WEAPON": "Paint Grenade (mini)",
+                "DV": "—",
+                "GZ": "1m",
+                "DV CLOSE": "—",
+                "DV NEAR": "3(L)",
+                "BLAST": "75¥",
+                "AVAILABILITY": "75¥",
+                "COST": "75¥",
+                "Comments": "grenades"
+            },
+            {
+                "WEAPON": "Thermographic Flash-Pak",
+                "DV": "BIII",
+                "GZ": "BII",
+                "DV CLOSE": "BI",
+                "DV NEAR": "10m",
+                "BLAST": "4 (L)",
+                "AVAILABILITY": "150¥",
+                "COST": "150¥",
+                "Comments": "grenades"
+            },
+            {
+                "WEAPON": "Zapper",
+                "DV": "6S(e)",
+                "GZ": "4S",
+                "DV CLOSE": "2S",
+                "DV NEAR": "15m",
+                "BLAST": "4(I)",
+                "AVAILABILITY": "200¥",
+                "COST": "200¥",
+                "Comments": "grenades"
+            }
+        ]
+    },
+    "Rockets and Missiles": {
+        "Core Rulebook": [
+            {
+                "WEAPON": "Anti-vehicle Rocket",
+                "DV": "12P",
+                "GZ DV": "8P",
+                "CLOSE DV": "4P",
+                "NEAR BLAST": "10m",
+                "AVAILABILITY": "5(I)",
+                "COST": "2,800¥"
+            },
+            {
+                "WEAPON": "Fragmentation Rocket",
+                "DV": "16P",
+                "GZ DV": "12P",
+                "CLOSE DV": "8P",
+                "NEAR BLAST": "30m",
+                "AVAILABILITY": "5(I)",
+                "COST": "2,000¥"
+            },
+            {
+                "WEAPON": "High Explosive Rocket",
+                "DV": "16P",
+                "GZ DV": "10P",
+                "CLOSE DV": "4P",
+                "NEAR BLAST": "20m",
+                "AVAILABILITY": "5(I)",
+                "COST": "2,100¥"
+            },
+            {
+                "WEAPON": "Gas Rocket",
+                "DV": "—",
+                "GZ DV": "—",
+                "CLOSE DV": "—",
+                "NEAR BLAST": "—",
+                "AVAILABILITY": "4(I)",
+                "COST": "750¥ + 100 doses",
+                "Notes": "Note: Use Gas Attack rules, p. 116"
+            },
+            {
+                "WEAPON": "Smoke/Thermal Smoke Rocket",
+                "DV": "—",
+                "GZ DV": "—",
+                "CLOSE DV": "—",
+                "NEAR BLAST": "—",
+                "AVAILABILITY": "4(I)",
+                "COST": "1,200¥",
+                "Notes": "Note: See rules p. 263"
+            },
+            {
+                "WEAPON": "Missile",
+                "DV": "Variant",
+                "GZ DV": "as Rocket",
+                "CLOSE DV": "as Rocket",
+                "NEAR BLAST": "as Rocket",
+                "AVAILABILITY": "+1(I)",
+                "COST": "As Rocket + Sensor rating x 500¥",
+                "Notes": "Note: +2 to Attack Rating"
+            }
+        ]
+    },
+    "Explosive Packages": {
+        "Core Rulebook": [
+            {
+                "RATING": "1–3",
+                "AVAILABILITY": "1(I)",
+                "COST": "Rating x 10¥",
+                "Comments": "explosive packages",
+                "Notes": ""
+            },
+            {
+                "RATING": "4–6",
+                "AVAILABILITY": "2(I)",
+                "COST": "Rating x 50¥",
+                "Comments": "explosive packages",
+                "Notes": ""
+            },
+            {
+                "RATING": "7–9",
+                "AVAILABILITY": "3(I)",
+                "COST": "Rating x 100¥",
+                "Comments": "explosive packages",
+                "Notes": ""
+            },
+            {
+                "RATING": "10–12",
+                "AVAILABILITY": "4(I)",
+                "COST": "Rating x 250¥",
+                "Comments": "explosive packages",
+                "Notes": ""
+            },
+            {
+                "RATING": "13–15",
+                "AVAILABILITY": "5(I)",
+                "COST": "Rating x 500¥",
+                "Comments": "explosive packages",
+                "Notes": ""
+            },
+            {
+                "RATING": "16–18",
+                "AVAILABILITY": "6(I)",
+                "COST": "Rating x 1,000¥",
+                "Comments": "explosive packages",
+                "Notes": ""
+            },
+            {
+                "RATING": "19–20",
+                "AVAILABILITY": "7(I)",
+                "COST": "Rating x 5,000¥",
+                "Comments": "explosive packages",
+                "Notes": ""
+            },
+            {
+                "RATING": "Detonator Cap",
+                "AVAILABILITY": "4(I)",
+                "COST": "75¥",
+                "Comments": "explosive packages",
+                "Notes": ""
+            }
+        ]
+    },
+    "Explosive Modifications": {
+        "Core Rulebook": [
+        ],
+        "Firing Squad": [
+            {
+                "name": "Directional mine modification",
+                "DV": "As grenade",
+                "GZ": "As grenade",
+                "DV_CLOSE": "As grenade",
+                "DV_NEAR": "As grenade",
+                "BLAST": "+2(L)",
+                "AVAILABILITY": "+100¥",
+                "COST": "+100¥",
+                "Comments": "explosive modifications",
+                "Notes": ""
+            },
+            {
+                "name": "Gecko grip modification",
+                "DV": "As grenade",
+                "GZ": "As grenade",
+                "DV_CLOSE": "As grenade",
+                "DV_NEAR": "As grenade",
+                "BLAST": "+2(L)",
+                "AVAILABILITY": "+50¥",
+                "COST": "+50¥",
+                "Comments": "explosive modifications",
+                "Notes": ""
+            },
+            {
+                "name": "Landmine modification",
+                "DV": "As grenade",
+                "GZ": "As grenade",
+                "DV_CLOSE": "As grenade",
+                "DV_NEAR": "As grenade",
+                "BLAST": "+2(L)",
+                "AVAILABILITY": "+100¥",
+                "COST": "+100¥",
+                "Comments": "explosive modifications",
+                "Notes": ""
+            }  
+        ]
+    },
+    "For Further Duplications": {
+        "Core Rulebook": [
+        ],
+        "Firing Squad": [   
+        ]
+    }
+}
