@@ -78,7 +78,11 @@ const WarningBody = styled(Typography)(({ theme }) => ({
 
 export default function Priority(
     {
-        handleMetatypeButton,
+        priorityButtons,
+        handlePriorityButtons,
+        showRestrictions,
+        showMagicRestrictions
+        /*handleMetatypeButton,
         metatypeButton,
         handleAttributeButton, 
         attributeButton,
@@ -89,7 +93,7 @@ export default function Priority(
         handleResourceButton, 
         resourceButton,
         showRestrictions, 
-        showMagicRestrictions}) 
+        showMagicRestrictions*/}) 
 {
 
 
@@ -171,8 +175,8 @@ export default function Priority(
             D: 4,
             idE: 4,
             E: 1,
-            state: metatypeButton,
-            change: handleMetatypeButton,
+            state: priorityButtons.metatype,
+            change: value => handlePriorityButtons('metatype', parseInt(value)),
             collapse: openMetatypes,
             set: handleOpenMetatypes
         },
@@ -184,7 +188,7 @@ export default function Priority(
             C: 'No restrictions',
             D: 'No restrictions',
             E: 'Menehune, Wakyambi, Nartaki, Valkyrie, Satyr, Fomorian, Centaurs, Merrow, Naga, Pixie, Sasquatch',
-            state: metatypeButton,
+            state: priorityButtons.metatype,
             showState: showRestrictions
         },
         {
@@ -204,8 +208,8 @@ export default function Priority(
             D: 8,
             idE: 4,
             E: 2,
-            state: attributeButton,
-            change: handleAttributeButton,
+            state: priorityButtons.attribute,
+            change: value => handlePriorityButtons('attribute', parseInt(value)),
             collapse: openAttributes,
             set: handleOpenAttributes
         },
@@ -226,8 +230,8 @@ export default function Priority(
             D: 16,
             idE: 4,
             E: 10,
-            state: skillButton,
-            change: handleSkillButton,
+            state: priorityButtons.skill,
+            change: value => handlePriorityButtons('skill', parseInt(value)),
             collapse: openSkills,
             set: handleOpenSkills
         },
@@ -248,8 +252,8 @@ export default function Priority(
             D: 'Not Mundane',
             idE: 4,
             E: 'Mundane',
-            state: magicButton,
-            change: handleMagicButton,
+            state: priorityButtons.magic,
+            change: value => handlePriorityButtons('magic', parseInt(value)),
             collapse: openMagic,
             set: handleOpenMagic
         },
@@ -275,8 +279,8 @@ export default function Priority(
             D: '50,000 ¥',
             idE: 4,
             E: '8,000 ¥',
-            state: resourceButton,
-            change: handleResourceButton,
+            state: priorityButtons.resource,
+            change: value => handlePriorityButtons('resource', parseInt(value)),
             collapse: openResources,
             set: handleOpenResources
         },
@@ -415,11 +419,11 @@ export default function Priority(
                                         {priorities.title}
                                     </WarningHeader>
                                     <WarningBody>
-                                        <WarningBodyHeader display='inline'>{AwakenedOrEmerged[magicButton][0]}</WarningBodyHeader>{AwakenedOrEmerged[magicButton][1]}
-                                        <br/>
-                                        <WarningBodyHeader display='inline'>{AwakenedOrEmerged[magicButton][2]}</WarningBodyHeader>{AwakenedOrEmerged[magicButton][3]}
-                                        <br/>
-                                        <WarningBodyHeader display='inline'>{AwakenedOrEmerged[magicButton][4]}</WarningBodyHeader>{AwakenedOrEmerged[magicButton][5]}
+                                        <WarningBodyHeader display="inline">{AwakenedOrEmerged[priorityButtons.magic][0]}</WarningBodyHeader>{AwakenedOrEmerged[priorityButtons.magic][1]}
+                                        <br />
+                                        <WarningBodyHeader display="inline">{AwakenedOrEmerged[priorityButtons.magic][2]}</WarningBodyHeader>{AwakenedOrEmerged[priorityButtons.magic][3]}
+                                        <br />
+                                        <WarningBodyHeader display="inline">{AwakenedOrEmerged[priorityButtons.magic][4]}</WarningBodyHeader>{AwakenedOrEmerged[priorityButtons.magic][5]}
                                     </WarningBody>
                                 </Box>
                             </Collapse>

@@ -6,6 +6,13 @@ import ListSubheader from '@mui/material/ListSubheader';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import {
+    Table,
+    TableHead,
+    TableBody,
+    TableRow,
+    TableCell
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { blue, grey, purple } from '@mui/material/colors';
 
@@ -30,13 +37,13 @@ const metatypes = [
         {metatypeName: 'Satyr', karma: 10},
 
         {metatypeName: 'Dwarf', karma: 0},
-        {metatypeName: 'Duende (The Dour)', karma: 10},
+        {metatypeName: 'Duende', karma: 10},
         {metatypeName: 'Gnome', karma: 5},
         {metatypeName: 'Hanuman', karma: 5},
         {metatypeName: 'Koborokuru', karma: 5},
         {metatypeName: 'Menehune', karma: 5},
 
-        {metatypeName: 'Centaurs', karma: 15},
+        {metatypeName: 'Centaur', karma: 15},
         {metatypeName: 'Merrow', karma: 15},
         {metatypeName: 'Naga', karma: 15},
         {metatypeName: 'Pixie', karma: 10},
@@ -56,7 +63,7 @@ const metatypes = [
         {metatypeName: 'Satyr', karma: 10},
 
         {metatypeName: 'Dwarf', karma: 0},
-        {metatypeName: 'Duende (The Dour)', karma: 10},
+        {metatypeName: 'Duende', karma: 10},
         {metatypeName: 'Gnome', karma: 5},
         {metatypeName: 'Hanuman', karma: 5},
         {metatypeName: 'Koborokuru', karma: 5},
@@ -71,7 +78,7 @@ const metatypes = [
 
         {metatypeName: 'Valkyrie', karma: 15},
 
-        {metatypeName: 'Centaurs', karma: 15},
+        {metatypeName: 'Centaur', karma: 15},
         {metatypeName: 'Merrow', karma: 15},
         {metatypeName: 'Naga', karma: 15},
         {metatypeName: 'Pixie', karma: 10},
@@ -91,44 +98,7 @@ const metatypes = [
         {metatypeName: 'Satyr', karma: 10},
 
         {metatypeName: 'Dwarf', karma: 0},
-        {metatypeName: 'Duende (The Dour)', karma: 10},
-        {metatypeName: 'Gnome', karma: 5},
-        {metatypeName: 'Hanuman', karma: 5},
-        {metatypeName: 'Koborokuru', karma: 5},
-        {metatypeName: 'Menehune', karma: 5},
-        
-        {metatypeName: 'Elf', karma: 0},
-        {metatypeName: 'Dalakitnon', karma: 5},
-        {metatypeName: 'Dryad', karma: 5},
-        {metatypeName: 'Nocturna', karma: 5},
-        {metatypeName: 'Wakyambi', karma: 10},
-        {metatypeName: 'Xapiri Thepe', karma: 5},
-
-        {metatypeName: 'Human', karma: 0},
-        {metatypeName: 'Nartaki', karma: 5},
-        {metatypeName: 'Valkyrie', karma: 15},
-
-        {metatypeName: 'Centaurs', karma: 15},
-        {metatypeName: 'Merrow', karma: 15},
-        {metatypeName: 'Naga', karma: 15},
-        {metatypeName: 'Pixie', karma: 10},
-        {metatypeName: 'Sasquatch', karma: 10},
-    ],
-    [
-        {metatypeName: 'Troll', karma: 0},
-        {metatypeName: 'Cyclops', karma: 5},
-        {metatypeName: 'Fomorian', karma: 10},
-        {metatypeName: 'Giant', karma: 5},
-        {metatypeName: 'Minotaur', karma: 5},
-
-        {metatypeName: 'Ork', karma: 0},
-        {metatypeName: 'Hobgoblin', karma: 5},
-        {metatypeName: 'Ogre', karma: 5},
-        {metatypeName: 'Oni', karma: 5},
-        {metatypeName: 'Satyr', karma: 10},
-
-        {metatypeName: 'Dwarf', karma: 0},
-        {metatypeName: 'Duende (The Dour)', karma: 10},
+        {metatypeName: 'Duende', karma: 10},
         {metatypeName: 'Gnome', karma: 5},
         {metatypeName: 'Hanuman', karma: 5},
         {metatypeName: 'Koborokuru', karma: 5},
@@ -145,7 +115,44 @@ const metatypes = [
         {metatypeName: 'Nartaki', karma: 5},
         {metatypeName: 'Valkyrie', karma: 15},
 
-        {metatypeName: 'Centaurs', karma: 15},
+        {metatypeName: 'Centaur', karma: 15},
+        {metatypeName: 'Merrow', karma: 15},
+        {metatypeName: 'Naga', karma: 15},
+        {metatypeName: 'Pixie', karma: 10},
+        {metatypeName: 'Sasquatch', karma: 10},
+    ],
+    [
+        {metatypeName: 'Troll', karma: 0},
+        {metatypeName: 'Cyclops', karma: 5},
+        {metatypeName: 'Fomorian', karma: 10},
+        {metatypeName: 'Giant', karma: 5},
+        {metatypeName: 'Minotaur', karma: 5},
+
+        {metatypeName: 'Ork', karma: 0},
+        {metatypeName: 'Hobgoblin', karma: 5},
+        {metatypeName: 'Ogre', karma: 5},
+        {metatypeName: 'Oni', karma: 5},
+        {metatypeName: 'Satyr', karma: 10},
+
+        {metatypeName: 'Dwarf', karma: 0},
+        {metatypeName: 'Duende', karma: 10},
+        {metatypeName: 'Gnome', karma: 5},
+        {metatypeName: 'Hanuman', karma: 5},
+        {metatypeName: 'Koborokuru', karma: 5},
+        {metatypeName: 'Menehune', karma: 5},
+        
+        {metatypeName: 'Elf', karma: 0},
+        {metatypeName: 'Dalakitnon', karma: 5},
+        {metatypeName: 'Dryad', karma: 5},
+        {metatypeName: 'Nocturna', karma: 5},
+        {metatypeName: 'Wakyambi', karma: 10},
+        {metatypeName: 'Xapiri Thepe', karma: 5},
+
+        {metatypeName: 'Human', karma: 0},
+        {metatypeName: 'Nartaki', karma: 5},
+        {metatypeName: 'Valkyrie', karma: 15},
+
+        {metatypeName: 'Centaur', karma: 15},
         {metatypeName: 'Merrow', karma: 15},
         {metatypeName: 'Naga', karma: 15},
         {metatypeName: 'Pixie', karma: 10},
@@ -163,7 +170,7 @@ const metatypes = [
         {metatypeName: 'Oni', karma: 5},
 
         {metatypeName: 'Dwarf', karma: 0},
-        {metatypeName: 'Duende (The Dour)', karma: 10},
+        {metatypeName: 'Duende', karma: 10},
         {metatypeName: 'Gnome', karma: 5},
         {metatypeName: 'Hanuman', karma: 5},
         {metatypeName: 'Koborokuru', karma: 5},
@@ -189,41 +196,48 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-export default function Metatype({handleMetatypeState, metatypeState, metatypeButton, karma}) {
+export default function Metatype({handleChosenMetatype, chosenMetatype, priorityButtons, karma}) {
 
-    const rows = metatypes[metatypeButton].map((metatypes) => 
+    const rows = metatypes[priorityButtons.metatype].map((metatypes) => 
         <ListItem key={metatypes.metatypeName} disablePadding={true}>
             <ListItemButton 
-                onClick={handleMetatypeState(metatypes.metatypeName, metatypes.karma)}
+                onClick={handleChosenMetatype(metatypes.metatypeName, metatypes.karma)}
                 divider={true}
                 sx={{
                     height: 70,
-                    bgcolor: (metatypeState === metatypes.metatypeName) ? selectBackground : primaryBackground,
+                    bgcolor: (chosenMetatype.race === metatypes.metatypeName) ? selectBackground : primaryBackground,
                     '&:hover': {
-                        backgroundColor: (metatypeState === metatypes.metatypeName) ? selectHover : primaryHover
+                        backgroundColor: (chosenMetatype.race === metatypes.metatypeName) ? selectHover : primaryHover
                     }
                 }}
                 alignItems='center'
             >
-                <ListItemText 
-                    align='left'
-                    primary={metatypes.metatypeName}
-                    primaryTypographyProps={{
-                        fontFamily: 'Segoe UI',
-                        fontSize: 20,
-                        fontWeight: 500
-                    }}
-                />
-                <ListItemText 
-                    align='right' 
-                    primary={metatypes.karma}
-                    primaryTypographyProps={{
-                        fontFamily: 'Segoe UI',
-                        fontSize: 20,
-                        fontWeight: 500
-                    }}
-                />
-                
+                <Table>
+                    <TableRow>
+                        <TableCell sx={{ width: '75%' }}>
+                            <ListItemText 
+                                align='left'
+                                primary={metatypes.metatypeName}
+                                primaryTypographyProps={{
+                                    fontFamily: 'Segoe UI',
+                                    fontSize: 20,
+                                    fontWeight: 500
+                                }}
+                            />
+                        </TableCell>
+                        <TableCell sx={{ width: '25%' }}>
+                            <ListItemText 
+                                align='right' 
+                                primary={metatypes.karma}
+                                primaryTypographyProps={{
+                                    fontFamily: 'Segoe UI',
+                                    fontSize: 20,
+                                    fontWeight: 500
+                                }}
+                            />
+                        </TableCell>
+                    </TableRow>
+                </Table>
             </ListItemButton>
         </ListItem>
     );
@@ -253,7 +267,16 @@ export default function Metatype({handleMetatypeState, metatypeState, metatypeBu
                             fontSize: 20,
                             fontWeight: 500
                         }}>
-                            Karma: {karma}
+                            <Table>
+                                <TableRow>
+                                    <TableCell align='left' sx={{ width: '60%', fontFamily: 'Segoe UI', fontSize: 20, fontWeight: 500, borderBottom: 'none' }}>
+                                        Name
+                                    </TableCell>
+                                    <TableCell align='right' sx={{ width: '40%', fontFamily: 'Segoe UI', fontSize: 20, fontWeight: 500, borderBottom: 'none' }}>
+                                        Cost
+                                    </TableCell>
+                                </TableRow>
+                            </Table>
                         </ListSubheader>
                     {rows}
                 </List>

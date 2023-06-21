@@ -111,7 +111,7 @@ export default function Derived() {
     )
 
     return (
-        <Grid xl={3} lg={3} md={3} sm={3} xs={3} spacing={2} sx={{display: 'flex', flexDirection: 'column'}}>
+        <Grid xl={4} lg={4} md={4} sm={4} xs={4} spacing={2} sx={{display: 'flex', flexDirection: 'column'}}>
             <Item>
                 <Table>
                     <TableHead>
