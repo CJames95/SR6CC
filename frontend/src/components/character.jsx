@@ -23,6 +23,12 @@ import { styled } from '@mui/joy/styles';
 import 'material-symbols';
 import axios from 'axios';
 import { TrackChangesRounded } from '@mui/icons-material';
+import Name from './name.jsx';
+import Settings from './settings.jsx';
+import Priorities from './priorities.jsx';
+import Metatype from './metatype.jsx';
+import Overview from './overview.jsx';
+import max from '../json/metatype_max_attrib.json';
 
 axios.defaults.withCredentials = true;
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -91,541 +97,575 @@ const WarningBody = styled(Typography)(({ theme }) => ({
 }));
 
 export default function Character() {
+    // General Default Initializing Variables and Functions
+    const [karma, setKarma] = React.useState(50);
+    useEffect(() => {
+        console.log(
+            'karma:', karma
+        )
+    }, [karma])
+    const adjustmentValues = {
+        0: 13,
+        1: 11,
+        2: 9,
+        3: 4,
+        4: 1
+    };
+    const attributeValues = {
+        0: 24,
+        1: 16,
+        2: 12,
+        3: 8,
+        4: 2
+    };
+    const [attributePoints, setAttributePoints] = React.useState({
+        maxAdjustment: 0,
+        adjustment: 0,
+        maxAttribute: 0,
+        attribute: 0
+    });
+    const handleDefaultAttributePoints = () => {
+        let adjustmentValue = adjustmentValues[priorityButtons.metatype] || 0;
+        let attributeValue = attributeValues[priorityButtons.attribute] || 0;
+            
+        setAttributePoints(prevPoints => ({
+            ...prevPoints,
+            maxAdjustment: adjustmentValue,
+            adjustment: adjustmentValue,
+            maxAttribute: attributeValue,
+            attribute: attributeValue
+        }));
+    };
+    const [skillPoints, setSkillPoints] = React.useState({
+        skill: 0,
+        maxSkill: 0
+    })   
+    const skillValues = {
+        0: 32,
+        1: 24,
+        2: 20,
+        3: 16,
+        4: 10
+    };
+    const handleDefaultSkillPoints = () => {
+        const skillValue = skillValues[priorityButtons.skill] || 0;
+    
+        setSkillPoints(prevPoints => ({
+            ...prevPoints,
+            skill: skillValue,
+            maxSkill: skillValue,
+        }))
+    };
+    const attributeKeys = ['Bod', 'Agi', 'Rea', 'Str', 'Wil', 'Log', 'Int', 'Cha', 'Edg', 'Mag', 'Res'];
+    function createAttributeState(key) {
+        return {
+            [`adjustPoints${key}`]: 0,
+            [`attribPoints${key}`]: 0,
+            [`karmaPoints${key}`]: 0,
+            [key.toLowerCase()]: 1
+        };
+    }
+    const initialAttributes = attributeKeys.reduce((acc, key) => ({
+        ...acc,
+        ...createAttributeState(key)
+    }), {});
+    const [attributes, setAttributes] = React.useState(initialAttributes);
+    useEffect(() => {
+        console.log(
+            'attributes: ', attributes
+        )
+    }, [])
+    const [knowledgePoints, setKnowledgePoints] = React.useState({
+        maxKnowledge: attributes.log,
+        knowledge: attributes.log
+    })
+    useEffect(() => {
+        console.log(attributePoints)
+    }, [attributePoints])
+    const [resourcePoints, setResourcePoints] = React.useState({ 
+        resources: 0, 
+        maxResources: 0 
+    });
+    useEffect(() => {
+        console.log(resourcePoints);
+    }, [resourcePoints]);
+    const resourcesByPriority = {
+        0: 450000,
+        1: 275000,
+        2: 150000,
+        3: 50000,
+        4: 8000
+    };
+    const handleDefaultResourcePoints = () => {
+        const resourceValue = resourcesByPriority[priorityButtons.resource] || 0;
 
+        setResourcePoints(prevResourcePoints => ({
+            ...prevResourcePoints,
+            maxResources: resourceValue,
+            resources: resourceValue
+        }));
+    };
+
+    
+     
+
+    // Character.jsx Variables and Functions
     const [page, setPage] = React.useState(0);
     const handleSetPage = (value) => {
         setPage(value)
     }
 
-    // Settings (Parent Component)
-    const powerLevel = [
-        'Street-Level Runner', 'Standard Runner', 'Elite Runner'
-    ]    
-    const creatorType = [
-        'Priority System', ['Sum-to-Eight System', 'Sum-to-Ten System', 'Sum-to-Twelve System'], 'Point Buy System', 'Life Path System'
-    ]
-    const powerLevelDescription = [
-            'This Power Level covers characters like gangers, wage slaves, rent-a-cops, and other low level members of society. \
-            These are people who are at the bottom, or have recently fallen from the top echelons of society. \
-            Alternatively, this Power Level might represent younger characterse that have less experience and fewer resources.',
-
-            'This Power Level covers standard runners that are fairly new to shadowrunning. \
-            These are shadowrunners that might have already done a few shadowruns or are looking to start their first shadowrun. \
-            They have already met a few decent contacts and acrued enough resources to ensure they can fund the lifestyle and equipment they need for shadowrunning.',
-
-            'This Power Level covers characters like high-level corporate operatives, high-level celebrities, powerful executives, and other high level members of society. \
-            These people have experience, power, wealth, and the opportunities to put them to use.'
-    ]
-    const creatorTypeDescription = [
-        [
-            <body>
-            <p>
-            The Street-Level Priority System is a modified version of the Standard Runner Priority System.
-            You will select a letter for each of the five priorities, which are Adjustment Points, Attributes, Skills, Magic, and Resources.
-            Each letter will offer you a different amount of points in the assigned priority for character creation.
-            The letter A offers you the most amount of points, whereas the letter E offers the least amount of points.
-            Some priorities will restrict you from performing magic or selecting certain metatypes if they are assigned a certain letter.
-            </p>
-            <li>One priority may be assigned the letter B</li>
-            <li>Two priorities may be assigned the letter C</li>
-            <li>One priority may be assigned the letter D</li>
-            <li>One priority may be assigned the letter E</li>
-            <br />
-            <br />
-            </body>,
-            <body>
-            <p>
-            The Standard Priority System is the standard system for character creation in Shadowrun.
-            In this system you will select a letter for each of the five priorities, which are Adjustment Points, Attributes, Skills, Magic, and Resources.
-            Each letter will offer you a different amount of points in the assigned priority for character creation.
-            The letter A offers you the most amount of points, whereas the letter E offers the least amount of points.
-            Some priorities will restrict you from performing magic or selecting certain metatypes if they are assigned a certain letter.
-            </p>
-            <li>One priority may be assigned the letter A</li>
-            <li>One priority may be assigned the letter B</li>
-            <li>One priority may be assigned the letter C</li>
-            <li>One priority may be assigned the letter D</li>
-            <li>One priority may be assigned the letter E</li>
-            <br />
-            </body>,
-            <body>
-            <p>
-            The Elite Priority System is a modified version of the Standard Runner Priority System.
-            In this system you will select a letter for each of the five priorities, which are Adjustment Points, Attributes, Skills, Magic, and Resources.
-            Each letter will offer you a different amount of points in the assigned priority for character creation.
-            The letter A offers you the most amount of points, whereas the letter E offers the least amount of points.
-            Some priorities will restrict you from performing magic or selecting certain metatypes if they are assigned a certain letter.
-            </p>
-            <li>One priority may be assigned the letter A</li>
-            <li>Two priority may be assigned the letter B</li>
-            <li>One priorities may be assigned the letter C</li>
-            <li>One priority may be assigned the letter D</li>
-            <br />
-            <br />
-            </body>,
-        ],
-        ['hey', 'yo', 'bub'],
-        ['bye', 'cya', 'brb'],
-        ['goodbye', 'gotta get some milk', 'lemme get some cigs']
-    ]
-    const [powerState, setPowerState] = React.useState(1); //handlePowerState
-    const [buttonState, setButtonState] = React.useState(0); //handleButtonState
+    // Settings.jsx Variables and Functions
+    const [settings, setSettings] = React.useState({
+        powerState: 1,
+        creatorState: 0
+    });
     useEffect(() => {
-        console.log({
-            powerState
-        })
-    }, [powerState])
-    const handlePowerState = (event, value) => {
-        setPowerState(value);
-    };
-    const handleButtonState = (value) => setButtonState(value);
-    // --------------------------------
-
-    //Priorities (Parent Component)
-    // This block handles the information needed for priority.js
-    // This block handles storing the state of the priority table to be
-    // used by other child components later to ensure adherence to the character creation rules
-    // This also contains hooks that handle displaying warnings to the user during the priority table step
-    const [priorityButtons, setPriorityButtons] = React.useState({
-        metatype: 0,
-        attribute: 1,
-        skill: 2,
-        magic: 3,
-        resource: 4
-    })
-    const [showRestrictions, setRestrictionsDisplay] = React.useState(true);
-    const [showMagicRestrictions, setMagicRestrictions] = React.useState(true);
-    useEffect(() => {
-        //handleDefaultAttributePoints()
-        //handleDefaultSkillPoints()
-        //handleDefaultResourcePoints()
-        //handleDefaultMysticAdept()
         console.log(
-            priorityButtons,
-            showRestrictions,
-            showMagicRestrictions
+            'Power Level: ',
+            settings.powerState,
+            'Creator Type: ',
+            settings.creatorState
         )
-    }, [priorityButtons])
-
-    const handlePriorityButtons = (name, value) => {
-        switch(name) {
-            case 'metatype': 
-                setRestrictionsDisplay(!(value === 2 || value === 3));
+    })
+    const handleSettings = (state, value) => {
+        switch(state) {
+            case 0:
+                setSettings({
+                    ...settings,
+                    powerState: value
+                })
                 break;
-            case 'magic':
-                if(value == 4) {
-                    setMagicRestrictions(false)
-                }
-                else {
-                    setMagicRestrictions(true)
-                }
+            case 1:
+                setSettings({
+                    ...settings,
+                    creatorState: value
+                })
                 break;
             default:
                 break;
         }
-        handlePriorityButtonSelections(value, name)
+    }
+
+    // Priorities.jsx Variables and Functions
+    const [priorityButtons, setPriorityButtons] = React.useState({
+        metatype: 0,
+        attribute: 1,
+        skill: 2,
+        magic: 4,
+        resource: 3
+    })
+    useEffect(() => {
+        handleDefaultAttributePoints()
+        handleDefaultSkillPoints()
+        handleDefaultResourcePoints()
+        //handleDefaultMysticAdept()
+        console.log(
+            'Chosen Priorities: ', priorityButtons,
+            'Attribute Points: ', attributePoints
+        )
+    }, [priorityButtons])
+    const handlePriorityButtons = (name, value) => {
+        const parsedValue = parseInt(value);
+    
+        if (settings.creatorState === 0 && settings.powerState === 1) {
+            const buttons = ['metatype', 'attribute', 'skill', 'magic', 'resource'];
+            buttons.forEach(button => {
+                if (button !== name && priorityButtons[button] === parsedValue) {
+                    setPriorityButtons(prevButtons => ({
+                        ...prevButtons,
+                        [button]: priorityButtons[name],
+                    }));
+                }
+            });
+        }
+    
         setPriorityButtons(prevButtons => ({
             ...prevButtons,
-            [name]: parseInt(value)
-        }))
+            [name]: parsedValue,
+        }));
     }
-    function handlePriorityButtonSelections(val, name) {
-        const updateButtons = (buttonName, buttonValue) => {
-            if (val === buttonValue) {
-                switch(buttonName) {
-                    case 'metatype':
-                        setRestrictionsDisplay(!(priorityButtons[name] === 2 || priorityButtons[name] === 3));
-                        console.log(showRestrictions)
-                        break;
-                    case 'magic':
-                        setMagicRestrictions(priorityButtons[name] !== 4);
-                        console.log(showMagicRestrictions)
-                        break;
-                    default:
-                        break;
-                }
-                setPriorityButtons(prevButtons => ({
-                    ...prevButtons,
-                    [buttonName]: priorityButtons[name]
-                }));
+
+    // Metatype.jsx Variables and Functions
+    const [chosenMetatype, setChosenMetatype] = React.useState({
+        race: 'Troll',
+        cost: 0
+    });
+    useEffect(() => {
+        console.log(
+            chosenMetatype,
+            max[chosenMetatype.race].maxagi
+        )
+    }, [chosenMetatype])
+    const handleChosenMetatype = (value, karmaValue) => () => {
+        setKarma((karma + chosenMetatype.cost) - karmaValue)
+        setChosenMetatype(prevMetatype => ({
+            ...prevMetatype,
+            race: value,
+            cost: karmaValue
+        }))        
+    }
+    // ---------------------------------------------------------
+
+    // Qualities (Parent)
+    const qualitiesList = [
+        {
+            id: 0,
+            cost: 5,
+            name: 'Test Quality I',
+        },
+        {
+            id: 1,
+            cost: 10,
+            name: 'Test Quality II',
+        },
+        {
+            id: 2,
+            cost: 10,
+            name: 'Test Quality II',
+        },
+        {
+            id: 3,
+            cost: 10,
+            name: 'Test Quality II',
+        },
+        {
+            id: 4,
+            cost: 10,
+            name: 'Test Quality II',
+        },
+        {
+            id: 5,
+            cost: 10,
+            name: 'Test Quality II',
+        },
+        {
+            id: 6,
+            cost: 10,
+            name: 'Test Quality II',
+        },
+        {
+            id: 7,
+            cost: 10,
+            name: 'Test Quality II',
+        },
+        {
+            id: 8,
+            cost: 10,
+            name: 'Test Quality II',
+        },
+        {
+            id: 9,
+            cost: 10,
+            name: 'Test Quality II',
+        },
+        {
+            id: 10,
+            cost: 10,
+            name: 'Test Quality II',
+        },
+        {
+            id: 11,
+            cost: 10,
+            name: 'Test Quality II',
+        },
+    ]
+    const [qualityState, setQualityState] = React.useState(0); //handleQualityState
+    const [qualityTakenState, setQualityTakenState] = React.useState(null); //handleQualityTakenState
+    const [qualitiesArray, updateQualitiesArray] = React.useState(qualitiesList); //handleUpdateQualityArray
+    const [qualitiesTakenArray, updateQualitiesTakenArray] = React.useState([]); //handleUpdateQualityTakenArray
+    useEffect(() => {
+        console.log(
+            'qualities',
+            qualityState
+        )
+    }, [qualityState])
+    useEffect(() => {
+        console.log(
+            'qualities taken',
+            qualityTakenState
+        )
+    }, [qualityTakenState])
+    useEffect(() => {
+        console.log(
+            'qualities array',
+            qualitiesArray
+        )
+    }, [qualitiesArray])
+    useEffect(() => {
+        console.log(
+            'qualities taken array',
+            qualitiesTakenArray
+        )
+    }, [qualitiesTakenArray])
+    const handleQualityState = (value) => () => {
+        setQualityState(value)
+        setQualityTakenState(value)
+    }
+    const handleQualityTakenState = (value) => () => {
+        setQualityTakenState(value)
+        setQualityState(value)
+    }
+    const handleUpdateQualitiesArray = (value) => () => {
+        const valueResult = qualitiesArray.find(qualitiesArray => qualitiesArray.id == value)
+        updateQualitiesArray(qualitiesArray.filter(qualitiesArray => qualitiesArray.id !== value))
+        updateQualitiesTakenArray([...qualitiesTakenArray, valueResult])
+    }
+    const handleUpdateQualityTakenArray = (value) => () => {
+        const valueResult = qualitiesTakenArray.find(qualitiesTakenArray => qualitiesTakenArray.id == value)
+        updateQualitiesTakenArray(qualitiesTakenArray.filter(qualitiesTakenArray => qualitiesTakenArray.id !== value))
+        updateQualitiesArray([...qualitiesArray, valueResult])
+    }
+    // ------------------------------------
+
+    // Attributes (Parent)
+    const handleAttributePoints = (name, value, attributeName) => {
+        const adjustPointsName = `adjustPoints${attributeName.charAt(0).toUpperCase()}${attributeName.slice(1)}`
+        const attribPointsName = `attribPoints${attributeName.charAt(0).toUpperCase()}${attributeName.slice(1)}`
+        const karmaPointsName = `karmaPoints${attributeName.charAt(0).toUpperCase()}${attributeName.slice(1)}`
+        const maxAttributeValue = max[chosenMetatype.race][`max${attributeName}`];
+
+        if ((attributePoints[name] === 0 && value === -1) || // Avoid going below zero
+            (name === 'adjust' && attributePoints[name] === attributePoints.maxAdjust && value === 1) || // Avoid going above Ajustment Point max
+            (name === 'attrib' && attributePoints[name] === attributePoints.maxAttrib && value === 1) || // Avoid going above Attribute Point max
+            (attributes[attributeName] === 1 && value === 1) ||
+            (attributes[attributeName] === maxAttributeValue && value === -1) ||
+            (karma - ((attributes[attributeName] + 1) * 5) < 0 && value === -1)) {
+            return;
+        }
+        if(name !== 'karma') {
+            setAttributePoints(prevPoints => ({
+                ...prevPoints,
+                [name]: (attributePoints[name] + value)
+            }))
+            setAttributes(prevAttributes => ({
+                ...prevAttributes,
+                [attributeName]: attributes[attributeName] - value,
+                [name === 'adjust' ? adjustPointsName : attribPointsName]: attributes[name === 'adjust' ? adjustPointsName : attribPointsName] - value
+            }));
+        }
+        else {
+            setAttributes(prevAttributes => ({
+                ...prevAttributes,
+                [attributeName]: attributes[attributeName] - value,
+                [karmaPointsName]: attributes[karmaPointsName] - value
+            }));
+            if(value === -1) {
+                setKarma(karma - ((attributes[attributeName] + 1) * 5))
             }
-        };
-        
-        if (buttonState === 0 && powerState === 1) {
-            switch (name) {
-                case 'metatype':
-                    updateButtons('attribute', priorityButtons.attribute);
-                    updateButtons('skill', priorityButtons.skill);
-                    updateButtons('magic', priorityButtons.magic);
-                    updateButtons('resource', priorityButtons.resource);
-                    break;
-                case 'attribute':
-                    updateButtons('metatype', priorityButtons.metatype);
-                    updateButtons('skill', priorityButtons.skill);
-                    updateButtons('magic', priorityButtons.magic);
-                    updateButtons('resource', priorityButtons.resource);
-                    break;
-                case 'skill':
-                    updateButtons('metatype', priorityButtons.metatype);
-                    updateButtons('attribute', priorityButtons.attribute);
-                    updateButtons('magic', priorityButtons.magic);
-                    updateButtons('resource', priorityButtons.resource);
-                    break;
-                case 'magic':
-                    updateButtons('metatype', priorityButtons.metatype);
-                    updateButtons('attribute', priorityButtons.attribute);
-                    updateButtons('skill', priorityButtons.skill);
-                    updateButtons('resource', priorityButtons.resource);
-                    break;
-                case 'resource':
-                    updateButtons('metatype', priorityButtons.metatype);
-                    updateButtons('attribute', priorityButtons.attribute);
-                    updateButtons('skill', priorityButtons.skill);
-                    updateButtons('magic', priorityButtons.magic);
-                    break;
+            else {
+                setKarma(karma + (attributes[attributeName] * 5))
             }
-        } 
-        else if (buttonState === 1) {
-            // Handle rules
         }
     }
-    //---------------------------------------------------------
+    //------------------------------------------
 
-    //Priorities (Child Component)
-    const [openMetatypes, setMetatypesOpen] = React.useState(false);
-    const handleOpenMetatypes = (value) => {
-        setMetatypesOpen(value)
-    }
-    const [openAttributes, setAttributesOpen] = React.useState(false);
-    const handleOpenAttributes = (value) => {
-        setAttributesOpen(value)
-    }
-    const [openSkills, setSkillsOpen] = React.useState(false);
-    const handleOpenSkills = (value) => {
-        setSkillsOpen(value)
-    }
-    const [openMagic, setMagicOpen] = React.useState(false);
-    const handleOpenMagic = (value) => {
-        setMagicOpen(value)
-    }
-    const [openResources, setResourcesOpen] = React.useState(false);
-    const handleOpenResources = (value) => {
-        setResourcesOpen(value)
-    }
+    // Knowledge/Skills (Parent)
+    const [skillsTaken, setSkillsTaken] = React.useState([]);
+    useEffect(() => {
+        console.log(skillsTaken);
+    }, [skillsTaken]);
+    const handleUpdateSkillsTaken = (identifier, event, value) => {
+        switch(identifier) {
+            case 'checkbox':
+                if(event.target.checked) {
+                    if(skillPoints.skill === 0) {
+                        return;
+                    }
+                    else {
+                        setSkillPoints(prevSkillPoints => ({
+                            ...prevSkillPoints,
+                            skill: prevSkillPoints.skill - 1
+                        }));
+                        setSkillsTaken(prevSkills => [
+                            ...prevSkills,
+                            {
+                                name: value,
+                                rating: 1,
+                                spec: 'No Selection'
+                            }
+                        ]);
+                    }
+                }
+                else if(!event.target.checked) {
+                    if(skillPoints.skill === skillPoints.maxSkill) {
+                        return;
+                    }
+                    else {
+                        setSkillPoints(prevSkillPoints => ({
+                            ...prevSkillPoints,
+                            skill: prevSkillPoints.skill + 1
+                        }));
+                        setSkillsTaken(prevSkills => prevSkills.filter(skillsTaken => skillsTaken.name !== value));
+                    }
+                }
+                break;
+            case 'add':
+                if( skillPoints.skill === 0 ||
+                    skillsTaken.find(skill => skill.name === value)?.rating === 6) {
+                    return;
+                }
+                else {
+                    setSkillPoints(prevSkillPoints => ({
+                        ...prevSkillPoints,
+                        skill: prevSkillPoints.skill - 1
+                    }));
+                    setSkillsTaken(prevSkills =>
+                        prevSkills.map(skill =>
+                            skill.name === value
+                            ? {
+                                ...skill,
+                                rating: skill.rating + 1
+                            }
+                            : skill
+                        )
+                    );
+                }
+                break;
+            case 'sub':
+                if( skillPoints.skill === skillPoints.maxSkill ||
+                    skillsTaken.find(skill => skill.name === value)?.rating === 1) {
+                    return;
+                }
+                else {
+                    if(skillsTaken.find(skill => skill.name === value)?.rating-1 < 5 && skillsTaken.find(skill => skill.name === value)?.spec !== 'No Selection') {
+                        setSkillPoints(prevSkillPoints => ({
+                            ...prevSkillPoints,
+                            skill: prevSkillPoints.skill + 2
+                        }));
+                        setSkillsTaken(prevSkills =>
+                            prevSkills.map(skill =>
+                                skill.name === value
+                                ? {
+                                    ...skill,
+                                    rating: skill.rating - 1,
+                                    spec: 'No Selection'
+                                }
+                                : skill
+                            )
+                        );
+                    }
+                    else {
+                        setSkillPoints(prevSkillPoints => ({
+                            ...prevSkillPoints,
+                            skill: prevSkillPoints.skill + 1
+                        }));
+                        setSkillsTaken(prevSkills =>
+                            prevSkills.map(skill =>
+                                skill.name === value
+                                ? {
+                                    ...skill,
+                                    rating: skill.rating - 1
+                                }
+                                : skill
+                            )
+                        );
+                    }
+                }
+                break;
+            case 'spec':
+                if(skillsTaken.find(skill => skill.name === value)?.spec === 'No Selection' && event.target.value !== 'No Selection') {
+                    if( skillPoints.skill === 0 ||
+                        skillsTaken.find(skill => skill.name === value)?.rating < 5) {
+                        return;
+                    }
+                    setSkillPoints(prevSkillPoints => ({
+                        ...prevSkillPoints,
+                        skill: prevSkillPoints.skill - 1
+                    }));
+                }
+                else if(event.target.value === 'No Selection') {
+                    if( skillPoints.skill === skillPoints.maxSkill ) {
+                        return;
+                    }
+                    setSkillPoints(prevSkillPoints => ({
+                        ...prevSkillPoints,
+                        skill: prevSkillPoints.skill + 1
+                    }));
+                }
+                setSkillsTaken(prevSkills =>
+                    prevSkills.map(skill =>
+                        skill.name === value
+                        ? {
+                            ...skill,
+                            spec: event.target.value
+                        }
+                        : skill
+                    )
+                );
+                break;
+            default:
+                break;
+        }
+    };
 
-    // This section handles magic category warning text to simplify amount of code in priorityRows
-    const AwakenedOrEmerged = [
-        [
-            'Magician, Mystic Adept, Adept: ',
-            '4 Magic',
-            'Aspected Magician: ',
-            '5 Magic',
-            'Technomancer: ',
-            '4 Resonance'
-        ],
-        [
-            'Magician, Mystic Adept, Adept: ',
-            '3 Magic',
-            'Aspected Magician: ',
-            '4 Magic',
-            'Technomancer: ',
-            '3 Resonance'
-        ],
-        [
-            'Magician, Mystic Adept, Adept: ',
-            '2 Magic',
-            'Aspected Magician: ',
-            '3 Magic',
-            'Technomancer: ',
-            '2 Resonance'
-        ],
-        [
-            'Magician, Mystic Adept, Adept: ',
-            '1 Magic',
-            'Aspected Magician: ',
-            '2 Magic',
-            'Technomancer: ',
-            '1 Resonance'
-        ],
-        [
-            '',
-            'No Magic or Resonance',
-            '',
-            '',
-            '',
-            ''
-        ]
-    ]
-    // This section handles all other mapped information in priorityRows
-    const priorities = [
-        {
-            name: 'Metatype',
-            idA: 0,
-            A: 13,
-            idB: 1,
-            B: 11,
-            idC: 2,
-            C: 9,
-            idD: 3,
-            D: 4,
-            idE: 4,
-            E: 1,
-            state: priorityButtons.metatype,
-            change: value => handlePriorityButtons('metatype', parseInt(value)),
-            collapse: openMetatypes,
-            set: handleOpenMetatypes
-        },
-        {
-            name: -2,
-            title: 'Restricted From the Following Metatypes',
-            A: 'Elf, Dalakitnon, Dryad, Nocturna, Wakyambi, Xaipiri Thëpë, Human, Nartaki, Valkyrie',
-            B: 'Human, Nartaki',
-            C: 'No restrictions',
-            D: 'No restrictions',
-            E: 'Menehune, Wakyambi, Nartaki, Valkyrie, Satyr, Fomorian, Centaurs, Merrow, Naga, Pixie, Sasquatch',
-            state: priorityButtons.metatype,
-            showState: showRestrictions
-        },
-        {
-            name: -1,
-            collapse: openMetatypes,
-            desc: 'Metatypes',
-        },
-        {
-            name: 'Attributes',
-            idA: 0,
-            A: 24,
-            idB: 1,
-            B: 16,
-            idC: 2,
-            C: 12,
-            idD: 3,
-            D: 8,
-            idE: 4,
-            E: 2,
-            state: priorityButtons.attribute,
-            change: value => handlePriorityButtons('attribute', parseInt(value)),
-            collapse: openAttributes,
-            set: handleOpenAttributes
-        },
-        {
-            name: -1,
-            collapse: openAttributes,
-            desc: 'Attributes',
-        },
-        {
-            name: 'Skills',
-            idA: 0,
-            A: 32,
-            idB: 1,
-            B: 24,
-            idC: 2,
-            C: 20,
-            idD: 3,
-            D: 16,
-            idE: 4,
-            E: 10,
-            state: priorityButtons.skill,
-            change: value => handlePriorityButtons('skill', parseInt(value)),
-            collapse: openSkills,
-            set: handleOpenSkills
-        },
-        {
-            name: -1,
-            collapse: openSkills,
-            desc: 'Skills',
-        },
-        {
-            name: 'Magic or Resonance',
-            idA: 0,
-            A: 'Not Mundane',
-            idB: 1,
-            B: 'Not Mundane',
-            idC: 2,
-            C: 'Not Mundane',
-            idD: 3,
-            D: 'Not Mundane',
-            idE: 4,
-            E: 'Mundane',
-            state: priorityButtons.magic,
-            change: value => handlePriorityButtons('magic', parseInt(value)),
-            collapse: openMagic,
-            set: handleOpenMagic
-        },
-        {
-            name: -3,
-            title: 'Magic or Resonance',
-            showState: showMagicRestrictions
-        },
-        {
-            name: -1,
-            collapse: openMagic,
-            desc: 'Magic or Resonance',
-        },
-        {
-            name: 'Resources',
-            idA: 0,
-            A: '450,000 ¥',
-            idB: 1,
-            B: '275,000 ¥',
-            idC: 2,
-            C: '150,000 ¥',
-            idD: 3,
-            D: '50,000 ¥',
-            idE: 4,
-            E: '8,000 ¥',
-            state: priorityButtons.resource,
-            change: value => handlePriorityButtons('resource', parseInt(value)),
-            collapse: openResources,
-            set: handleOpenResources
-        },
-        {
-            name: -1,
-            collapse: openResources,
-            desc: 'Resources',
-        },       
-    ]
+    // This block handles all the information needed for knowledge.js, language.js
+    // This block holds the hooks that handle what knowledge and languages are taken versus available
 
-    const priorityRows = priorities.map(priorities => {
-        return (priorities.name !== -1 && priorities.name !== -2 && priorities.name !== -3 ?
-            // This section handles rows with buttons for each category which has no numbered name ID
-            <tr>
-                <td style={{textAlign: 'center', width: '20%'}}>
-                    {priorities.name}
-                </td>
-                <td style={{ width: '16%' }}>
-                    <Button 
-                        value={priorities.idA} 
-                        onClick={e => priorities.change(e.target.value)} 
-                        color={(priorities.state == 0) ? 'info' : 'primary'} 
-                        fullWidth 
-                        variant='solid'
-                        sx={{height: 80}}
-                    >
-                        {priorities.A}
-                    </Button>
-                </td>
-                <td style={{ width: '16%' }}>
-                    <Button 
-                        value={priorities.idB} 
-                        onClick={e => priorities.change(e.target.value)} 
-                        color={(priorities.state == 1) ? 'info' : 'primary'} 
-                        fullWidth 
-                        variant='solid'
-                        sx={{height: 80}}
-                    >
-                        {priorities.B}
-                    </Button>
-                </td>
-                <td style={{ width: '16%' }}>
-                    <Button 
-                        value={priorities.idC} 
-                        onClick={e => priorities.change(e.target.value)} 
-                        color={(priorities.state == 2) ? 'info' : 'primary'} 
-                        fullWidth 
-                        variant='solid'
-                        sx={{height: 80}}
-                    >
-                        {priorities.C}
-                    </Button>
-                </td>
-                <td style={{ width: '16%' }}>
-                    <Button 
-                        value={priorities.idD} 
-                        onClick={e => priorities.change(e.target.value)} 
-                        color={(priorities.state == 3) ? 'info' : 'primary'} 
-                        fullWidth 
-                        variant='solid'
-                        sx={{height: 80}}
-                    >
-                        {priorities.D}
-                    </Button>
-                </td>
-                <td style={{ width: '16%' }}>
-                    <Button 
-                        value={priorities.idE} 
-                        onClick={e => priorities.change(e.target.value)} 
-                        color={(priorities.state == 4) ? 'info' : 'primary'} 
-                        fullWidth 
-                        variant='solid'
-                        sx={{height: 80}}
-                    >
-                        {priorities.E}
-                    </Button>
-                </td>
-            </tr>
-        :
-            null
-        );
-    });
-/*      :
-            priorities.name !== -2 && priorities.name !== -3 ?
-                // This section handles the collapsed rows for each category and has a numbered name ID of -1
-                <tr>
-                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
-                        <Collapse in={priorities.collapse} timeout='auto' unmountOnExit>
-                            <Box sx={{ margin: 1 }}>
-                                <Typography variant='h6' gutterBottom component='div'>
-                                    {priorities.desc}
-                                </Typography>
-                            </Box>
-                        </Collapse>
-                    </TableCell>
-                </tr>
-            :
-                priorities.name !== -3 ?
-                    // This section handles the metatype category warning on what races are disabled and has a numbered name ID of -2
-                    <TableRow sx={{ '& > *': { borderBottom: 'unset'}}} hover>
-                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
-                            <Collapse in={priorities.showState} orientation='vertical' timeout={{enter: 500, exit: 1000}} unmountOnExit>       
-                                <Box sx={{ margin: 1 }}>
-                                    <WarningHeader align='center' sx={{marginBottom: 1}}>
-                                        {priorities.title}
-                                    </WarningHeader>
-                                    <WarningBody align='center'>
-                                        {
-                                            priorities.state == 0 ?
-                                                priorities.A
-                                            :
-                                            priorities.state == 1 ?
-                                                priorities.B
-                                            :
-                                            priorities.state == 2 ?
-                                                priorities.C
-                                            :
-                                            priorities.state == 3 ?
-                                                priorities.D
-                                            :
-                                                priorities.E
-                                        }
-                                    </WarningBody>
-                                </Box>
-                            </Collapse>
-                        </TableCell>
-                    </TableRow>
-                :
-                    // This section handles the magic category warning on what magic or resonance points will be available and has a numbered name ID of -3
-                    <TableRow sx={{ '& > *': { borderBottom: 'unset'}}} hover>
-                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
-                            <Collapse in={priorities.showState} orientation='vertical' timeout={{enter: 500, exit: 1000}} unmountOnExit>       
-                                <Box container align='center' sx={{ margin: 1 }}>
-                                    <WarningHeader sx={{marginBottom: 1}}>
-                                        {priorities.title}
-                                    </WarningHeader>
-                                    <WarningBody>
-                                        <WarningBodyHeader display="inline">{AwakenedOrEmerged[priorityButtons.magic][0]}</WarningBodyHeader>{AwakenedOrEmerged[priorityButtons.magic][1]}
-                                        <br />
-                                        <WarningBodyHeader display="inline">{AwakenedOrEmerged[priorityButtons.magic][2]}</WarningBodyHeader>{AwakenedOrEmerged[priorityButtons.magic][3]}
-                                        <br />
-                                        <WarningBodyHeader display="inline">{AwakenedOrEmerged[priorityButtons.magic][4]}</WarningBodyHeader>{AwakenedOrEmerged[priorityButtons.magic][5]}
-                                    </WarningBody>
-                                </Box>
-                            </Collapse>
-                        </TableCell>
-                    </TableRow>*/
+    const [knowledgeTaken, setKnowledgeTaken] = React.useState([]);
+    useEffect(() => {
+        console.log(knowledgeTaken)
+    }, [knowledgeTaken])
+    const [languageTaken, setLanguageTaken] = React.useState([]);
+    useEffect(() => {
+        console.log(languageTaken)
+    }, [languageTaken])
+    const handleKnowledgeTaken = (value, option) => {
+        switch(option) {
+            case 'add':
+                if( knowledgePoints.knowledge === 0 ) {
+                    return;
+                }
+                setKnowledgePoints(prevPoints => ({
+                    ...prevPoints,
+                    know: prevPoints.know - 1
+                }))
+                setKnowledgeTaken((prevKnowledgeTaken) => [...prevKnowledgeTaken, value])
+                break;
+            case 'sub':
+                if( knowledgePoints.knowledge === knowledgePoints.maxKnowledge ) {
+                    return;
+                }
+                setKnowledgePoints(prevPoints => ({
+                    ...prevPoints,
+                    know: prevPoints.know + 1
+                }))
+                setKnowledgeTaken(prevKnowledgeTaken => prevKnowledgeTaken.filter(item => item !== value))
+                break;
+            default:
+                break;
+        }
+    }
+    const handleLanguageTaken = (value, option) => {
+        switch(option) {
+            case 'add':
+                if( knowledgePoints.knowledge === 0 ) {
+                    return;
+                }
+                setKnowledgePoints(prevPoints => ({
+                    ...prevPoints,
+                    know: prevPoints.know - 1
+                }))
+                setLanguageTaken((prevLanguageTaken) => [...prevLanguageTaken, value])
+                break;
+            case 'sub':
+                if( knowledgePoints.knowledge === knowledgePoints.maxKnowledge ) {
+                    return;
+                }
+                setKnowledgePoints(prevPoints => ({
+                    ...prevPoints,
+                    know: prevPoints.know + 1
+                }))
+                setLanguageTaken(prevLanguageTaken => prevLanguageTaken.filter(item => item !== value))
+                break;
+            default:
+                break;
+        }
+    }
+    // ----------------------- 
 
     return (
-        <Grid container columns={100} sx={{ flexGrow: 1 }}>
+        <Grid container columns={100} sx={{ flexGrow: 1, padding: 0 }}>
             {/* This section handles the sidebar navigation of the various components. */}
             <Grid xs={13} sx={{ bgcolor: "#ecebe6", padding: 1, height: "100vh", borderRight: 1, borderRightColor: '#9EA4A9' }}>
                 <List>
@@ -646,6 +686,7 @@ export default function Character() {
                             Settings
                         </ListItemButton>
                     </ListItem>
+                    <Divider />
                     <ListItem>
                         <ListItemButton selected={page === 1 ? true : false} onClick={() => handleSetPage(1)}>
                             <ListItemDecorator>
@@ -733,170 +774,52 @@ export default function Character() {
             </Grid>
             <Grid xs={87} sx={{ height: "100vh" }}>
                 <Grid container columns={100} sx={{ flexGrow: 1, height: "100%" }}>
-                    <Grid xs={100} sx={{ bgcolor: "#ecebe6", padding: 1, height: "10vh", borderBottom: 1, borderBottomColor: '#9EA4A9' }}>
-                        name
+                    <Grid xs={100} columns={100} sx={{ flexGrow: 1, height: "10vh", padding: 0 }}>
+                        <Name 
+                            Item={Item} 
+                            karma={karma}
+                            attributePoints={attributePoints}
+                            skillPoints={skillPoints}
+                            knowledgePoints={knowledgePoints}
+                            resourcePoints={resourcePoints}
+                        />
                     </Grid>
                     <Grid container columns={100} sx={{ flexGrow: 1, height: "90vh"}}>
                         {(page === 0) &&
-                            <>
-                                <Grid xs={40} sx={{ bgcolor: "#e1e1da", padding: 1, height: '100%' }}>
-                                    <Item sx={{ height: '100%', boxSizing: 'border-box' }}>
-                                        <ButtonGroup orientation='vertical' variant='solid'> 
-                                                <FormControl variant='filled' fullWidth={true}>
-                                                <Select sx={{marginBottom: 1}} defaultValue={1} label='Power Level' onChange={handlePowerState}>
-                                                    <Option value={0}>
-                                                        {powerLevel[0]}
-                                                    </Option>
-                                                    <Option value={1}>
-                                                        {powerLevel[1]}
-                                                    </Option>
-                                                    <Option value={2}>
-                                                        {powerLevel[2]}
-                                                    </Option>
-                                                </Select>
-                                                </FormControl>
-                                                <Button value={0} onClick={e => handleButtonState(0)} sx={{height: 80}}>
-                                                    {creatorType[0]}
-                                                </Button>
-                                                <Button value={1} onClick={e => handleButtonState(1)} sx={{height: 80}}>
-                                                    {creatorType[1][powerState]}
-                                                </Button>
-                                                <Button value={2} onClick={e => handleButtonState(2)} sx={{height: 80}}>
-                                                    {creatorType[2]}
-                                                </Button>
-                                                <Button value={3} onClick={e => handleButtonState(3)} sx={{height: 80}}>
-                                                    {creatorType[3]}
-                                                </Button>                                
-                                        </ButtonGroup>
-                                    </Item>
-                                </Grid>
-                                <Grid xs={60} sx={{ bgcolor: "#e1e1da", padding: 1, height: '100%' }}>
-                                    <Item sx={{ height: '100%', boxSizing: 'border-box' }}>
-                                        <Typography
-                                            variant='h1'
-                                            style={{
-                                                fontSize: 36,
-                                                fontFamily: 'Segoe UI',
-                                                fontWeight: 500
-                                            }}
-                                            sx={{
-                                                paddingLeft: 2,
-                                                paddingTop: 2
-                                            }}
-                                        >
-                                            {powerLevel[powerState]}
-                                        </Typography>
-                                        <Typography
-                                            variant='body1'
-                                            style={{
-                                                fontSize: 18,
-                                                fontFamily: 'Segoe UI',
-                                                fontWeight: 400
-                                            }}
-                                            sx={{
-                                                paddingLeft: 2, 
-                                                paddingTop: 2
-                                            }}
-                                        >
-                                            {powerLevelDescription[powerState]}
-                                        </Typography>
-                                        <Typography
-                                            variant='h1'
-                                            style={{
-                                                fontSize: 36,
-                                                fontFamily: 'Segoe UI',
-                                                fontWeight: 500
-                                            }}
-                                            sx={{
-                                                paddingLeft: 2,
-                                                paddingTop: 4
-                                            }}
-                                        >
-                                            {buttonState == 1 ? creatorType[buttonState][powerState] : creatorType[buttonState]}
-                                        </Typography>
-                                        <Typography
-                                            variant='body1'
-                                            style={{
-                                                fontSize: 18,
-                                                fontFamily: 'Segoe UI',
-                                                fontWeight: 400
-                                            }}
-                                            sx={{
-                                                paddingLeft: 2, 
-                                                paddingTop: 0
-                                            }}
-                                        >
-                                            {creatorTypeDescription[buttonState][powerState]}
-                                        </Typography>
-                                    </Item>
-                                </Grid>
-                            </>
+                            <Settings
+                                Item={Item}
+                                settings={settings}
+                                handleSettings={handleSettings}
+                            />
                         }
                         {(page === 1) &&
-                            <>
-                                <Grid xs={80} sx={{ bgcolor: '#e1e1da', padding: 1, height: "100%" }}>
-                                    <Item sx={{ boxSizing: 'border-box', height: '100%' }}>
-                                        <Table>
-                                            <thead>
-                                                <tr sx={{height: 55}}>
-                                                    <th style={{textAlign: 'center', width: '20%'}}>
-                                                        Priority
-                                                    </th>
-                                                    <th style={{textAlign: 'center', width: '16%'}}>
-                                                        A
-                                                    </th>
-                                                    <th style={{textAlign: 'center', width: '16%'}}>
-                                                        B
-                                                    </th>
-                                                    <th style={{textAlign: 'center', width: '16%'}}>
-                                                        C
-                                                    </th>
-                                                    <th style={{textAlign: 'center', width: '16%'}}>
-                                                        D
-                                                    </th>
-                                                    <th style={{textAlign: 'center', width: '16%'}}>
-                                                        E
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {priorityRows}
-                                            </tbody>
-                                        </Table>
-                                    </Item>
-                                </Grid>
-                                <Grid xs={20} sx={{ bgcolor: '#e1e1da', padding: 1, height: "100%" }}>
-                                    <Item sx={{ boxSizing: 'border-box', height: '100%' }}>
-                                        Info
-                                    </Item>
-                                </Grid>
-                            </>
+                            <Priorities
+                                Item={Item}
+                                priorityButtons={priorityButtons} 
+                                handlePriorityButtons={handlePriorityButtons}
+                            />
+                        }
+                        {(page === 2) &&
+                            <Metatype
+                                Item={Item}
+                                handleChosenMetatype={handleChosenMetatype}
+                                chosenMetatype={chosenMetatype}
+                                priorityButtons={priorityButtons}
+                                karma={karma}
+                            />
                         }
                         {(page === 3) &&
-                        <>
-                            <Grid xs={80} sx={{ bgcolor: "#e1e1da", padding: 1, height: "100%" }}>
-                                <Grid container columns={100} spacing={2} sx={{ flexGrow: 1 }}>
-                                    <Grid xs={100}>
-                                        <Item>
-                                            char
-                                        </Item>
-                                    </Grid>
-                                    <Grid xs={65}>
-                                        <Item>
-                                            abil
-                                        </Item>
-                                    </Grid>
-                                    <Grid xs={35}>
-                                        <Item>
-                                            qual
-                                        </Item>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid xs={20} sx={{ bgcolor: "#ecebe6", padding: 1, height: "100%", borderLeft: 1, borderLeftColor: '#9EA4A9' }}>
-                                desc
-                            </Grid>
-                        </>
+                            <Overview 
+                                Item={Item}
+                                qualitiesArray={qualitiesArray}
+                                handleUpdateQualitiesArray={handleUpdateQualitiesArray}
+                                qualityState={qualityState}
+                                handleQualityState={handleQualityState}
+                                priorityButtons={priorityButtons}
+                                attributes={attributes}
+                                handleAttributePoints={handleAttributePoints}
+                                chosenMetatype={chosenMetatype}
+                            />
                         }
                     </Grid>
                 </Grid>
