@@ -204,3 +204,35 @@ class WeaponModSlot(models.Model):
     weapon = models.ForeignKey('Weapons', on_delete=models.CASCADE)
     mod = models.ForeignKey('WeaponMod', on_delete=models.CASCADE)
     slot = models.CharField(max_length=12, choices=MOD_SLOTS)
+
+class Qualities(models.Model):
+    id = models.CharField(
+        max_length=64,
+        verbose_name="Quality ID",
+        primary_key=True
+    )
+    karma = models.IntegerField(
+        verbose_name="Quality Karma Cost",
+        default=0
+    )
+    type = models.CharField(
+        verbose_name="Quality Type",
+        max_length=16,
+        default=""
+    )
+    effect = models.TextField(
+        verbose_name="Quality Game Effect",
+        null=True,
+        blank=True,
+        default=""
+    )
+    max_level = models.IntegerField(
+        verbose_name="Quality Maximum Level",
+        default=1
+    )
+    example = models.TextField(
+        verbose_name="Quality Examples",
+        null=True,
+        blank=True,
+        default=""
+    )

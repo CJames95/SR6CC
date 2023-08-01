@@ -41,6 +41,7 @@ export default function Overview({ Item, qualitiesArray, handleUpdateQualitiesAr
                                 handleUpdateQualitiesArray={handleUpdateQualitiesArray}
                                 qualityState={qualityState}
                                 handleQualityState={handleQualityState}
+                                Item={Item}
                             />
                         </Item>
                     </Grid>

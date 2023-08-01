@@ -271,7 +271,8 @@ export default function Metatype({Item, handleChosenMetatype, chosenMetatype, pr
                                 background: '#b30000',
                             },
                             borderTopRightRadius: isOverflowing ? 0 : 4,
-                            borderTopLeftRadius: 4
+                            borderTopLeftRadius: 4,
+                            borderBottomLeftRadius: 4
                         }}
                     >
                         <ListSubheader 

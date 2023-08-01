@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import Weapons
+from .models import Qualities
 from django.views.decorators.csrf import ensure_csrf_cookie
 # Create your views here.
 
@@ -27,3 +28,7 @@ def weapons(request, type):
         weapon['cost'] = str(weapon['cost']) + '¥'
 
     return JsonResponse(list(weapons), safe=False)
+
+def qualities(request):
+    qualities = Qualities.objects.values()
+    return JsonResponse(list(qualities), safe=False)

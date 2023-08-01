@@ -11,7 +11,7 @@ import {
     ButtonGroup,
     IconButton,
     ListItemDecorator,
-    Input
+    Input,
 } from '@mui/joy';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
@@ -158,7 +158,7 @@ export default function Abilities({ priorityButtons, attributes, handleAttribute
             attr: attributes.attribPointsRes,
             karma: attributes.karmaPointsRes,
             cost: (attributes['res'] + 1) * 5,
-        value: 0,
+            value: 0,
             max: null
         },
     ]
@@ -181,7 +181,7 @@ export default function Abilities({ priorityButtons, attributes, handleAttribute
 
     const rows = attributeRows.map((attributeRows) => {
         if (
-            (attributeRows.name === 'Magic') &&
+            (attributeRows.name === 'Magic' || attributeRows.name === 'Resonance') &&
             priorityButtons.magic === 4
         ) {
             return null
@@ -235,13 +235,11 @@ export default function Abilities({ priorityButtons, attributes, handleAttribute
                             <Input 
                                 variant='soft'
                                 value={attributeRows.adjust} 
-                                size='small'
+                                size='md'
                                 sx={{
                                     flex: '1 1 auto',
-                                    fontFamily: 'Segoe UI',
-                                    fontSize: '1vw',
-                                    fontWeight: 500,                         
-                                }} 
+                                    fontFamily: 'Segoe UI',                        
+                                }}
                             />
                             <IconButton 
                                 onClick={e => attributeRows.handlePoints('adjust', -1, attributeRows.attrName)}
@@ -264,7 +262,7 @@ export default function Abilities({ priorityButtons, attributes, handleAttribute
                         <ButtonGroup 
                             variant='solid'
                             sx={{
-                                width: '98%'
+                                width: '98%',
                             }}
                         >
                             <IconButton 
@@ -275,7 +273,15 @@ export default function Abilities({ priorityButtons, attributes, handleAttribute
                             >
                                 <RemoveCircleIcon/>
                             </IconButton>
-                            <Input value={attributeRows.attr} sx={{width: 50}} size='small'/>
+                            <Input 
+                                variant='soft'
+                                value={attributeRows.attr} 
+                                size='md'
+                                sx={{
+                                    flex: '1 1 auto',
+                                    fontFamily: 'Segoe UI',                     
+                                }}
+                            />
                             <IconButton 
                                 onClick={e => attributeRows.handlePoints('attrib', -1, attributeRows.attrName)}
                                 sx={{
@@ -308,7 +314,15 @@ export default function Abilities({ priorityButtons, attributes, handleAttribute
                             >
                                 <RemoveCircleIcon/>
                             </IconButton>
-                            <Input value={attributeRows.karma} sx={{width: 50}} size='small'/>
+                            <Input 
+                                variant='soft'
+                                value={attributeRows.karma} 
+                                size='md'
+                                sx={{
+                                    flex: '1 1 auto',
+                                    fontFamily: 'Segoe UI',                         
+                                }}
+                            />
                             <IconButton 
                                 onClick={e => attributeRows.handlePoints('karma', -1, attributeRows.attrName)}
                                 sx={{
@@ -324,6 +338,7 @@ export default function Abilities({ priorityButtons, attributes, handleAttribute
                         sx={{
                             width: headerWidths['Karma Cost'],
                             justifyContent: 'center',
+                            fontFamily: 'Segoe UI',
                         }}
                     >
                         {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') ? attributeRows.cost : 0}
@@ -332,6 +347,8 @@ export default function Abilities({ priorityButtons, attributes, handleAttribute
                         sx={{
                             width: headerWidths['Value'],
                             justifyContent: 'center',
+                            fontFamily: 'Segoe UI',
+                            fontWeight: 500
                         }}
                     >
                         {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') ? attributeRows.value : 0}
@@ -340,6 +357,8 @@ export default function Abilities({ priorityButtons, attributes, handleAttribute
                         sx={{
                             width: headerWidths['Max Value'],
                             justifyContent: 'center',
+                            fontFamily: 'Segoe UI',
+                            fontWeight: 500
                         }}
                     >
                         {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') ? attributeRows.max : 0}

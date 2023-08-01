@@ -20,5 +20,6 @@ from api import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('weapons/<str:type>/', views.weapons, name='weapons')
+    path('weapons/<str:type>/', views.weapons, name='weapons'),
+    path('qualities/', views.qualities, name='qualities')
 ]

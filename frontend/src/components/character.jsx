@@ -309,66 +309,6 @@ export default function Character() {
 
     // Qualities (Parent)
     const qualitiesList = [
-        {
-            id: 0,
-            cost: 5,
-            name: 'Test Quality I',
-        },
-        {
-            id: 1,
-            cost: 10,
-            name: 'Test Quality II',
-        },
-        {
-            id: 2,
-            cost: 10,
-            name: 'Test Quality II',
-        },
-        {
-            id: 3,
-            cost: 10,
-            name: 'Test Quality II',
-        },
-        {
-            id: 4,
-            cost: 10,
-            name: 'Test Quality II',
-        },
-        {
-            id: 5,
-            cost: 10,
-            name: 'Test Quality II',
-        },
-        {
-            id: 6,
-            cost: 10,
-            name: 'Test Quality II',
-        },
-        {
-            id: 7,
-            cost: 10,
-            name: 'Test Quality II',
-        },
-        {
-            id: 8,
-            cost: 10,
-            name: 'Test Quality II',
-        },
-        {
-            id: 9,
-            cost: 10,
-            name: 'Test Quality II',
-        },
-        {
-            id: 10,
-            cost: 10,
-            name: 'Test Quality II',
-        },
-        {
-            id: 11,
-            cost: 10,
-            name: 'Test Quality II',
-        },
     ]
     const [qualityState, setQualityState] = React.useState(0); //handleQualityState
     const [qualityTakenState, setQualityTakenState] = React.useState(null); //handleQualityTakenState
