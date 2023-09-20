@@ -7,6 +7,8 @@
     "@emotion/styled": "^11.11.0",
     "@fontsource/public-sans": "^5.0.5",
     "@fontsource/roboto": "^4.5.8",
+    "@headlessui/react": "^1.7.16",
+    "@heroicons/react": "^2.0.18",
     "@mui/icons-material": "^5.11.0",
     "@mui/joy": "^5.0.0-alpha.87",
     "@mui/material": "^5.11.6",
@@ -49,5 +51,8 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
+  }
 }

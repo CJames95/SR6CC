@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
     Button, 
     ButtonGroup,
@@ -360,9 +360,170 @@ export default function Priorities({ Item, priorityButtons, handlePriorityButton
             );
     });
 
+    const [selectedPriority, setSelectedPriority] = useState('');
+  
+    const handlePriorityChange = (event) => {
+      setSelectedPriority(event.target.value);
+    };
+
     return (
         <>
-            <Grid xs={80} sx={{ bgcolor: '#e1e1da', padding: 1, height: "100%" }}>
+            <div className='h-[calc(100vh-74px)] z-0 max-w-md mx-auto shadow-md md:max-w-2xl bg-gray-400'>
+                <div className='px-4 py-2'>
+                    <div className='grid grid-cols-1 bg-gray-500'>
+                        <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priority">
+                                Adjustment
+                            </label>
+                        </div>
+                        <div className='flex items-center justify-between flex-wrap'>
+                            <div className="w-full relative">
+                                <select
+                                    id="priority"
+                                    value={selectedPriority}
+                                    onChange={handlePriorityChange}
+                                    className="appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                >
+                                    <option value="" disabled hidden>
+                                        Choose here
+                                    </option>
+                                    <option value="magic">Magic</option>
+                                    <option value="resources">Resources</option>
+                                    <option value="skills">Skills</option>
+                                    {/* Add more options as needed */}
+                                </select>
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <span class="material-symbols-sharp">expand_more</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className='px-4 py-2'>
+                    <div className='grid grid-cols-1 bg-gray-500'>
+                        <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priority">
+                                Adjustment
+                            </label>
+                        </div>
+                        <div className='flex items-center justify-between flex-wrap'>
+                            <div className="w-full relative">
+                                <select
+                                    id="priority"
+                                    value={selectedPriority}
+                                    onChange={handlePriorityChange}
+                                    className="appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                >
+                                    <option value="" disabled hidden>
+                                        Choose here
+                                    </option>
+                                    <option value="magic">Magic</option>
+                                    <option value="resources">Resources</option>
+                                    <option value="skills">Skills</option>
+                                    {/* Add more options as needed */}
+                                </select>
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <span class="material-symbols-sharp">expand_more</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className='px-4 py-2'>
+                    <div className='grid grid-cols-1 bg-gray-500'>
+                        <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priority">
+                                Adjustment
+                            </label>
+                        </div>
+                        <div className='flex items-center justify-between flex-wrap'>
+                            <div className="w-full relative">
+                                <select
+                                    id="priority"
+                                    value={selectedPriority}
+                                    onChange={handlePriorityChange}
+                                    className="appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                >
+                                    <option value="" disabled hidden>
+                                        Choose here
+                                    </option>
+                                    <option value="magic">Magic</option>
+                                    <option value="resources">Resources</option>
+                                    <option value="skills">Skills</option>
+                                    {/* Add more options as needed */}
+                                </select>
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <span class="material-symbols-sharp">expand_more</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className='px-4 py-2'>
+                    <div className='grid grid-cols-1 bg-gray-500'>
+                        <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priority">
+                                Adjustment
+                            </label>
+                        </div>
+                        <div className='flex items-center justify-between flex-wrap'>
+                            <div className="w-full relative">
+                                <select
+                                    id="priority"
+                                    value={selectedPriority}
+                                    onChange={handlePriorityChange}
+                                    className="appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                >
+                                    <option value="" disabled hidden>
+                                        Choose here
+                                    </option>
+                                    <option value="magic">Magic</option>
+                                    <option value="resources">Resources</option>
+                                    <option value="skills">Skills</option>
+                                    {/* Add more options as needed */}
+                                </select>
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <span class="material-symbols-sharp">expand_more</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className='px-4 py-2'>
+                    <div className='grid grid-cols-1 bg-gray-500'>
+                        <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priority">
+                                Adjustment
+                            </label>
+                        </div>
+                        <div className='flex items-center justify-between flex-wrap'>
+                            <div className="w-full relative">
+                                <select
+                                    id="priority"
+                                    value={selectedPriority}
+                                    onChange={handlePriorityChange}
+                                    className="appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                >
+                                    <option value="" disabled hidden>
+                                        Choose here
+                                    </option>
+                                    <option value="magic">Magic</option>
+                                    <option value="resources">Resources</option>
+                                    <option value="skills">Skills</option>
+                                    {/* Add more options as needed */}
+                                </select>
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <span class="material-symbols-sharp">expand_more</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+    {/*
+    <Grid xs={80} sx={{ bgcolor: '#e1e1da', padding: 1, height: "100%" }}>
                 <Item sx={{ boxSizing: 'border-box', height: '100%', padding: 0 }}>
                     <List 
                         sx={{
@@ -616,6 +777,5 @@ export default function Priorities({ Item, priorityButtons, handlePriorityButton
                     </List>
                 </Item>
             </Grid>
-        </>
-    );
+    */}
 }

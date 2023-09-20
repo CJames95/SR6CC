@@ -605,8 +605,36 @@ export default function Character() {
     // ----------------------- 
 
     return (
-        <Grid container columns={100} sx={{ flexGrow: 1, padding: 0 }}>
-            {/* This section handles the sidebar navigation of the various components. */}
+        <>
+            <div className='relative h-screen'>
+                <Name 
+                    karma={karma}
+                    attributePoints={attributePoints}
+                    skillPoints={skillPoints}
+                    knowledgePoints={skillPoints}
+                    resourcePoints={resourcePoints}
+                    page={page}
+                    handleSetPage={handleSetPage}
+                />
+                {page === 0 && 
+                    <Settings
+                        settings={settings}
+                        handleSettings={handleSettings}
+                    />
+                }
+                {page === 1 &&
+                    <Priorities
+                        Item={Item}
+                        priorityButtons={priorityButtons} 
+                        handlePriorityButtons={handlePriorityButtons}
+                    />
+                }
+            </div>
+        </>
+    );
+}
+{/*<Grid container columns={100} sx={{ flexGrow: 1, padding: 0 }}>
+            This section handles the sidebar navigation of the various components. 
             <Grid xs={13} sx={{ bgcolor: "#ecebe6", padding: 1, height: "100vh", borderRight: 1, borderRightColor: '#9EA4A9' }}>
                 <List>
                     <ListItem>
@@ -761,9 +789,12 @@ export default function Character() {
                                 chosenMetatype={chosenMetatype}
                             />
                         }
+                        {(page === 4) &&
+                            <div>
+                                Hello, Tailwind!
+                            </div>
+                        }
                     </Grid>
                 </Grid>
             </Grid>
-        </Grid>
-    );
-}
+        </Grid>*/}

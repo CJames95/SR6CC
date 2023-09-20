@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
     Grid, 
     Typography, 
@@ -82,9 +82,150 @@ const creatorTypeDescription = [
 ]
 
 export default function Settings({ Item, settings, handleSettings }) {
+    const [creatorTypeSetting, setCreatorTypeSetting] = useState(false);
+    const handleCreatorTypeSetting = () => {
+        setCreatorTypeSetting(!creatorTypeSetting)
+    }
+    const [powerLevelSetting, setPowerLevelSetting] = useState(false);
+    const handlePowerLevelSetting = () => {
+        setPowerLevelSetting(!powerLevelSetting)
+    }
     return (
         <>
-            <Grid xs={40} sx={{ bgcolor: "#e1e1da", padding: 1, height: '100%' }}>
+            {powerLevelSetting === true &&
+                <div className='absolute h-[calc(100vh-74px)] left-1/2 transform -translate-x-1/2 z-10 w-full max-w-md mx-auto shadow-md md:max-w-2xl bg-gray-400'>
+                    <div className='px-4 py-2'>
+                        <div className='grid grid-cols-1 bg-gray-600'>
+                            <div className='flex items-center py-2.5 px-4'>
+                                <button onClick={handlePowerLevelSetting} className='flex items-center h-6 hover:text-gray-300 active:text-gray-100 focus:outline-none'>
+                                    <span class="material-symbols-sharp mt-0.5">arrow_back</span>
+                                </button>
+                                <div className='px-4'>
+                                    Power Level
+                                </div>
+                            </div>
+                            <div className='flex items-center justify-between flex-wrap'>
+                                <button className={`w-full ${settings.creatorState === 0 ? 'bg-blue-400' : 'bg-gray-200'} py-3 shadow-md ${settings.powerState === 0 ? 'hover:bg-blue-500' : 'hover:bg-gray-300'} ${settings.powerState === 0 ? 'active:bg-blue-300' : 'active:bg-gray-100'} focus:outline-none`}>
+                                    <div className='text-center px-4'>
+                                        Street Runner
+                                    </div>
+                                </button>
+                            </div>
+                            <div className='flex items-center justify-between flex-wrap'>
+                                <button className="w-full bg-gray-200 py-3 shadow-md hover:bg-gray-300 active:bg-gray-100 focus:outline-none">
+                                    <div className='text-center px-4'>
+                                        Standard Runner
+                                    </div>
+                                </button>
+                            </div>
+                            <div className='flex items-center justify-between flex-wrap'>
+                                <button className="w-full bg-gray-200 py-3 shadow-md hover:bg-gray-300 active:bg-gray-100 focus:outline-none">
+                                    <div className='text-center px-4'>
+                                        Elite Runner
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='px-4 py-2'>
+                        <div className='h-[calc(100vh-294px)] bg-gray-600 items-center p-4'>
+                            {powerLevelDescription[settings.powerState]}
+                        </div>
+                    </div>
+                </div>
+            }
+            {creatorTypeSetting === true &&
+                <div className='absolute h-[calc(100vh-74px)] left-1/2 transform -translate-x-1/2 z-10 w-full max-w-md mx-auto shadow-md md:max-w-2xl bg-gray-400'>
+                    <div className='px-4 py-2'>
+                        <div className='grid grid-cols-1 bg-gray-600'>
+                            <div className='flex items-center py-2.5 px-4'>
+                                <button onClick={handleCreatorTypeSetting} className='flex items-center h-6 hover:text-gray-300 active:text-gray-100 focus:outline-none'>
+                                    <span class="material-symbols-sharp mt-0.5">arrow_back</span>
+                                </button>
+                                <div className='px-4'>
+                                    Creator Type
+                                </div>
+                            </div>
+                            <div className='flex items-center justify-between flex-wrap'>
+                                <button className={`w-full ${settings.creatorState === 0 ? 'bg-blue-400' : 'bg-gray-200'} py-3 shadow-md ${settings.creatorState === 0 ? 'hover:bg-blue-500' : 'hover:bg-gray-300'} ${settings.creatorState === 0 ? 'active:bg-blue-300' : 'active:bg-gray-100'} focus:outline-none`}>
+                                    <div className='text-center px-4'>
+                                        {creatorType[0]}
+                                    </div>
+                                </button>
+                            </div>
+                            <div className='flex items-center justify-between flex-wrap'>
+                                <button className={`w-full ${settings.creatorState === 1 ? 'bg-blue-400' : 'bg-gray-200'} py-3 shadow-md hover:bg-gray-300 active:bg-gray-100 focus:outline-none`}>
+                                    <div className='text-center px-4'>
+                                        WIP: {creatorType[1][settings.powerState]}
+                                    </div>
+                                </button>
+                            </div>
+                            <div className='flex items-center justify-between flex-wrap'>
+                                <button className="w-full bg-gray-200 py-3 shadow-md hover:bg-gray-300 active:bg-gray-100 focus:outline-none">
+                                    <div className='text-center px-4'>
+                                        WIP: {creatorType[2]}
+                                    </div>
+                                </button>
+                            </div>
+                            <div className='flex items-center justify-between flex-wrap'>
+                                <button className="w-full bg-gray-200 py-3 shadow-md hover:bg-gray-300 active:bg-gray-100 focus:outline-none">
+                                    <div className='text-center px-4'>
+                                        WIP: {creatorType[3]}
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='px-4 py-2'>
+                        <div className='h-[calc(100vh-342px)] bg-gray-600 grid place-items-center p-4'>
+                            {creatorTypeDescription[settings.creatorState][settings.powerState]}
+                        </div>
+                    </div>
+                </div>
+            }
+            <div className='h-[calc(100vh-74px)] z-0 max-w-md mx-auto shadow-md md:max-w-2xl bg-[#413941]'>
+                <div className='px-4 py-2'>
+                    <div className='grid grid-cols-1 bg-gray-500'>
+                        <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
+                            Content
+                        </div>
+                        <div className='flex items-center justify-between flex-wrap'>
+                            <button onClick={handlePowerLevelSetting} className="w-full bg-gray-200 py-3 shadow-md hover:bg-gray-300 active:bg-gray-100 focus:outline-none">
+                                <div className='grid grid-cols-2'>
+                                    <div className='text-left px-4'>
+                                        Power Level
+                                    </div>
+                                    <div className='flex justify-end items-center text-right px-4'>
+                                        <span class="material-symbols-sharp">chevron_right</span>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                        <div className='flex items-center justify-between flex-wrap'>
+                            <button onClick={handleCreatorTypeSetting} className="w-full bg-gray-200 py-3 shadow-md hover:bg-gray-300 active:bg-gray-100 focus:outline-none">
+                                <div className='grid grid-cols-2'>
+                                    <div className='text-left px-4'>
+                                        Creator Type
+                                    </div>
+                                    <div className='flex justify-end items-center text-right px-4'>
+                                        <span class="material-symbols-sharp">chevron_right</span>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div className='px-4 py-2'>
+                    <div className='grid grid-cols-1 bg-gray-500'>
+                        <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
+                            Preferences
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+    {/*<Grid xs={40} sx={{ bgcolor: "#e1e1da", padding: 1, height: '100%' }}>
                 <Item sx={{ height: '100%', boxSizing: 'border-box', padding: 0 }}>
                     <List sx={{ height: '45%', padding: 0 }}>
                         <ListSubheader 
@@ -326,7 +467,5 @@ export default function Settings({ Item, settings, handleSettings }) {
                         </ListItem>
                     </List>
                 </Item>
-            </Grid>
-        </>
-    );
+    </Grid>*/}
 }

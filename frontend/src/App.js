@@ -6,7 +6,9 @@ import Character from './components/character';
 export default function App() {
   {/*<Setting />*/}
   return (
-    <Character />
+    <div className='max-h bg-[#161316]'>
+      <Character />
+    </div>
   );
 }
 
