@@ -29,6 +29,7 @@ import Priorities from './priorities.jsx';
 import Metatype from './metatype.jsx';
 import Overview from './overview.jsx';
 import max from '../json/metatype_max_attrib.json';
+import Qualities from './qualities.jsx';
 
 axios.defaults.withCredentials = true;
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -627,6 +628,48 @@ export default function Character() {
                         Item={Item}
                         priorityButtons={priorityButtons} 
                         handlePriorityButtons={handlePriorityButtons}
+                    />
+                }
+                {page === 2 &&
+                    <Metatype
+                        Item={Item}
+                        handleChosenMetatype={handleChosenMetatype}
+                        chosenMetatype={chosenMetatype}
+                        priorityButtons={priorityButtons}
+                        karma={karma}
+                    />
+                }
+                {page === 3 &&
+                    <Qualities
+                        Item={Item}
+                        qualitiesArray={qualitiesArray}
+                        handleUpdateQualitiesArray={handleUpdateQualitiesArray}
+                        qualityState={qualityState}
+                        handleQualityState={handleQualityState}
+                        qualityTakenState={qualityTakenState}
+                        handleQualityTakenState={handleQualityTakenState}
+                        qualitiesTakenArray={qualitiesTakenArray}
+                        handleUpdateQualityTakenArray={handleUpdateQualityTakenArray}
+                        karma={karma}
+                    />
+                }
+                {page === 4 &&
+                    <Overview
+                        Item={Item}
+                        qualitiesArray={qualitiesArray}
+                        handleUpdateQualitiesArray={handleUpdateQualitiesArray}
+                        qualityState={qualityState}
+                        handleQualityState={handleQualityState}
+                        priorityButtons={priorityButtons}
+                        attributes={attributes}
+                        handleAttributePoints={handleAttributePoints}
+                        chosenMetatype={chosenMetatype}
+                        skillsTaken={skillsTaken}
+                        handleUpdateSkillsTaken={handleUpdateSkillsTaken}
+                        knowledgeTaken={knowledgeTaken}
+                        handleKnowledgeTaken={handleKnowledgeTaken}
+                        languageTaken={languageTaken}
+                        handleLanguageTaken={handleLanguageTaken}
                     />
                 }
             </div>

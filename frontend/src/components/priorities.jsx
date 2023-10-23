@@ -96,8 +96,7 @@ export default function Priorities({ Item, priorityButtons, handlePriorityButton
         { restriction: 'Pixie', indexes: [4] },
         { restriction: 'Sasquatch', indexes: [4] }
     ];
-      
-      
+
     
     // This section handles all other mapped information in priorityRows
     const priorities = [
@@ -366,156 +365,344 @@ export default function Priorities({ Item, priorityButtons, handlePriorityButton
       setSelectedPriority(event.target.value);
     };
 
+
     return (
         <>
             <div className='h-[calc(100vh-74px)] z-0 max-w-md mx-auto shadow-md md:max-w-2xl bg-gray-400'>
                 <div className='px-4 py-2'>
                     <div className='grid grid-cols-1 bg-gray-500'>
-                        <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priority">
-                                Adjustment
-                            </label>
-                        </div>
-                        <div className='flex items-center justify-between flex-wrap'>
-                            <div className="w-full relative">
-                                <select
-                                    id="priority"
-                                    value={selectedPriority}
-                                    onChange={handlePriorityChange}
-                                    className="appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                >
-                                    <option value="" disabled hidden>
-                                        Choose here
-                                    </option>
-                                    <option value="magic">Magic</option>
-                                    <option value="resources">Resources</option>
-                                    <option value="skills">Skills</option>
-                                    {/* Add more options as needed */}
-                                </select>
-                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                    <span class="material-symbols-sharp">expand_more</span>
-                                </div>
+                        <div className='grid grid-cols-5 gap-0.5'>
+                            <div className='flex items-center justify-center flex-wrap px-4 py-2.5'>
+                                Metatype
                             </div>
+                            <div className='flex items-center justify-center flex-wrap px-4 py-2.5'>
+                                Attributes
+                            </div>
+                            <div className='flex items-center justify-center flex-wrap px-4 py-2.5'>
+                                Skills
+                            </div>
+                            <div className='flex items-center justify-center flex-wrap px-4 py-2.5'>
+                                Magic
+                            </div>
+                            <div className='flex items-center justify-center flex-wrap px-4 py-2.5'>
+                                Resources
+                            </div>
+                        </div>
+                        <div className='grid grid-cols-5 gap-0.5'>
+                            <>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('metatype', 0)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.metatype === 0 ? 'bg-blue-500' : 'bg-gray-200'} 
+                                        ${priorityButtons.metatype === 0 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'} 
+                                        ${priorityButtons.metatype === 0 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'>
+                                            13
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('attribute', 0)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.attribute === 0 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.attribute === 0 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.attribute === 0 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'>
+                                            24
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('skill', 0)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.skill === 0 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.skill === 0 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.skill === 0 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'>
+                                            32
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('magic', 0)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.magic === 0 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.magic === 0 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.magic === 0 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'>
+                                            5/4
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('resource', 0)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.resource === 0 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.resource === 0 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.resource === 0 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'>
+                                            ¥450,000
+                                        </div>
+                                    </button>
+                                </div>
+                            </>
+                            <>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('metatype', 1)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.metatype === 1 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.metatype === 1 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.metatype === 1 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'>
+                                            11
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('attribute', 1)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.attribute === 1 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.attribute === 1 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.attribute === 1 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'>
+                                            16
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('skill', 1)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.skill === 1 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.skill === 1 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.skill === 1 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'>
+                                            24
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('magic', 1)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.magic === 1 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.magic === 1 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.magic === 1 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'>
+                                            4/3
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('resource', 1)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.resource === 1 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.resource === 1 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.resource === 1 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'>
+                                            ¥275,000
+                                        </div>
+                                    </button>
+                                </div>
+                            </>
+                            <>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('metatype', 2)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.metatype === 2 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.metatype === 2 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.metatype === 2 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'> 
+                                            9
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('attribute', 2)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.attribute === 2 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.attribute === 2 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.attribute === 2 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'> 
+                                            12
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('skill', 2)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.skill === 2 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.skill === 2 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.skill === 2 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'> 
+                                            20
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('magic', 2)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.magic === 2 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.magic === 2 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.magic === 2 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'> 
+                                            3/2
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('resource', 2)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.resource === 2 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.resource === 2 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.resource === 2 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'> 
+                                            ¥150,000
+                                        </div>
+                                    </button>
+                                </div>
+                            </>
+                            <>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('metatype', 3)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.metatype === 3 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.metatype === 3 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.metatype === 3 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'> 
+                                            4
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('attribute', 3)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.attribute === 3 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.attribute === 3 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.attribute === 3 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'> 
+                                            8
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('skill', 3)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.skill === 3 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.skill === 3 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.skill === 3 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'> 
+                                            16
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('magic', 3)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.magic === 3 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.magic === 3 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.magic === 3 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'> 
+                                            2/1
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('resource', 3)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.resource === 3 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.resource === 3 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}  
+                                        ${priorityButtons.resource === 3 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'> 
+                                            ¥50,000
+                                        </div>
+                                    </button>
+                                </div>
+                            </>
+                            <>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('metatype', 4)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.metatype === 4 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.metatype === 4 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.metatype === 4 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'> 
+                                            1
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('attribute', 4)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.attribute === 4 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.attribute === 4 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.attribute === 4 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'> 
+                                            2
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('skill', 4)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.skill === 4 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.skill === 4 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.skill === 4 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'> 
+                                            10
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('magic', 4)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.magic === 4 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.magic === 4 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.magic === 4 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'> 
+                                            0/0
+                                        </div>
+                                    </button>
+                                </div>
+                                <div className='text-center h-full'>
+                                    <button onClick={() => handlePriorityButtons('resource', 4)} className={`w-full py-3 shadow-md focus:outline-none
+                                        ${priorityButtons.resource === 4 ? 'bg-blue-500' : 'bg-gray-200'}
+                                        ${priorityButtons.resource === 4 ? 'hover:bg-blue-600' : 'hover:bg-gray-300'}
+                                        ${priorityButtons.resource === 4 ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                                    `}>
+                                        <div className='flex items-center justify-center flex-wrap px-4 py-2.5'> 
+                                            ¥8,000
+                                        </div>
+                                    </button>
+                                </div>
+                            </>
                         </div>
                     </div>
                 </div>
                 <div className='px-4 py-2'>
                     <div className='grid grid-cols-1 bg-gray-500'>
                         <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priority">
-                                Adjustment
-                            </label>
+                            Help with Magic
                         </div>
-                        <div className='flex items-center justify-between flex-wrap'>
-                            <div className="w-full relative">
-                                <select
-                                    id="priority"
-                                    value={selectedPriority}
-                                    onChange={handlePriorityChange}
-                                    className="appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                >
-                                    <option value="" disabled hidden>
-                                        Choose here
-                                    </option>
-                                    <option value="magic">Magic</option>
-                                    <option value="resources">Resources</option>
-                                    <option value="skills">Skills</option>
-                                    {/* Add more options as needed */}
-                                </select>
-                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                    <span class="material-symbols-sharp">expand_more</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='px-4 py-2'>
-                    <div className='grid grid-cols-1 bg-gray-500'>
-                        <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priority">
-                                Adjustment
-                            </label>
-                        </div>
-                        <div className='flex items-center justify-between flex-wrap'>
-                            <div className="w-full relative">
-                                <select
-                                    id="priority"
-                                    value={selectedPriority}
-                                    onChange={handlePriorityChange}
-                                    className="appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                >
-                                    <option value="" disabled hidden>
-                                        Choose here
-                                    </option>
-                                    <option value="magic">Magic</option>
-                                    <option value="resources">Resources</option>
-                                    <option value="skills">Skills</option>
-                                    {/* Add more options as needed */}
-                                </select>
-                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                    <span class="material-symbols-sharp">expand_more</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='px-4 py-2'>
-                    <div className='grid grid-cols-1 bg-gray-500'>
-                        <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priority">
-                                Adjustment
-                            </label>
-                        </div>
-                        <div className='flex items-center justify-between flex-wrap'>
-                            <div className="w-full relative">
-                                <select
-                                    id="priority"
-                                    value={selectedPriority}
-                                    onChange={handlePriorityChange}
-                                    className="appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                >
-                                    <option value="" disabled hidden>
-                                        Choose here
-                                    </option>
-                                    <option value="magic">Magic</option>
-                                    <option value="resources">Resources</option>
-                                    <option value="skills">Skills</option>
-                                    {/* Add more options as needed */}
-                                </select>
-                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                    <span class="material-symbols-sharp">expand_more</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='px-4 py-2'>
-                    <div className='grid grid-cols-1 bg-gray-500'>
-                        <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="priority">
-                                Adjustment
-                            </label>
-                        </div>
-                        <div className='flex items-center justify-between flex-wrap'>
-                            <div className="w-full relative">
-                                <select
-                                    id="priority"
-                                    value={selectedPriority}
-                                    onChange={handlePriorityChange}
-                                    className="appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                >
-                                    <option value="" disabled hidden>
-                                        Choose here
-                                    </option>
-                                    <option value="magic">Magic</option>
-                                    <option value="resources">Resources</option>
-                                    <option value="skills">Skills</option>
-                                    {/* Add more options as needed */}
-                                </select>
-                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                    <span class="material-symbols-sharp">expand_more</span>
-                                </div>
-                            </div>
+                        <div className='h-[calc(100vh-542px)] bg-gray-600 items-center p-4'>
+                            <p>The two numbers under the magic column are a shorthand for the points you get based on your magic archetype choice.</p>
+
+                            <p>For example, 5/4 would translate into: </p>
+                            <ul>
+                                <li>
+                                    Aspected Magician: 5 Magic Points
+                                </li>
+                                <li>
+                                    Magician: 4 Magic Points
+                                </li>
+                                <li>
+                                    Mystic Adept: 4 Magic Points
+                                </li>
+                                <li>
+                                    Adept: 4 Magic Points
+                                </li>
+                                <li>
+                                    Technomancer: 4 Resonance Points
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

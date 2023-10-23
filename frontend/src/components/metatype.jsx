@@ -172,160 +172,90 @@ const metatypes = [
 
 export default function Metatype({Item, handleChosenMetatype, chosenMetatype, priorityButtons, karma}) {
 
-    const [isOverflowing, setIsOverflowing] = useState(false)
-    const listRef = useRef(null)
-    useEffect(() => {
-        const listNode = listRef.current
-        if(listNode) {
-            setIsOverflowing(listRef.current.scrollHeight > listRef.current.clientHeight)
-        }
-    }, []);
-    useEffect(() => {
-        console.log('Scrollbar visible:', isOverflowing)
-    }, [isOverflowing])
+    const [scrollbarVisible, setScrollbarVisible] = useState(false);
 
-    const rows = metatypes[priorityButtons.metatype].map((metatypes) => 
-        <ListItem 
-            key={metatypes.metatypeName} 
-            sx={{ 
-                borderBottom: 1,
-            }}
-        >
-            <ListItemButton 
-                onClick={handleChosenMetatype(metatypes.metatypeName, metatypes.karma)}
-                divider={true}
-                color={(chosenMetatype.race === metatypes.metatypeName) ? 'info' : 'primary'}
-                sx={{
-                    height: '100%',
-                    padding: 1
-                }}
-                alignItems='center'
-                variant='solid'
-            >
-                <List
-                    orientation='horizontal'
-                    sx={{
-                        height: '100%',
-                        width: '100%',
-                        padding: 0,
-                        fontFamily: 'Segoe UI',
-                        fontSize: '1vw',
-                        fontWeight: 500,
-                    }}
-                >
-                    <ListItem
-                        sx={{
-                            width: '60%',
-                            padding: 0,
-                            justifyContent: 'left',
-                            fontFamily: 'Segoe UI',
-                            fontSize: '1vw',
-                            fontWeight: 500,
-                        }}
-                    >
-                        {metatypes.metatypeName}
-                    </ListItem>
-                    <ListItem
-                        sx={{
-                            width: '40%',
-                            padding: 0,
-                            justifyContent: 'right',
-                            fontFamily: 'Segoe UI',
-                            fontSize: '1vw',
-                            fontWeight: 500,
-                        }}
-                    >
-                        {metatypes.karma}
-                    </ListItem>
-                </List>
-            </ListItemButton>
-        </ListItem>
-    );
+    useEffect(() => {
+        const element = document.getElementById('scrollContainer');
+        function checkScrollbar() {
+            if (element.scrollHeight > element.clientHeight) {
+                setScrollbarVisible(true);
+            } else {
+                setScrollbarVisible(false);
+            }
+        }
+
+        checkScrollbar(); // Initial check
+
+        // Check again whenever the element's size changes
+        window.addEventListener('resize', checkScrollbar);
+        return () => window.removeEventListener('resize', checkScrollbar);
+    }, []);
+
+    const rows = metatypes[priorityButtons.metatype].map((metatypes, index, array) =>  {
+        const isLastItem = index === array.length - 1;
+        
+        return (
+            <div className='w-full grid grid-cols-12'>
+                <div className='flex items-center col-span-2'>
+                    <button onClick className={`flex justify-center items-center w-full py-3 shadow-md focus:outline-none border-r border-black
+                        ${isLastItem ? '' : 'border-b'}
+                        ${chosenMetatype.race === metatypes.metatypeName ? 'bg-blue-500' : 'bg-gray-200'} 
+                        ${chosenMetatype.race === metatypes.metatypeName ? 'hover:bg-blue-600' : 'hover:bg-gray-300'} 
+                        ${chosenMetatype.race === metatypes.metatypeName ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                    `}>
+                        <span className="material-symbols-sharp pr-2">search</span>
+                    </button>
+                </div>
+                <button onClick={handleChosenMetatype(metatypes.metatypeName, metatypes.karma)} className={`w-full py-3 shadow-md col-span-10 focus:outline-none border-black
+                ${isLastItem ? '' : 'border-b'}
+                ${chosenMetatype.race === metatypes.metatypeName ? 'bg-blue-500' : 'bg-gray-200'} 
+                ${chosenMetatype.race === metatypes.metatypeName ? 'hover:bg-blue-600' : 'hover:bg-gray-300'} 
+                ${chosenMetatype.race === metatypes.metatypeName ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+            `}>
+                    <div className='grid grid-cols-2'>
+                        <div className='text-left px-4'>
+                            {metatypes.metatypeName}
+                        </div>
+                        <div className='flex justify-end items-center text-right px-4'>
+                            {metatypes.karma}
+                        </div>
+                    </div>
+                </button>        
+            </div>
+        );
+    });
 
     return (
         <>
-            <Grid xs={25} spacing={2} sx={{ bgcolor: '#e1e1da', padding: 1, height: "100%" }}>
-                <Item sx={{ boxSizing: 'border-box', height: '100%', padding: 0 }}>
-                    <List
-                        ref={listRef}
-                        sx={{
-                            bgcolor: 'background.paper',
-                            position: 'relative',
-                            overflow: 'auto',
-                            maxHeight: '100%',
-                            padding: 0,
-                            '&::-webkit-scrollbar': {
-                                width: '10px'
-                            },
-                            '&::-webkit-scrollbar-track': {
-                                boxShadow: 'inset 0 0 5px grey',
-                                borderTopRightRadius: 4,
-                                borderBottomRightRadius: 4,
-                            },
-                            '&::-webkit-scrollbar-thumb': {
-                                background: '#424242',
-                                borderTopRightRadius: 4,
-                                borderBottomRightRadius: 4,
-                            },
-                            '&::-webkit-scrollbar-thumb:hover': {
-                                background: '#b30000',
-                            },
-                            borderTopRightRadius: isOverflowing ? 0 : 4,
-                            borderTopLeftRadius: 4,
-                            borderBottomLeftRadius: 4
-                        }}
-                    >
-                        <ListSubheader 
-                            sticky
-                            sx={{
-                                height: '5%',
-                                bgcolor: '#424242', 
-                                fontFamily: 'Segoe UI',
-                                fontSize: '1vw',
-                                fontWeight: 500,
-                                borderTopRightRadius: isOverflowing ? 0 : 4,
-                                borderTopLeftRadius: 4,
-                                padding: 0
-                            }}>
-                                <List
-                                    orientation='horizontal'
-                                    sx={{
-                                        height: '100%',
-                                        width: '100%',
-                                        padding: 0
-                                    }}
-                                >
-                                    <ListItem
-                                        sx={{
-                                            width: '65%',
-                                            padding: 1,
-                                            justifyContent: 'left',
-                                            color: '#ffffff'
-                                        }}
-                                    >
-                                        Name
-                                    </ListItem>
-                                    <ListItem
-                                        sx={{
-                                            width: '35%',
-                                            padding: 1,
-                                            justifyContent: 'right',
-                                            color: '#ffffff'
-                                        }}
-                                    >
-                                        Karma Cost
-                                    </ListItem>
-                                </List>
-                            </ListSubheader>
-                        {rows}
-                    </List>
-                </Item>
-            </Grid>
-            <Grid xs={75} spacing={2} sx={{ bgcolor: '#e1e1da', padding: 1, height: "100%" }}>
-                <Item sx={{ boxSizing: 'border-box', height: '100%' }}>
-                    hi
-                </Item>
-            </Grid>
+            <div className='h-[calc(100vh-74px)] z-0 max-w-md mx-auto shadow-md md:max-w-2xl bg-gray-400'>
+                <div className='px-4 py-2'>
+                    <div className='grid grid-cols-1 bg-gray-500'>
+                        <div className={`grid grid-cols-12 bg-gray-500 ${scrollbarVisible ? 'pr-4' : ''}`}>
+                            <div className='flex items-center justify-between flex-wrap px-4 py-2.5 col-span-2 border-r border-black'>
+                                More Info
+                            </div>
+                            <div className='grid grid-cols-2 bg-gray-500 col-span-10'>
+                                <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
+                                    Metatype
+                                </div>
+                                <div className='flex justify-end items-center text-right px-4'>
+                                    Karma Cost
+                                </div>
+                            </div>
+                        </div>
+                        <div id="scrollContainer" className='flex items-center justify-between flex-wrap overflow-auto' style={{ maxHeight: 'calc(100vh - 194px)' }}>
+                            {rows}
+                        </div>
+                    </div>
+                </div>
+                <div className='px-4 py-2'>
+                    <div className='grid grid-cols-1 bg-gray-500'>
+                        <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
+                            Karma: {karma}
+                        </div>
+                    </div>
+                </div>
+            </div>  
         </>
     );
 }

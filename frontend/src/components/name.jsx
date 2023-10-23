@@ -110,15 +110,21 @@ export default function Name({ karma, attributePoints, skillPoints, knowledgePoi
                                     </button>
                                 </li>
                                 <li className='mr-3 py-1 border-b'>
-                                    <button className='flex justify-center items-center text-gray-500 hover:text-white hover:border-white'>
-                                        <span class="material-symbols-sharp mt-0.5">face_5</span>
+                                    <button onClick={() => handleNavToggleSetPage(2)} className={`flex justify-center items-center ${page === 2 ? 'text-white' : 'text-gray-500'} hover:text-white hover:border-white`}>
+                                        <span class="material-symbols-sharp mt-0.5">face</span>
                                         Metatype
                                     </button>
                                 </li>
+                                <li className='mr-3 py-1 border-b'>
+                                <button onClick={() => handleNavToggleSetPage(3)} className={`flex justify-center items-center ${page === 3 ? 'text-white' : 'text-gray-500'} hover:text-white hover:border-white`}>
+                                        <span class="material-symbols-sharp mt-0.5">school</span>
+                                        Qualities
+                                    </button>
+                                </li>
                                 <li className='mr-3 py-1'>
-                                    <button className='flex justify-center items-center text-gray-500 hover:text-white hover:border-white'>
+                                    <button onClick={() => handleNavToggleSetPage(4)} className={`flex justify-center items-center ${page === 4 ? 'text-white' : 'text-gray-500'} hover:text-white hover:border-white`}>
                                         <span class="material-symbols-sharp mt-0.5">vital_signs</span>
-                                        Overview
+                                        Attributes
                                     </button>
                                 </li>
                                 <li className='mr-3 py-1 border-b'>
