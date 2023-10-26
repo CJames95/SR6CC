@@ -37,7 +37,7 @@ const headerWidths = {
     'Max Value' : '11.5%'
 }
 
-export default function Abilities({ priorityButtons, attributes, handleAttributePoints, chosenMetatype }) {
+export default function Abilities({ priorityButtons, attributes, handleAttributePoints, chosenMetatype, karma, attributePoints }) {
 
     const attributeRows = [
         {
@@ -188,220 +188,140 @@ export default function Abilities({ priorityButtons, attributes, handleAttribute
         }
 
         return (
-            <ListItem
-                sx={{
-                    flex: '1 1 auto',
-                    width: '100%',
-                    padding: 0
-                }}
-            >
-                <List
-                    orientation='horizontal'
-                    sx={{
-                        height: '100%',
-                        width: '100%',
-                        padding: 0
-                    }}
-                >
-                    <ListItem
-                        sx={{
-                            width: headerWidths['Attribute Name'],
-                            justifyContent: 'center',
-                        }}
-                    >
+            <div className='grid grid-cols-5 gap-0.5'>
+                <div className='text-center h-full py-2'>
+                    <div className='flex text-center items-center justify-center font-bold' style={{fontSize: 16}}>
                         {attributeRows.name}
-                    </ListItem>
-                    <ListItem
-                        sx={{
-                            width: headerWidths['Adjustment Points'],
-                            justifyContent: 'center',
-                        }}
-                    >
-                        {(attributeRows.max > 6 || attributeRows.name === 'Edge' || attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 ) &&
-                        <ButtonGroup 
-                            variant='solid'
-                            sx={{
-                                width: '98%',
-                            }}
-                        >
-                            <IconButton 
-                                onClick={e => attributeRows.handlePoints('adjust', 1, attributeRows.attrName)}
-                                sx={{
-                                    flex: '1 1 auto'
-                                }}
-                            >
-                                <RemoveCircleIcon/>
-                            </IconButton>
-                            <Input 
-                                variant='soft'
-                                value={attributeRows.adjust} 
-                                size='md'
-                                sx={{
-                                    flex: '1 1 auto',
-                                    fontFamily: 'Segoe UI',                        
-                                }}
-                            />
-                            <IconButton 
-                                onClick={e => attributeRows.handlePoints('adjust', -1, attributeRows.attrName)}
-                                sx={{
-                                    flex: '1 1 auto'
-                                }}
-                            >
-                                <AddCircleIcon/>
-                            </IconButton>
-                        </ButtonGroup>
-                        }
-                    </ListItem>
-                    <ListItem
-                        sx={{
-                            width: headerWidths['Attribute Points'],
-                            justifyContent: 'center',
-                        }}
-                    >
-                        {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') &&
-                        <ButtonGroup 
-                            variant='solid'
-                            sx={{
-                                width: '98%',
-                            }}
-                        >
-                            <IconButton 
-                                onClick={e => attributeRows.handlePoints('attrib', 1, attributeRows.attrName)}
-                                sx={{
-                                    flex: '1 1 auto'
-                                }}
-                            >
-                                <RemoveCircleIcon/>
-                            </IconButton>
-                            <Input 
-                                variant='soft'
-                                value={attributeRows.attr} 
-                                size='md'
-                                sx={{
-                                    flex: '1 1 auto',
-                                    fontFamily: 'Segoe UI',                     
-                                }}
-                            />
-                            <IconButton 
-                                onClick={e => attributeRows.handlePoints('attrib', -1, attributeRows.attrName)}
-                                sx={{
-                                    flex: '1 1 auto'
-                                }}
-                            >
-                                <AddCircleIcon/>
-                            </IconButton>
-                        </ButtonGroup>
-                        }
-                    </ListItem>
-                    <ListItem
-                        sx={{
-                            width: headerWidths['Karma Points'],
-                            justifyContent: 'center',
-                        }}
-                    >
-                        {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') &&
-                        <ButtonGroup 
-                            variant='solid'
-                            sx={{
-                                width: '98%'
-                            }}
-                        >
-                            <IconButton 
-                                onClick={e => attributeRows.handlePoints('karma', 1, attributeRows.attrName)}
-                                sx={{
-                                    flex: '1 1 auto'
-                                }}
-                            >
-                                <RemoveCircleIcon/>
-                            </IconButton>
-                            <Input 
-                                variant='soft'
-                                value={attributeRows.karma} 
-                                size='md'
-                                sx={{
-                                    flex: '1 1 auto',
-                                    fontFamily: 'Segoe UI',                         
-                                }}
-                            />
-                            <IconButton 
-                                onClick={e => attributeRows.handlePoints('karma', -1, attributeRows.attrName)}
-                                sx={{
-                                    flex: '1 1 auto'
-                                }}
-                            >
-                                <AddCircleIcon/>
-                            </IconButton>
-                        </ButtonGroup>
-                        }
-                    </ListItem>
-                    <ListItem
-                        sx={{
-                            width: headerWidths['Karma Cost'],
-                            justifyContent: 'center',
-                            fontFamily: 'Segoe UI',
-                        }}
-                    >
-                        {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') ? attributeRows.cost : 0}
-                    </ListItem>
-                    <ListItem
-                        sx={{
-                            width: headerWidths['Value'],
-                            justifyContent: 'center',
-                            fontFamily: 'Segoe UI',
-                            fontWeight: 500
-                        }}
-                    >
-                        {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') ? attributeRows.value : 0}
-                    </ListItem>
-                    <ListItem
-                        sx={{
-                            width: headerWidths['Max Value'],
-                            justifyContent: 'center',
-                            fontFamily: 'Segoe UI',
-                            fontWeight: 500
-                        }}
-                    >
-                        {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') ? attributeRows.max : 0}
-                    </ListItem>
-                </List>
-            </ListItem>
+                    </div>
+                </div>
+                <div className='text-center h-full py-2'>
+                    {(attributeRows.max > 6 || attributeRows.name === 'Edge' || attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4) &&
+                        <>
+                            <div className='grid grid-cols-3 gap-0.5'>
+                                <button onClick={e => attributeRows.handlePoints('adjustment', 1, attributeRows.attrName)} className="flex flex-auto items-end justify-end hover:text-white">
+                                    <span class="material-symbols-sharp">do_not_disturb_on</span>
+                                </button>
+                                <div className='flex text-center items-center justify-center font-bold' style={{fontSize: 16}}>
+                                    {attributeRows.adjust}
+                                </div>
+                                <button onClick={e => attributeRows.handlePoints('adjustment', -1, attributeRows.attrName)} className="flex flex-auto items-start justify-start hover:text-white">
+                                    <span class="material-symbols-sharp">add_circle</span>
+                                </button>
+                            </div>
+                        </>
+                    }
+                </div>
+                <div className='text-center h-full py-2'>
+                    {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') &&
+                        <>
+                            <div className='grid grid-cols-3 gap-0.5'>
+                                <button onClick={e => attributeRows.handlePoints('attribute', 1, attributeRows.attrName)} className="flex flex-auto items-end justify-end hover:text-white">
+                                    <span class="material-symbols-sharp">do_not_disturb_on</span>
+                                </button>
+                                <div className='flex text-center items-center justify-center font-bold' style={{fontSize: 16}}>
+                                    {attributeRows.attr}
+                                </div>
+                                <button onClick={e => attributeRows.handlePoints('attribute', -1, attributeRows.attrName)} className="flex flex-auto items-start justify-start hover:text-white">
+                                    <span class="material-symbols-sharp">add_circle</span>
+                                </button>
+                            </div>
+                        </>
+                    }
+                </div>
+                <div className='text-center h-full py-2'>
+                    {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') &&
+                        <>
+                            <div className='grid grid-cols-3 gap-0.5'>
+                                <button onClick={e => attributeRows.handlePoints('karma', 1, attributeRows.attrName)} className="flex flex-auto items-end justify-end hover:text-white">
+                                    <span class="material-symbols-sharp">do_not_disturb_on</span>
+                                </button>
+                                <div className='flex text-center items-center justify-center font-bold' style={{fontSize: 16}}>
+                                    {attributeRows.karma}/{attributeRows.cost}
+                                </div>
+                                <button onClick={e => attributeRows.handlePoints('karma', -1, attributeRows.attrName)} className="flex flex-auto items-start justify-start hover:text-white">
+                                    <span class="material-symbols-sharp">add_circle</span>
+                                </button>
+                            </div>
+                        </>
+                    }
+                </div>
+                <div className='text-center h-full py-2'>
+                    <div className='flex text-center items-center justify-center font-bold' style={{fontSize: 16}}>
+                        {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') ? `${attributeRows.value}/${attributeRows.max}` : 0}
+                    </div>
+                </div>
+            </div>
         );
     })
 
     return (
-        <List 
-            orientation='vertical'
-            sx={{
-                height: '100%',
-                width: '100%',
-                overflow: 'auto',
-                padding: 0,
-                borderTopLeftRadius: 4,
-                borderTopRightRadius: 4
-            }}
-        >
-            <ListSubheader
-                sx={{
-                    height: '5%', 
-                    width: '100%',
-                    padding: 0,
-                    bgcolor: '#424242',
-                    borderTopLeftRadius: 4,
-                    borderTopRightRadius: 4,
-                }}
-            >
-                <List
-                    orientation='horizontal'
-                    sx={{
-                        height: '100%',
-                        width: '100%',
-                        padding: 0,
-                    }}
-                >
-                    {headerCells}
-                </List>
-            </ListSubheader>
-            {rows}
-        </List>
+        <>
+            <div className='h-[calc(100vh-74px)] z-0 max-w-md mx-auto shadow-md md:max-w-2xl bg-gray-400'>
+                <div className='px-4 py-2'>
+                    <div className='grid grid-cols-1 bg-gray-500'>
+                        <div className='grid grid-cols-5 gap-0.5 border-b border-black'>
+                            <div className='flex items-center justify-center flex-wrap text-center py-2.5'>
+                                Name
+                            </div>
+                            <div className='flex items-center justify-center flex-wrap text-center py-2.5'>
+                                Adjustment
+                            </div>
+                            <div className='flex items-center justify-center flex-wrap text-center py-2.5'>
+                                Attribute
+                            </div>
+                            <div className='flex items-center justify-center flex-wrap text-center py-2.5'>
+                                Karma/Cost
+                            </div>
+                            <div className='flex items-center justify-center flex-wrap text-center py-2.5'>
+                                Value/Max
+                            </div>
+                        </div>
+                        {rows}
+                    </div>
+                </div>
+                <div className='px-4 py-2'>
+                    <div className='grid grid-cols-1 bg-gray-500'>
+                        <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
+                            Help with Magic
+                        </div>
+                        <div className='h-[calc(100vh-695px)] bg-gray-600 items-center p-4'>
+                            <p>The two numbers under the magic column are a shorthand for the points you get based on your magic archetype choice.</p>
+
+                            <p>For example, 5/4 would translate into: </p>
+                            <ul>
+                                <li>
+                                    Aspected Magician: 5 Magic Points
+                                </li>
+                                <li>
+                                    Magician: 4 Magic Points
+                                </li>
+                                <li>
+                                    Mystic Adept: 4 Magic Points
+                                </li>
+                                <li>
+                                    Adept: 4 Magic Points
+                                </li>
+                                <li>
+                                    Technomancer: 4 Resonance Points
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div className='px-4 py-2'>
+                    <div className='grid grid-cols-3 bg-gray-500'>
+                        <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
+                            Karma: {karma}
+                        </div>
+                        <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
+                            Attribute: {attributePoints.attribute}
+                        </div>
+                        <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
+                            Adjustment: {attributePoints.adjustment}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
     );
 }

@@ -30,6 +30,9 @@ import Metatype from './metatype.jsx';
 import Overview from './overview.jsx';
 import max from '../json/metatype_max_attrib.json';
 import Qualities from './qualities.jsx';
+import Abilities from './abilities.jsx';
+import Skills from './skills.jsx';
+import Knowledge from './knowledge.jsx';
 
 axios.defaults.withCredentials = true;
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -360,18 +363,39 @@ export default function Character() {
     // ------------------------------------
 
     // Attributes (Parent)
+    const [karmaSpent, setKarmaSpent] = useState({  // this handles the karma spent on attributes to avoid duplicating karma during attribute point adjustments
+        bod: [],
+        agi: [],
+        rea: [],
+        str: [],
+        wil: [],
+        log: [],
+        int: [],
+        cha: [],
+        edg: [],
+        mag: [],
+        res: []
+    });
+    // as far as I know, this function handles all potential cases regarding attribute point adjustments. Any irregularities should be resolved here.
+    // future me, if you find a bug, I'm sorry about the karma points. It is confusing and I used ChatGPT for it. Mostly know that it involves setting an array
+    // of karmaspent and pushing/popping on and off of it to ensure no duplicating of karma.
     const handleAttributePoints = (name, value, attributeName) => {
+        console.log(attributeName)
         const adjustPointsName = `adjustPoints${attributeName.charAt(0).toUpperCase()}${attributeName.slice(1)}`
         const attribPointsName = `attribPoints${attributeName.charAt(0).toUpperCase()}${attributeName.slice(1)}`
         const karmaPointsName = `karmaPoints${attributeName.charAt(0).toUpperCase()}${attributeName.slice(1)}`
         const maxAttributeValue = max[chosenMetatype.race][`max${attributeName}`];
 
-        if ((attributePoints[name] === 0 && value === -1) || // Avoid going below zero
-            (name === 'adjust' && attributePoints[name] === attributePoints.maxAdjust && value === 1) || // Avoid going above Ajustment Point max
-            (name === 'attrib' && attributePoints[name] === attributePoints.maxAttrib && value === 1) || // Avoid going above Attribute Point max
+        if ((attributePoints[name] === 0 && value === -1) ||                                                    // Avoid going below zero
+            (name === 'adjustment' && attributePoints[name] === attributePoints.maxAdjust && value === 1) ||    // Avoid going above Ajustment Point max
+            (name === 'adjustment' && attributes[adjustPointsName] === 0 && value === 1) ||                     // Avoid going below zero for Adjustment Points
+            (name === 'attribute' && attributePoints[name] === attributePoints.maxAttrib && value === 1) ||     // Avoid going above Attribute Point max
+            (name === 'attribute' && attributes[attribPointsName] === 0 && value === 1) ||                      // Avoid going below zero for Attribute Points
             (attributes[attributeName] === 1 && value === 1) ||
             (attributes[attributeName] === maxAttributeValue && value === -1) ||
-            (karma - ((attributes[attributeName] + 1) * 5) < 0 && value === -1)) {
+            (name === 'karma' && karma - ((attributes[attributeName] + 1) * 5) < 0 && value === -1) ||          // Avoid going above maximum Karma
+            (name === 'karma' && attributes[karmaPointsName] === 0 && value === 1)) {                           // Avoid going below zero for Karma Points
+            console.log('name: ', name, '; value', value, '; attributeName: ', attributeName)
             return;
         }
         if(name !== 'karma') {
@@ -382,7 +406,7 @@ export default function Character() {
             setAttributes(prevAttributes => ({
                 ...prevAttributes,
                 [attributeName]: attributes[attributeName] - value,
-                [name === 'adjust' ? adjustPointsName : attribPointsName]: attributes[name === 'adjust' ? adjustPointsName : attribPointsName] - value
+                [name === 'adjustment' ? adjustPointsName : attribPointsName]: attributes[name === 'adjustment' ? adjustPointsName : attribPointsName] - value
             }));
         }
         else {
@@ -392,10 +416,27 @@ export default function Character() {
                 [karmaPointsName]: attributes[karmaPointsName] - value
             }));
             if(value === -1) {
+                setKarmaSpent(prevKarmaSpent => ({
+                    ...prevKarmaSpent,
+                    [attributeName]: [...prevKarmaSpent[attributeName], ((attributes[attributeName] + 1) * 5)]
+                }))
                 setKarma(karma - ((attributes[attributeName] + 1) * 5))
             }
             else {
-                setKarma(karma + (attributes[attributeName] * 5))
+                const lastKarmaSpent = karmaSpent[attributeName].length > 0 ? karmaSpent[attributeName][karmaSpent[attributeName].length - 1] : 0;
+
+                setKarmaSpent(prevKarmaSpent => {
+                    const updatedAttributeArray = [...prevKarmaSpent[attributeName]];
+                    if (updatedAttributeArray.length > 0) {
+                        updatedAttributeArray.pop();
+                    }
+                    return {
+                        ...prevKarmaSpent,
+                        [attributeName]: updatedAttributeArray
+                    };
+                });
+
+                setKarma(karma + lastKarmaSpent)
             }
         }
     }
@@ -564,7 +605,9 @@ export default function Character() {
                 setKnowledgeTaken((prevKnowledgeTaken) => [...prevKnowledgeTaken, value])
                 break;
             case 'sub':
+                console.log(value, ':', option)
                 if( knowledgePoints.knowledge === knowledgePoints.maxKnowledge ) {
+                    console.log(knowledgePoints.knowledge, ':', knowledgePoints.maxKnowledge)
                     return;
                 }
                 setKnowledgePoints(prevPoints => ({
@@ -654,22 +697,32 @@ export default function Character() {
                     />
                 }
                 {page === 4 &&
-                    <Overview
-                        Item={Item}
-                        qualitiesArray={qualitiesArray}
-                        handleUpdateQualitiesArray={handleUpdateQualitiesArray}
-                        qualityState={qualityState}
-                        handleQualityState={handleQualityState}
+                    <Abilities
                         priorityButtons={priorityButtons}
                         attributes={attributes}
                         handleAttributePoints={handleAttributePoints}
                         chosenMetatype={chosenMetatype}
+                        karma={karma}
+                        attributePoints={attributePoints}
+                    />
+                }
+                {page === 5 &&
+                    <Skills
+                        priorityButtons={priorityButtons}
+                        skillPoints={skillPoints}
                         skillsTaken={skillsTaken}
                         handleUpdateSkillsTaken={handleUpdateSkillsTaken}
+                        karma={karma}
+                    />
+                }
+                {page === 6 &&
+                    <Knowledge
+                        knowledgePoints={knowledgePoints}
                         knowledgeTaken={knowledgeTaken}
                         handleKnowledgeTaken={handleKnowledgeTaken}
                         languageTaken={languageTaken}
                         handleLanguageTaken={handleLanguageTaken}
+                        karma={karma}
                     />
                 }
             </div>

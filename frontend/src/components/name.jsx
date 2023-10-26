@@ -97,7 +97,7 @@ export default function Name({ karma, attributePoints, skillPoints, knowledgePoi
                     <div className='grid grid-cols-1 divide-y'>
                         <div className='flex items-center justify-between flex-wrap px-4'>
                             <ul className='list-reset justify-end flex-1 items-center'>
-                                <li className='mr-3 py-1 border-t'>
+                                <li className='mr-3 py-1 border-b'>
                                     <button onClick={() => handleNavToggleSetPage(0)} className={`flex justify-center items-center ${page === 0 ? 'text-white' : 'text-gray-500'} hover:text-white hover:border-white`}>
                                         <span class="material-symbols-sharp mt-0.5">settings</span>
                                         Settings
@@ -109,13 +109,13 @@ export default function Name({ karma, attributePoints, skillPoints, knowledgePoi
                                         Priorities
                                     </button>
                                 </li>
-                                <li className='mr-3 py-1 border-b'>
+                                <li className='mr-3 py-1'>
                                     <button onClick={() => handleNavToggleSetPage(2)} className={`flex justify-center items-center ${page === 2 ? 'text-white' : 'text-gray-500'} hover:text-white hover:border-white`}>
                                         <span class="material-symbols-sharp mt-0.5">face</span>
                                         Metatype
                                     </button>
                                 </li>
-                                <li className='mr-3 py-1 border-b'>
+                                <li className='mr-3 py-1'>
                                 <button onClick={() => handleNavToggleSetPage(3)} className={`flex justify-center items-center ${page === 3 ? 'text-white' : 'text-gray-500'} hover:text-white hover:border-white`}>
                                         <span class="material-symbols-sharp mt-0.5">school</span>
                                         Qualities
@@ -127,10 +127,16 @@ export default function Name({ karma, attributePoints, skillPoints, knowledgePoi
                                         Attributes
                                     </button>
                                 </li>
-                                <li className='mr-3 py-1 border-b'>
-                                    <button className='flex justify-center items-center text-gray-500 hover:text-white hover:border-white'>
+                                <li className='mr-3 py-1'>
+                                    <button onClick={() => handleNavToggleSetPage(5)} className={`flex justify-center items-center ${page === 5 ? 'text-white' : 'text-gray-500'} hover:text-white hover:border-white`}>
                                         <span class="material-symbols-sharp mt-0.5">school</span>
                                         Skills
+                                    </button>
+                                </li>
+                                <li className='mr-3 py-1 border-b'>
+                                    <button onClick={() => handleNavToggleSetPage(6)} className={`flex justify-center items-center ${page === 6 ? 'text-white' : 'text-gray-500'} hover:text-white hover:border-white`}>
+                                        <span class="material-symbols-sharp mt-0.5">school</span>
+                                        Knowledge
                                     </button>
                                 </li>
                                 <li className='mr-3 py-1'>
