@@ -1,39 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Grid from '@mui/material/Unstable_Grid2';
-import Paper from '@mui/material/Paper';
-import List from '@mui/material/List';
-import ListSubheader from '@mui/material/ListSubheader';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import { Button, ButtonGroup, FormControl, Select, MenuItem } from '@mui/material';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import Checkbox from '@mui/material/Checkbox';
-import Typography from '@mui/material/Typography';
-import { TextField } from '@mui/material';
+import { useAtom } from 'jotai';
 import {
-    Table,
-    TableRow,
-    TableCell
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { grey } from '@mui/material/colors';
+    karma as karmaAtom,
+    priorities as prioritiesAtom,
+    skillPoints as skillPointsAtom,
+    skills as skillsAtom
+} from '../atoms.js';
 
-
-const headerBackground = grey[800];
-
-const Item = styled(Paper)(({ theme }) => ({
-    display: 'table',
-    tableLayout: 'fixed',
-    height: '100%',
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'left',
-    color: theme.palette.text.secondary,
-}));
-
-const skills = [
+const skillsArray = [
     {
         name: 'Astral',
         subcategories: ['No Selection', 'Astral Combat', 'Astral Signatures', 'Emotional States', 'Spirit Types'],
@@ -169,10 +143,148 @@ const skills = [
     }
 ]
 
-export default function Skills({ priorityButtons, skillPoints, skillsTaken, handleUpdateSkillsTaken}) {
+export default function Skills() {
+
+    const [karma, setKarma] = useAtom(karmaAtom);
+    const [prioritySelections, setPrioritySelections] = useAtom(prioritiesAtom);
+    const [skillPoints, setSkillPoints] = useAtom(skillPointsAtom);
+    const [skills, setSkills] = useAtom(skillsAtom);
+
+    const handleUpdateSkillsTaken = (identifier, event, value) => {
+        switch(identifier) {
+            case 'checkbox':
+                if(event.target.checked) {
+                    if(skillPoints.skill === 0) {
+                        return;
+                    }
+                    else {
+                        setSkillPoints(prevSkillPoints => ({
+                            ...prevSkillPoints,
+                            skill: prevSkillPoints.skill - 1
+                        }));
+                        setSkills(prevSkills => [
+                            ...prevSkills,
+                            {
+                                name: value,
+                                rating: 1,
+                                spec: 'No Selection'
+                            }
+                        ]);
+                    }
+                }
+                else if(!event.target.checked) {
+                    if(skillPoints.skill === skillPoints.maxSkill) {
+                        return;
+                    }
+                    else {
+                        setSkillPoints(prevSkillPoints => ({
+                            ...prevSkillPoints,
+                            skill: prevSkillPoints.skill + 1
+                        }));
+                        setSkills(prevSkills => prevSkills.filter(skills => skills.name !== value));
+                    }
+                }
+                break;
+            case 'add':
+                if( skillPoints.skill === 0 ||
+                    skills.find(skill => skill.name === value)?.rating === 6) {
+                    return;
+                }
+                else {
+                    setSkillPoints(prevSkillPoints => ({
+                        ...prevSkillPoints,
+                        skill: prevSkillPoints.skill - 1
+                    }));
+                    setSkills(prevSkills =>
+                        prevSkills.map(skill =>
+                            skill.name === value
+                            ? {
+                                ...skill,
+                                rating: skill.rating + 1
+                            }
+                            : skill
+                        )
+                    );
+                }
+                break;
+            case 'sub':
+                if( skillPoints.skill === skillPoints.maxSkill ||
+                    skills.find(skill => skill.name === value)?.rating === 1) {
+                    return;
+                }
+                else {
+                    if(skills.find(skill => skill.name === value)?.rating-1 < 5 && skills.find(skill => skill.name === value)?.spec !== 'No Selection') {
+                        setSkillPoints(prevSkillPoints => ({
+                            ...prevSkillPoints,
+                            skill: prevSkillPoints.skill + 2
+                        }));
+                        setSkills(prevSkills =>
+                            prevSkills.map(skill =>
+                                skill.name === value
+                                ? {
+                                    ...skill,
+                                    rating: skill.rating - 1,
+                                    spec: 'No Selection'
+                                }
+                                : skill
+                            )
+                        );
+                    }
+                    else {
+                        setSkillPoints(prevSkillPoints => ({
+                            ...prevSkillPoints,
+                            skill: prevSkillPoints.skill + 1
+                        }));
+                        setSkills(prevSkills =>
+                            prevSkills.map(skill =>
+                                skill.name === value
+                                ? {
+                                    ...skill,
+                                    rating: skill.rating - 1
+                                }
+                                : skill
+                            )
+                        );
+                    }
+                }
+                break;
+            case 'spec':
+                if(skills.find(skill => skill.name === value)?.spec === 'No Selection' && event.target.value !== 'No Selection') {
+                    if( skillPoints.skill === 0 ||
+                        skills.find(skill => skill.name === value)?.rating < 5) {
+                        return;
+                    }
+                    setSkillPoints(prevSkillPoints => ({
+                        ...prevSkillPoints,
+                        skill: prevSkillPoints.skill - 1
+                    }));
+                }
+                else if(event.target.value === 'No Selection') {
+                    if( skillPoints.skill === skillPoints.maxSkill ) {
+                        return;
+                    }
+                    setSkillPoints(prevSkillPoints => ({
+                        ...prevSkillPoints,
+                        skill: prevSkillPoints.skill + 1
+                    }));
+                }
+                setSkills(prevSkills =>
+                    prevSkills.map(skill =>
+                        skill.name === value
+                        ? {
+                            ...skill,
+                            spec: event.target.value
+                        }
+                        : skill
+                    )
+                );
+                break;
+            default:
+                break;
+        }
+    };
 
     const [scrollbarVisible, setScrollbarVisible] = useState(false);
-
     useEffect(() => {
         const element = document.getElementById('scrollContainer');
         function checkScrollbar() {
@@ -182,28 +294,13 @@ export default function Skills({ priorityButtons, skillPoints, skillsTaken, hand
                 setScrollbarVisible(false);
             }
         }
-
         checkScrollbar(); // Initial check
-
         // Check again whenever the element's size changes
         window.addEventListener('resize', checkScrollbar);
         return () => window.removeEventListener('resize', checkScrollbar);
     }, []);
 
-    const [selectedSkills, setSelectedSkills] = useState([]);
-    useEffect(() => {
-        console.log(selectedSkills)
-    }, [selectedSkills])
-
-    const handleCheckboxChange = (event, skill) => {
-        if (event.target.checked) {
-            setSelectedSkills([...selectedSkills, skill]);
-        } else {
-            setSelectedSkills(selectedSkills.filter(selectedSkill => selectedSkill !== skill));
-        }
-    };
-
-    const skillList = skills.sort(function(a, b) {
+    const rows = skillsArray.sort(function(a, b) {
         const nameA = a.name.toLowerCase();
         const nameB = b.name.toLowerCase();
 
@@ -212,83 +309,8 @@ export default function Skills({ priorityButtons, skillPoints, skillsTaken, hand
         return 0;
     }).map((selectedSkillObj, index) => {
         const { name, subcategories, attribute, magic } = selectedSkillObj;
-        console.log(priorityButtons.magic, attribute === 'Magic')
-        if(priorityButtons.magic === 4 && magic === true) {
-            return null;
-        }
-
-        return (
-
-            <ListItem disablePadding={true} key={index}>
-                <ListItemText 
-                    primaryTypographyProps={{
-                        fontFamily: 'Segoe UI',
-                        fontSize: 20,
-                        fontWeight: 500
-                    }}
-                    primary={
-                        <Table>
-                            <TableRow>
-                                <TableCell sx={{ width: '10%' }}>
-                                    <Checkbox 
-                                        checked={skillsTaken.some(skill => skill.name === name)}
-                                        onChange={(event) => handleUpdateSkillsTaken('checkbox', event, name)}
-                                    />
-                                </TableCell>
-                                <TableCell sx={{ width: '20%' }}>
-                                    {name}
-                                </TableCell>
-                                <TableCell align='center' sx={{ width: '15%' }}>
-                                <ButtonGroup disabled={skillsTaken.some(skill => skill.name === name) ? false : true} variant='filled'>
-                                    <Button sx={{width: 45}} onClick={() => handleUpdateSkillsTaken('sub', null, name)}>
-                                        <RemoveCircleIcon/>
-                                    </Button>
-                                    <TextField value={skillsTaken.some(skill => skill.name === name) ? `${skillsTaken.find(skill => skill.name === name)?.rating || 0} / 6` : ''} inputProps={{readOnly: true, style: {textAlign: 'center'}}} sx={{width: 65}} size='small'/>
-                                    <Button sx={{width: 45}} onClick={() => handleUpdateSkillsTaken('add', null, name)}>
-                                        <AddCircleIcon/>
-                                    </Button>
-                                </ButtonGroup>
-                                </TableCell>
-                                <TableCell sx={{ width: '20%' }}>
-                                    {attribute}
-                                </TableCell>
-                                <TableCell sx={{ width: '30%' }}>
-                                    <FormControl fullWidth disabled={skillsTaken.find(skill => skill.name === name)?.rating >= 5 && skillsTaken.some(skill => skill.name === name) ? false : true} size='small'>
-                                        <Select
-                                            variant='outlined'
-                                            sx={{
-                                                bgcolor: 'white',
-                                            }}
-                                            value={skillsTaken.find((skill) => skill.name === name)?.spec || subcategories[0]}
-                                            onChange={(e) => handleUpdateSkillsTaken('spec', e, name)}
-                                        >
-                                            {subcategories.map((subcategory, index) => (
-                                                <MenuItem key={index} value={subcategory}>
-                                                {subcategory}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-                                </TableCell>
-                            </TableRow>
-                        </Table>
-                    }
-                />
-            </ListItem>
-        );
-    });
-
-    const rows = skills.sort(function(a, b) {
-        const nameA = a.name.toLowerCase();
-        const nameB = b.name.toLowerCase();
-
-        if (nameA < nameB) return -1;
-        if (nameA > nameB) return 1;
-        return 0;
-    }).map((selectedSkillObj, index) => {
-        const { name, subcategories, attribute, magic } = selectedSkillObj;
-        console.log(priorityButtons.magic, attribute === 'Magic')
-        if(priorityButtons.magic === 4 && magic === true) {
+        console.log(prioritySelections.magic, attribute === 'Magic')
+        if(prioritySelections.magic === 4 && magic === true) {
             return null;
         }
 
@@ -298,7 +320,7 @@ export default function Skills({ priorityButtons, skillPoints, skillsTaken, hand
                     <input 
                         type="checkbox" 
                         className="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" 
-                        checked={skillsTaken.some(skill => skill.name === name)}
+                        checked={skills.some(skill => skill.name === name)}
                         onChange={(event) => handleUpdateSkillsTaken('checkbox', event, name)}
                     />
                 </div>
@@ -310,19 +332,19 @@ export default function Skills({ priorityButtons, skillPoints, skillsTaken, hand
                             <button 
                                 onClick={() => handleUpdateSkillsTaken('sub', null, name)} 
                                 className="flex flex-auto col-span-1"
-                                disabled={skillsTaken.some(skill => skill.name === name) ? false : true}
+                                disabled={skills.some(skill => skill.name === name) ? false : true}
                             >
                                 <span class="material-symbols-sharp">do_not_disturb_on</span>
                             </button>
                             <input 
-                                value={skillsTaken.some(skill => skill.name === name) ? `${skillsTaken.find(skill => skill.name === name)?.rating || 0} / 6` : ''} 
+                                value={skills.some(skill => skill.name === name) ? `${skills.find(skill => skill.name === name)?.rating || 0} / 6` : ''} 
                                 className="flex flex-auto bg-gray-200 font-sans col-span-2" size='md'
-                                disabled={skillsTaken.some(skill => skill.name === name) ? false : true}
+                                disabled={skills.some(skill => skill.name === name) ? false : true}
                             />
                             <button 
                                 onClick={() => handleUpdateSkillsTaken('add', null, name)} 
                                 className="flex flex-auto col-span-1"
-                                disabled={skillsTaken.some(skill => skill.name === name) ? false : true}
+                                disabled={skills.some(skill => skill.name === name) ? false : true}
                             >
                                 <span class="material-symbols-sharp">add_circle</span>
                             </button>
@@ -333,10 +355,10 @@ export default function Skills({ priorityButtons, skillPoints, skillsTaken, hand
                 </div>
                 <div className='text-center h-full col-span-4'>
                     <select
-                        className={`rounded border p-2 bg-white w-full ${skillsTaken.find(skill => skill.name === name)?.rating >= 5 && skillsTaken.some(skill => skill.name === name) ? '' : 'cursor-not-allowed opacity-50'}`}
-                        value={skillsTaken.find((skill) => skill.name === name)?.spec || subcategories[0]}
+                        className={`rounded border p-2 bg-white w-full ${skills.find(skill => skill.name === name)?.rating >= 5 && skills.some(skill => skill.name === name) ? '' : 'cursor-not-allowed opacity-50'}`}
+                        value={skills.find((skill) => skill.name === name)?.spec || subcategories[0]}
                         onChange={(e) => handleUpdateSkillsTaken('spec', e, name)}
-                        disabled={!(skillsTaken.find(skill => skill.name === name)?.rating >= 5 && skillsTaken.some(skill => skill.name === name))}
+                        disabled={!(skills.find(skill => skill.name === name)?.rating >= 5 && skills.some(skill => skill.name === name))}
                     >
                         {subcategories.map((subcategory, index) => (
                             <option key={index} value={subcategory}>

@@ -1,43 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Unstable_Grid2';
-import Paper from '@mui/material/Paper';
-import List from '@mui/material/List';
-import ListSubheader from '@mui/material/ListSubheader';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import { Button, ButtonGroup, IconButton } from '@mui/material';
-import FormControl from '@mui/material/FormControl';
-import { Select, MenuItem, InputLabel } from '@mui/material';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import Typography from '@mui/material/Typography';
-import { TextField } from '@mui/material';
+import { useAtom } from 'jotai';
 import PropTypes from 'prop-types';
-import DialogTitle from '@mui/material/DialogTitle';
-import Dialog from '@mui/material/Dialog';
-import AddIcon from '@mui/icons-material/Add';
 import {
-    Table,
-    TableRow,
-    TableCell
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { grey } from '@mui/material/colors';
+    karma as karmaAtom,
+    knowledge as knowledgeAtom,
+    knowledgePoints as knowledgePointsAtom,
+    language as languageAtom
+} from '../atoms.js';
 
-const headerBackground = grey[800];
-
-const Item = styled(Paper)(({ theme }) => ({
-    display: 'table',
-    tableLayout: 'fixed',
-    height: '100%',
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'left',
-    color: theme.palette.text.secondary,
-}));
 
 function KnowledgeDialog(props) {
     const { onClose, open } = props;
@@ -88,10 +58,69 @@ KnowledgeDialog.propTypes = {
     open: PropTypes.bool.isRequired
 };
 
-export default function Knowledge({knowledgeTaken, handleKnowledgeTaken}) {
+export default function Knowledge() {
+
+    const [karma, setKarma] = useAtom(karmaAtom);
+    const [knowledgePoints, setKnowledgePoints] = useAtom(knowledgePointsAtom);
+    const [knowledgeTaken, setKnowledgeTaken] = useAtom(knowledgeAtom);
+    const [languageTaken, setLanguageTaken] = useAtom(languageAtom);
+    const handleKnowledgeTaken = (value, option) => {
+        switch(option) {
+            case 'add':
+                if( knowledgePoints.knowledge === 0 ) {
+                    return;
+                }
+                setKnowledgePoints(prevPoints => ({
+                    ...prevPoints,
+                    know: prevPoints.know - 1
+                }))
+                setKnowledgeTaken((prevKnowledgeTaken) => [...prevKnowledgeTaken, value])
+                break;
+            case 'sub':
+                console.log(value, ':', option)
+                if( knowledgePoints.knowledge === knowledgePoints.maxKnowledge ) {
+                    console.log(knowledgePoints.knowledge, ':', knowledgePoints.maxKnowledge)
+                    return;
+                }
+                setKnowledgePoints(prevPoints => ({
+                    ...prevPoints,
+                    know: prevPoints.know + 1
+                }))
+                setKnowledgeTaken(prevKnowledgeTaken => prevKnowledgeTaken.filter(item => item !== value))
+                break;
+            default:
+                break;
+        }
+    }
+    const handleLanguageTaken = (value, option) => {
+        switch(option) {
+            case 'add':
+                if( knowledgePoints.knowledge === 0 ) {
+                    return;
+                }
+                setKnowledgePoints(prevPoints => ({
+                    ...prevPoints,
+                    know: prevPoints.know - 1
+                }))
+                setLanguageTaken((prevLanguageTaken) => [...prevLanguageTaken, value])
+                break;
+            case 'sub':
+                if( knowledgePoints.knowledge === knowledgePoints.maxKnowledge ) {
+                    return;
+                }
+                setKnowledgePoints(prevPoints => ({
+                    ...prevPoints,
+                    know: prevPoints.know + 1
+                }))
+                setLanguageTaken(prevLanguageTaken => prevLanguageTaken.filter(item => item !== value))
+                break;
+            default:
+                break;
+        }
+    }
+    
 
     const [scrollbarVisible, setScrollbarVisible] = useState(false);
-
     useEffect(() => {
         const element = document.getElementById('scrollContainer');
         function checkScrollbar() {
@@ -101,9 +130,7 @@ export default function Knowledge({knowledgeTaken, handleKnowledgeTaken}) {
                 setScrollbarVisible(false);
             }
         }
-
         checkScrollbar(); // Initial check
-
         // Check again whenever the element's size changes
         window.addEventListener('resize', checkScrollbar);
         return () => window.removeEventListener('resize', checkScrollbar);

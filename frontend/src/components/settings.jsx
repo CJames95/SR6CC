@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
-import { 
-    Grid, 
-    Typography, 
-    ButtonGroup,
-    Button,
-    List,
-    ListSubheader,
-    ListItem
-} from '@mui/joy';
+import { useAtom } from 'jotai';
+import {
+    settings as settingsAtom
+} from '../atoms.js';
 
 // Static variables
 const powerLevel = [
@@ -81,7 +76,28 @@ const creatorTypeDescription = [
     ['goodbye', 'gotta get some milk', 'lemme get some cigs']
 ]
 
-export default function Settings({ Item, settings, handleSettings }) {
+export default function Settings() {
+
+    const [settings, setSettings] = useAtom(settingsAtom);
+    const handleSettings = (state, value) => {
+        switch(state) {
+            case 0:
+                setSettings({
+                    ...settings,
+                    powerState: value
+                })
+                break;
+            case 1:
+                setSettings({
+                    ...settings,
+                    creatorState: value
+                })
+                break;
+            default:
+                break;
+        }
+    }
+
     const [creatorTypeSetting, setCreatorTypeSetting] = useState(false);
     const handleCreatorTypeSetting = () => {
         setCreatorTypeSetting(!creatorTypeSetting)
@@ -93,7 +109,7 @@ export default function Settings({ Item, settings, handleSettings }) {
     return (
         <>
             {powerLevelSetting === true &&
-                <div className='absolute h-[calc(100vh-74px)] left-1/2 transform -translate-x-1/2 z-10 w-full max-w-md mx-auto shadow-md md:max-w-2xl bg-gray-400'>
+                <div className='absolute h-[calc(100vh-76px)] left-1/2 transform -translate-x-1/2 z-10 w-full max-w-md mx-auto shadow-md md:max-w-2xl bg-gray-400'>
                     <div className='px-4 py-2'>
                         <div className='grid grid-cols-1 bg-gray-600'>
                             <div className='flex items-center py-2.5 px-4'>
@@ -135,7 +151,7 @@ export default function Settings({ Item, settings, handleSettings }) {
                 </div>
             }
             {creatorTypeSetting === true &&
-                <div className='absolute h-[calc(100vh-74px)] left-1/2 transform -translate-x-1/2 z-10 w-full max-w-md mx-auto shadow-md md:max-w-2xl bg-gray-400'>
+                <div className='absolute h-[calc(100vh-76px)] left-1/2 transform -translate-x-1/2 z-10 w-full max-w-md mx-auto shadow-md md:max-w-2xl bg-gray-400'>
                     <div className='px-4 py-2'>
                         <div className='grid grid-cols-1 bg-gray-600'>
                             <div className='flex items-center py-2.5 px-4'>
@@ -183,7 +199,7 @@ export default function Settings({ Item, settings, handleSettings }) {
                     </div>
                 </div>
             }
-            <div className='h-[calc(100vh-74px)] z-0 max-w-md mx-auto shadow-md md:max-w-2xl bg-[#413941]'>
+            <div className='h-[calc(100vh-76px)] z-0 max-w-md mx-auto shadow-md md:max-w-2xl bg-[#413941]'>
                 <div className='px-4 py-2'>
                     <div className='grid grid-cols-1 bg-gray-500'>
                         <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
