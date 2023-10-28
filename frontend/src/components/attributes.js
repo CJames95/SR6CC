@@ -42,13 +42,13 @@ const HeaderCell = styled(TableCell)(({ theme }) => ({
     backgroundColor: headerBackground,
     color: 'white',
     fontFamily: 'Segoe UI',
-    fontSize: 17,
+    fontSize: 15,
     fontWeight: 500
 }));
 
 const NameCell = styled(TableCell)(({ theme }) => ({
     fontFamily: 'Segoe UI',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 500,
 }));
 
@@ -199,64 +199,73 @@ export default function Attributes({priorityButtons, chosenMetatype, attributePo
         </HeaderCell>
     })
 
-    const rows = attributeRows.map((attributeRows) =>
-        <TableRow sx={{height: 75}} hover>
-            <NameCell align='left'>
-                {attributeRows.name}
-            </NameCell>
-            <TableCell align='center'>
-                {(attributeRows.max > 6 || attributeRows.name === 'Edge' || attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 ) &&
-                <ButtonGroup variant='filled'>
-                    <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('adjust', 1, attributeRows.attrName)}>
-                        <RemoveCircleIcon/>
-                    </Button>
-                    <TextField value={attributeRows.adjust} inputProps={{readOnly: true, style: {textAlign: 'center'}}} sx={{width: 50}} size='small'/>
-                    <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('adjust', -1, attributeRows.attrName)}>
-                        <AddCircleIcon/>
-                    </Button>
-                </ButtonGroup>
-                }
-            </TableCell>
-            <TableCell align='center'>
-                {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') &&
-                <ButtonGroup variant='filled'>
-                    <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('attrib', 1, attributeRows.attrName)}>
-                        <RemoveCircleIcon/>
-                    </Button>
-                    <TextField value={attributeRows.attr} inputProps={{readOnly: true, style: {textAlign: 'center'}}} sx={{width: 50}} size='small'/>
-                    <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('attrib', -1, attributeRows.attrName)}>
-                        <AddCircleIcon/>
-                    </Button>
-                </ButtonGroup>
-                }
-            </TableCell>
-            <TableCell align='center'>
-                {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') &&
-                <ButtonGroup variant='filled'>
-                    <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('karma', 1, attributeRows.attrName)}>
-                        <RemoveCircleIcon/>
-                    </Button>
-                    <TextField value={attributeRows.karma} inputProps={{readOnly: true, style: {textAlign: 'center'}}} sx={{width: 50}} size='small'/>
-                    <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('karma', -1, attributeRows.attrName)}>
-                        <AddCircleIcon/>
-                    </Button>
-                </ButtonGroup>
-                }
-            </TableCell>
-            <TableCell align='center'>
-                {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') ? attributeRows.cost : 0}
-            </TableCell>
-            <TableCell align='center'>
-                {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') ? attributeRows.value : 0}
-            </TableCell>
-            <TableCell align='center'>
-                {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') ? attributeRows.max : 0}
-            </TableCell>
-        </TableRow>
-    )
+    const rows = attributeRows.map((attributeRows) => {
+        if (
+            (attributeRows.name === 'Magic') &&
+            priorityButtons.magic === 4
+        ) {
+            return null
+        }
+
+        return (
+            <TableRow sx={{height: 75}} hover>
+                <NameCell align='left'>
+                    {attributeRows.name}
+                </NameCell>
+                <TableCell align='center'>
+                    {(attributeRows.max > 6 || attributeRows.name === 'Edge' || attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 ) &&
+                    <ButtonGroup variant='filled'>
+                        <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('adjust', 1, attributeRows.attrName)}>
+                            <RemoveCircleIcon/>
+                        </Button>
+                        <TextField value={attributeRows.adjust} inputProps={{readOnly: true, style: {textAlign: 'center'}}} sx={{width: 50}} size='small'/>
+                        <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('adjust', -1, attributeRows.attrName)}>
+                            <AddCircleIcon/>
+                        </Button>
+                    </ButtonGroup>
+                    }
+                </TableCell>
+                <TableCell align='center'>
+                    {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') &&
+                    <ButtonGroup variant='filled'>
+                        <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('attrib', 1, attributeRows.attrName)}>
+                            <RemoveCircleIcon/>
+                        </Button>
+                        <TextField value={attributeRows.attr} inputProps={{readOnly: true, style: {textAlign: 'center'}}} sx={{width: 50}} size='small'/>
+                        <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('attrib', -1, attributeRows.attrName)}>
+                            <AddCircleIcon/>
+                        </Button>
+                    </ButtonGroup>
+                    }
+                </TableCell>
+                <TableCell align='center'>
+                    {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') &&
+                    <ButtonGroup variant='filled'>
+                        <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('karma', 1, attributeRows.attrName)}>
+                            <RemoveCircleIcon/>
+                        </Button>
+                        <TextField value={attributeRows.karma} inputProps={{readOnly: true, style: {textAlign: 'center'}}} sx={{width: 50}} size='small'/>
+                        <Button sx={{width: 45}} onClick={e => attributeRows.handlePoints('karma', -1, attributeRows.attrName)}>
+                            <AddCircleIcon/>
+                        </Button>
+                    </ButtonGroup>
+                    }
+                </TableCell>
+                <TableCell align='center'>
+                    {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') ? attributeRows.cost : 0}
+                </TableCell>
+                <TableCell align='center'>
+                    {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') ? attributeRows.value : 0}
+                </TableCell>
+                <TableCell align='center'>
+                    {(attributeRows.name === 'Magic' && priorityButtons.magic !== 4 || attributeRows.name === 'Resonance' && priorityButtons.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') ? attributeRows.max : 0}
+                </TableCell>
+            </TableRow>
+        );
+    })
 
     return (
-        <Grid xl={9} lg={9} md={9} sm={9} xs={9} spacing={2} sx={{display: 'flex', flexDirection: 'column'}}>
+        <Grid xl={9} lg={9} md={9} sm={9} xs={9} spacing={2} sx={{display: 'flex', flexDirection: 'column' }}>
             <Item>
                 <Table>
                     <TableHead>

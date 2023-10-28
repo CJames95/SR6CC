@@ -207,7 +207,7 @@ export default function Setting() {
             case 'magic':
                 if(value == 4) {
                     setMagicRestrictions(false)
-                    setTotalSteps(8)
+                    setTotalSteps(7)
                 }
                 else {
                     setMagicRestrictions(true)
@@ -1121,12 +1121,6 @@ export default function Setting() {
                     <>
                         <Knowledge knowledgeTaken={knowledgeTaken} handleKnowledgeTaken={handleKnowledgeTaken}/>
                         <Language languageTaken={languageTaken} handleLanguageTaken={handleLanguageTaken}/>
-                    </>
-                }
-                {((activeStep == 8 && buttonState == 0 && priorityButtons.magic != 4) ||  // Display on step 8 if magic != 4
-                  (activeStep == 7 && buttonState == 0 && priorityButtons.magic == 4)) && // Display on step 7 if magic == 4
-                    <>
-                        <Resources/>
                     </>
                 }
                 {/* This section handles the progress bar at the bottom */}
