@@ -286,7 +286,7 @@ export default function Metatype() {
                                     </div>
                                 </div>
                             </div>
-                            <div id="scrollContainer" className='flex items-center justify-between flex-wrap overflow-auto rounded-b-md scroll' style={{ maxHeight: 'calc(100vh - 198px)' }}>
+                            <div id="scrollContainer" className={`flex items-center justify-between flex-wrap overflow-auto rounded-b-md scroll ${secondaryBackground}`} style={{ maxHeight: 'calc(100vh - 198px)' }}>
                                 {rows}
                             </div>
                         </div>

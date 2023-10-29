@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAtom } from 'jotai';
 import {
     karma as KarmaAtom,
@@ -6,16 +6,18 @@ import {
     metatype as metatypeAtom,
     attributes as attributesAtom,
     attributePoints as attributePointsAtom,
+    attributePointsBase as attributePointsBaseAtom,
+    knowledgePoints as knowledgePointsAtom,
     secondaryHeader as secondaryHeaderAtom,
     primaryBackgroundStart as primaryBackgroundStartAtom,
     primaryBackgroundEnd as primaryBackgroundEndAtom,
+    secondaryBackground as secondaryBackgroundAtom,
     secondaryBackgroundBorder as secondaryBackgroundBorderAtom,
     textColor as textColorAtom,
     buttonColor as buttonColorAtom,
     selectedButtonColor as selectedButtonColorAtom,
     selectedHoverButtonColor as selectedHoverButtonColorAtom,
     selectedActiveButtonColor as selectedActiveButtonColorAtom,
-    text
 } from '../atoms.js';
 import max from '../json/metatype_max_attrib.json';
 import { fontGrid } from '@mui/material/styles/cssUtils.js';
@@ -27,9 +29,12 @@ export default function Abilities() {
     const [chosenMetatype, setChosenMetatype] = useAtom(metatypeAtom);
     const [attributes, setAttributes] = useAtom(attributesAtom);
     const [attributePoints, setAttributePoints] = useAtom(attributePointsAtom);
+    const [attributePointsBase, setAttributePointsBase] = useAtom(attributePointsBaseAtom);
+    const [knowledgePoints, setKnowledgePoints] = useAtom(knowledgePointsAtom);
     const [secondaryHeader, setSecondaryHeader] = useAtom(secondaryHeaderAtom);
     const [primaryBackgroundStart, setPrimaryBackgroundStart] = useAtom(primaryBackgroundStartAtom);
     const [primaryBackgroundEnd, setPrimaryBackgroundEnd] = useAtom(primaryBackgroundEndAtom);
+    const [secondaryBackground, setSecondaryBackground] = useAtom(secondaryBackgroundAtom);
     const [secondaryBackgroundBorder, setSecondaryBackgroundBorder] = useAtom(secondaryBackgroundBorderAtom);
     const [textColor, setTextColor] = useAtom(textColorAtom);
     const [buttonColor, setButtonColor] = useAtom(buttonColorAtom);
@@ -50,7 +55,6 @@ export default function Abilities() {
         res: []
     });
 
-
     const handleAttributePoints = (name, value, attributeName) => {
         console.log(attributeName)
         const adjustPointsName = `adjustPoints${attributeName.charAt(0).toUpperCase()}${attributeName.slice(1)}`//
@@ -58,10 +62,10 @@ export default function Abilities() {
         const karmaPointsName = `karmaPoints${attributeName.charAt(0).toUpperCase()}${attributeName.slice(1)}`  //
         const maxAttributeValue = max[chosenMetatype.race][`max${attributeName}`];                              //
 
-        if ((attributePoints[name] === 0 && value === -1) ||                                                    // Avoid going below zero
-            (name === 'adjustment' && attributePoints[name] === attributePoints.maxAdjust && value === 1) ||    // Avoid going above Ajustment Point max
+        if ((attributePointsBase[name] === 0 && value === -1) ||                                                    // Avoid going below zero
+            (name === 'adjustment' && attributePointsBase[name] === attributePointsBase.maxAdjust && value === 1) ||    // Avoid going above Ajustment Point max
             (name === 'adjustment' && attributes[adjustPointsName] === 0 && value === 1) ||                     // Avoid going below zero for Adjustment Points
-            (name === 'attribute' && attributePoints[name] === attributePoints.maxAttrib && value === 1) ||     // Avoid going above Attribute Point max
+            (name === 'attribute' && attributePointsBase[name] === attributePointsBase.maxAttrib && value === 1) ||     // Avoid going above Attribute Point max
             (name === 'attribute' && attributes[attribPointsName] === 0 && value === 1) ||                      // Avoid going below zero for Attribute Points
             (attributes[attributeName] === 1 && value === 1) ||
             (attributes[attributeName] === maxAttributeValue && value === -1) ||
@@ -71,10 +75,12 @@ export default function Abilities() {
             return;
         }
         if(name !== 'karma') {
-            setAttributePoints(prevPoints => ({
-                ...prevPoints,
-                [name]: (attributePoints[name] + value)
-            }))
+            setAttributePoints({
+                type: 'UPDATE', 
+                payload: {
+                    ...attributePointsBase,
+                    [name]: attributePointsBase[name] + value
+            }});
             setAttributes(prevAttributes => ({
                 ...prevAttributes,
                 [attributeName]: attributes[attributeName] - value,
@@ -111,7 +117,29 @@ export default function Abilities() {
                 setKarma(karma + lastKarmaSpent)
             }
         }
+
+        if(attributeName === 'log') {
+            setKnowledgePoints({ type: 'RESET' });
+        }
     }
+
+    const [padding, setPadding] = useState(0);
+    useEffect(() => {
+        const updatePadding = () => {
+            const scrollbarWidth = getScrollbarWidth();
+            const zoomLevel = window.outerWidth / document.documentElement.clientWidth;
+            const adjustedPadding = scrollbarWidth / zoomLevel;
+            setPadding(adjustedPadding);
+        };
+        // Initial setting of padding
+        updatePadding();
+        // Add event listener to update padding on window resize (zooming triggers resize)
+        window.addEventListener('resize', updatePadding);
+        // Cleanup - remove the event listener when component is unmounted
+        return () => {
+            window.removeEventListener('resize', updatePadding);
+        };
+    }, []);
 
     const attributeRows = [
         {
@@ -249,65 +277,65 @@ export default function Abilities() {
         }
 
         return (
-            <div className={`grid grid-cols-5 gap-1.5 ${buttonColor} ${isLastItem ? 'rounded-b-md' : ''} ${isLastItem ? '' : 'border-b'} ${secondaryBackgroundBorder}`}>
-                <div className={`text-center h-full py-3 px-2`}>
-                    <div className={`flex text-center items-center justify-center font-semibold`} style={{fontSize: 16}}>
+            <div className={`grid grid-cols-10 gap-0.5 w-full ${buttonColor} ${isLastItem ? 'rounded-bl-md' : ''} ${isLastItem ? '' : 'border-b'} ${secondaryBackgroundBorder}`}>
+                <div className={`text-center h-full px-4 col-span-2 flex items-center`}>
+                    <div className={`flex text-left items-center justify-start font-semibold`} style={{fontSize: 16}}>
                         {attributeRows.name}
                     </div>
                 </div>
-                <div className={`text-center h-full py-3 px-2`}>
+                <div className={`text-center h-full px-2 col-span-2`}>
                     {(attributeRows.max > 6 || attributeRows.name === 'Edge' || attributeRows.name === 'Magic' && prioritySelections.magic !== 4 || attributeRows.name === 'Resonance' && prioritySelections.magic !== 4) &&
                         <>
-                            <div className='grid grid-cols-3 gap-0.5'>
-                                <button onClick={e => attributeRows.handlePoints('adjustment', 1, attributeRows.attrName)} className={`flex flex-auto items-center justify-center rounded-md ${textColor} ${selectedButtonColor} ${selectedHoverButtonColor} ${selectedActiveButtonColor}`}>
-                                    <span class="material-symbols-sharp">do_not_disturb_on</span>
+                            <div className='grid grid-cols-1 gap-0.5 py-1.5'>
+                                <button onClick={e => attributeRows.handlePoints('adjustment', -1, attributeRows.attrName)} className={`flex flex-auto items-center justify-center rounded w-1/2 m-auto ${textColor} ${selectedButtonColor} ${selectedHoverButtonColor} ${selectedActiveButtonColor}`}>
+                                    <span class="material-symbols-sharp">add_circle</span>
                                 </button>
                                 <div className={`flex text-center items-center justify-center font-semibold`} style={{fontSize: 16}}>
                                     {attributeRows.adjust}
                                 </div>
-                                <button onClick={e => attributeRows.handlePoints('adjustment', -1, attributeRows.attrName)} className={`flex flex-auto items-center justify-center rounded-md ${textColor} ${selectedButtonColor} ${selectedHoverButtonColor} ${selectedActiveButtonColor}`}>
-                                    <span class="material-symbols-sharp">add_circle</span>
+                                <button onClick={e => attributeRows.handlePoints('adjustment', 1, attributeRows.attrName)} className={`flex flex-auto items-center justify-center rounded w-1/2 m-auto ${textColor} ${selectedButtonColor} ${selectedHoverButtonColor} ${selectedActiveButtonColor}`}>
+                                    <span class="material-symbols-sharp">do_not_disturb_on</span>
                                 </button>
                             </div>
                         </>
                     }
                 </div>
-                <div className={`text-center h-full py-3 px-2`}>
+                <div className={`text-center h-full px-2 col-span-2`}>
                     {(attributeRows.name === 'Magic' && prioritySelections.magic !== 4 || attributeRows.name === 'Resonance' && prioritySelections.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') &&
                         <>
-                            <div className='grid grid-cols-3 gap-0.5'>
-                                <button onClick={e => attributeRows.handlePoints('attribute', 1, attributeRows.attrName)} className={`flex flex-auto items-center justify-center rounded-md ${textColor} ${selectedButtonColor} ${selectedHoverButtonColor} ${selectedActiveButtonColor}`}>
-                                    <span class="material-symbols-sharp">do_not_disturb_on</span>
+                            <div className='grid grid-cols-1 gap-0.5 py-1.5'>
+                                <button onClick={e => attributeRows.handlePoints('attribute', -1, attributeRows.attrName)} className={`flex flex-auto items-center justify-center rounded w-1/2 m-auto ${textColor} ${selectedButtonColor} ${selectedHoverButtonColor} ${selectedActiveButtonColor}`}>
+                                    <span class="material-symbols-sharp">add_circle</span>
                                 </button>
                                 <div className={`flex text-center items-center justify-center font-semibold`} style={{fontSize: 16}}>
                                     {attributeRows.attr}
                                 </div>
-                                <button onClick={e => attributeRows.handlePoints('attribute', -1, attributeRows.attrName)} className={`flex flex-auto items-center justify-center rounded-md ${textColor} ${selectedButtonColor} ${selectedHoverButtonColor} ${selectedActiveButtonColor}`}>
-                                    <span class="material-symbols-sharp">add_circle</span>
+                                <button onClick={e => attributeRows.handlePoints('attribute', 1, attributeRows.attrName)} className={`flex flex-auto items-center justify-center rounded w-1/2 m-auto ${textColor} ${selectedButtonColor} ${selectedHoverButtonColor} ${selectedActiveButtonColor}`}>
+                                    <span class="material-symbols-sharp">do_not_disturb_on</span>
                                 </button>
                             </div>
                         </>
                     }
                 </div>
-                <div className={`text-center h-full py-3 px-2`}>
+                <div className={`text-center h-full px-2 col-span-2`}>
                     {(attributeRows.name === 'Magic' && prioritySelections.magic !== 4 || attributeRows.name === 'Resonance' && prioritySelections.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') &&
                         <>
-                            <div className='grid grid-cols-3 gap-0.5'>
-                                <button onClick={e => attributeRows.handlePoints('karma', 1, attributeRows.attrName)} className={`flex flex-auto items-center justify-center rounded-md ${textColor} ${selectedButtonColor} ${selectedHoverButtonColor} ${selectedActiveButtonColor}`}>
-                                    <span class="material-symbols-sharp">do_not_disturb_on</span>
+                            <div className='grid grid-cols-1 gap-0.5 py-1.5'>
+                                <button onClick={e => attributeRows.handlePoints('karma', -1, attributeRows.attrName)} className={`flex flex-auto items-center justify-center rounded w-1/2 m-auto ${textColor} ${selectedButtonColor} ${selectedHoverButtonColor} ${selectedActiveButtonColor}`}>
+                                    <span class="material-symbols-sharp">add_circle</span>
                                 </button>
                                 <div className={`flex text-center items-center justify-center font-semibold`} style={{fontSize: 16}}>
                                     {attributeRows.karma}/{attributeRows.cost}
                                 </div>
-                                <button onClick={e => attributeRows.handlePoints('karma', -1, attributeRows.attrName)} className={`flex flex-auto items-center justify-center rounded-md ${textColor} ${selectedButtonColor} ${selectedHoverButtonColor} ${selectedActiveButtonColor}`}>
-                                    <span class="material-symbols-sharp">add_circle</span>
+                                <button onClick={e => attributeRows.handlePoints('karma', 1, attributeRows.attrName)} className={`flex flex-auto items-center justify-center rounded w-1/2 m-auto ${textColor} ${selectedButtonColor} ${selectedHoverButtonColor} ${selectedActiveButtonColor}`}>
+                                    <span class="material-symbols-sharp">do_not_disturb_on</span>
                                 </button>
                             </div>
                         </>
                     }
                 </div>
-                <div className={`text-center h-full py-3 px-2`}>
-                    <div className={`flex text-center items-center justify-center font-semibold`} style={{fontSize: 16}}>
+                <div className={`text-center h-full px-4 col-span-2 flex items-center w-full`}>
+                    <div className={`flex text-right justify-end font-semibold w-full`} style={{fontSize: 16}}>
                         {(attributeRows.name === 'Magic' && prioritySelections.magic !== 4 || attributeRows.name === 'Resonance' && prioritySelections.magic !== 4 || attributeRows.name !== 'Magic' && attributeRows.name !== 'Resonance') ? `${attributeRows.value}/${attributeRows.max}` : 0}
                     </div>
                 </div>
@@ -320,24 +348,26 @@ export default function Abilities() {
             <div className={`h-[calc(100vh-76px)] z-0 max-w-md mx-auto shadow-md md:max-w-2xl ${primaryBackgroundEnd} ${primaryBackgroundStart} bg-gradient-to-t`}>
                 <div className='px-4 py-2'>
                     <div className={`grid grid-cols-1 shadow-md`}>
-                        <div className={`grid grid-cols-5 gap-0.5 border-b-2 rounded-t-md ${secondaryBackgroundBorder} ${secondaryHeader} ${textColor} font-semibold`}>
-                            <div className='flex items-center justify-center flex-wrap text-center py-2.5'>
+                        <div className={`grid grid-cols-5 gap-0.5 border-b-2 rounded-t-md ${secondaryBackgroundBorder} ${secondaryHeader} ${textColor} font-semibold`} style={{ paddingRight: `${padding}px`}}>
+                            <div className='flex items-center justify-start flex-wrap text-left px-4 py-2.5 text-sm sm:text-base'>
                                 Name
                             </div>
-                            <div className='flex items-center justify-center flex-wrap text-center py-2.5'>
+                            <div className='flex items-center justify-center flex-wrap text-center py-2.5 text-sm sm:text-base'>
                                 Adjustment
                             </div>
-                            <div className='flex items-center justify-center flex-wrap text-center py-2.5'>
+                            <div className='flex items-center justify-center flex-wrap text-center py-2.5 text-sm sm:text-base'>
                                 Attribute
                             </div>
-                            <div className='flex items-center justify-center flex-wrap text-center py-2.5'>
+                            <div className='flex items-center justify-center flex-wrap text-center py-2.5 text-sm sm:text-base'>
                                 Karma/Cost
                             </div>
-                            <div className='flex items-center justify-center flex-wrap text-center py-2.5'>
+                            <div className='flex items-center justify-end flex-wrap text-right px-4 py-2.5 text-sm sm:text-base'>
                                 Value/Max
                             </div>
                         </div>
-                        {rows}
+                        <div id="scrollContainer" className={`flex items-center justify-between flex-wrap overflow-auto rounded-b-md scroll ${secondaryBackground}`} style={{ maxHeight: 'calc(100vh - 198px)' }}>
+                            {rows}
+                        </div>
                     </div>
                 </div>
                 <div className='px-4 py-2'>
@@ -346,14 +376,42 @@ export default function Abilities() {
                             Karma: {karma}
                         </div>
                         <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
-                            Attribute: {attributePoints.attribute}
+                            Attribute: {attributePointsBase.attribute}
                         </div>
                         <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
-                            Adjustment: {attributePoints.adjustment}
+                            Adjustment: {attributePointsBase.adjustment}
                         </div>
                     </div>
                 </div>
             </div>
         </>
     );
+}
+
+function getScrollbarWidth() {
+    // Create a temporary div element
+    const outer = document.createElement('div');
+    outer.style.visibility = 'hidden';
+    outer.style.width = '100px';
+    outer.style.msOverflowStyle = 'scrollbar'; // needed for Edge and IE 
+
+    document.body.appendChild(outer);
+
+    const widthNoScroll = outer.offsetWidth;
+
+    // Make the temporary div scrollable
+    outer.style.overflow = 'scroll';
+
+    // Add inner div
+    const inner = document.createElement('div');
+    inner.style.width = '100%';
+    outer.appendChild(inner);
+
+    const widthWithScroll = inner.offsetWidth;
+
+    // Remove the temporary divs from the DOM
+    outer.parentNode.removeChild(outer);
+
+    // Return the difference between the widths
+    return widthNoScroll - widthWithScroll;
 }

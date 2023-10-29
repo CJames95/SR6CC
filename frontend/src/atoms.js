@@ -8,6 +8,7 @@ export const primaryBackgroundStart = atom('from-[#144EB8]');
 export const secondaryBackground = atom('bg-[#250420]');
 export const secondaryBackgroundBorder = atom('border-[#250420]');
 export const textColor = atom('text-[#F3E2EE]');
+export const disabledTextColor = atom('text-[#A3A3A3]');
 export const textHoverColor = atom('hover:text-[#A3A3A3]');
 export const textBorderColor = atom('border-[#F3E2EE]');
 export const textBorderHoverColor = atom('hover:border-[#A3A3A3]');
@@ -17,6 +18,7 @@ export const selectedActiveButtonColor = atom('active:bg-[#7212A5]');
 export const buttonColor = atom('bg-gray-200');
 export const hoverButtonColor = atom('hover:bg-gray-300');
 export const activeButtonColor = atom('active:bg-gray-100');
+export const disabledButtonColor = atom('bg-[#A3A3A3]');
 
 export const runnerName = atom('Runner Name');
 export const settings = atom({
@@ -50,6 +52,7 @@ export const attributes = atom({                                                
   adjustPointsMag: 0, attribPointsMag: 0, karmaPointsMag: 0, mag: 1,
   adjustPointsRes: 0, attribPointsRes: 0, karmaPointsRes: 0, res: 1,
 });
+// ^ I need to update this later to ensure that when attributePointsBase is RESET, the respective adjustment or attribute points are also reset to 0
 const adjustmentValues = atom({
     0: 13,
     1: 11,
@@ -64,17 +67,32 @@ const attributeValues = atom({
     3: 8,
     4: 2
 });
-export const attributePoints = atom((get) => {
-    const currentPriorities = get(priorities);
-    const currentAdjustmentValues = get(adjustmentValues);
-    const currentAttributeValues = get(attributeValues);
-    return {
-        maxAdjustment: currentAdjustmentValues[currentPriorities.metatype] || 0,
-        adjustment: currentAdjustmentValues[currentPriorities.metatype] || 0,
-        maxAttribute: currentAttributeValues[currentPriorities.attribute] || 0,
-        attribute: currentAttributeValues[currentPriorities.attribute] || 0
+export const attributePointsBase = atom({
+    maxAdjustment: 13,
+    adjustment: 13,
+    maxAttribute: 16,
+    attribute: 16
+})
+export const attributePoints = atom(
+    // Read function: Simply returns the current value of attributePointsBase
+    (get) => get(attributePointsBase),
+    
+    // Write function: Handles the logic to reset attributePointsBase when priority changes
+    (get, set, action) => {
+        if (action.type === 'RESET') {
+            const currentPriorities = get(priorities);
+            const resetValues = {
+                maxAdjustment: get(adjustmentValues)[currentPriorities.metatype] || 0,
+                adjustment: get(adjustmentValues)[currentPriorities.metatype] || 0,
+                maxAttribute: get(attributeValues)[currentPriorities.attribute] || 0,
+                attribute: get(attributeValues)[currentPriorities.attribute] || 0,
+            };
+            set(attributePointsBase, resetValues);
+        } else if (action.type === 'UPDATE') {
+            set(attributePointsBase, action.payload);
+        }
     }
-});
+);
 export const skills = atom([]);                                                                  // Global Skills array with initial empty array to store taken skills
 const skillValues = atom({
     0: 32,
@@ -83,15 +101,52 @@ const skillValues = atom({
     3: 16,
     4: 10
 });
-export const skillPoints = atom({
-  skill: skillValues[priorities.skill] || 0,
-  maxSkill: skillValues[priorities.skill] || 0
+export const skillPointsBase = atom({
+  skill: 20,
+  maxSkill: 20
 })
+export const skillPoints = atom(
+    // Read function: Simply returns the current value of skillPointsBase
+    (get) => get(skillPointsBase),
+    
+    // Write function: Handles the logic to reset skillPointsBase when priority changes
+    (get, set, action) => {
+        if (action.type === 'RESET') {
+            const currentPriorities = get(priorities);
+            const resetValues = {
+                skill: get(skillValues)[currentPriorities.skill] || 0,
+                maxSkill: get(skillValues)[currentPriorities.skill] || 0
+            };
+            set(skillPointsBase, resetValues);
+        } else if (action.type === 'UPDATE') {
+            set(skillPointsBase, action.payload);
+        }
+    }
+);
 export const knowledge = atom([]);                                                               // Global Knowledge array with initial empty array to store taken knowledge
-export const knowledgePoints = atom({
-  maxKnowledge: attributes.log,
-  knowledge: attributes.log
+export const knowledgePointsBase = atom({
+  maxKnowledge: 1,
+  knowledge: 1
 })
+export const knowledgePoints = atom(
+    // Read function: Simply returns the current value of skillPointsBase
+    (get) => get(knowledgePointsBase),
+    
+    // Write function: Handles the logic to reset skillPointsBase when priority changes
+    (get, set, action) => {
+        const attributeValue = get(attributes);
+        const logValue = attributeValue.log;
+        if (action.type === 'RESET') {
+            const resetValues = {
+                knowledge: logValue || 0,
+                maxKnowledge: logValue || 0
+            };
+            set(knowledgePointsBase, resetValues);
+        } else if (action.type === 'UPDATE') {
+            set(knowledgePointsBase, action.payload);
+        }
+    }
+);
 export const language = atom([]);                                                                // Global Language array with initial empty array to store taken languages
 const resourcesByPriority = atom({
     0: 450000,
