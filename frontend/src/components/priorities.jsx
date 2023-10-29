@@ -3,6 +3,8 @@ import { useAtom } from 'jotai';
 import {
     priorities as prioritiesAtom,
     settings as settingsAtom,
+    attributePoints as attributePointsAtom,
+    skillPoints as skillPointsAtom,
     primaryBackgroundEnd as primaryBackgroundEndAtom,
     primaryBackgroundStart as primaryBackgroundStartAtom,
     secondaryBackground as secondaryBackgroundAtom,
@@ -22,6 +24,8 @@ export default function Priorities() {
     
     const [prioritySelections, setPrioritySelections] = useAtom(prioritiesAtom);
     const [settings, setSettings] = useAtom(settingsAtom);
+    const [attributePoints, setAttributePoints] = useAtom(attributePointsAtom);
+    const [skillPoints, setSkillPoints] = useAtom(skillPointsAtom);
     const [primaryBackgroundEnd, setPrimaryBackground] = useAtom(primaryBackgroundEndAtom);
     const [primaryBackgroundStart, setPrimaryBackgroundStart] = useAtom(primaryBackgroundStartAtom);
     const [secondaryBackground, setSecondaryBackground] = useAtom(secondaryBackgroundAtom);
@@ -52,6 +56,8 @@ export default function Priorities() {
             ...prevButtons,
             [name]: parsedValue,
         }));
+        setAttributePoints({ type: 'RESET' });
+        setSkillPoints({ type: 'RESET' });
     }
 
     // This section handles magic category warning text to simplify amount of code in priorityRows
