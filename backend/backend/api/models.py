@@ -193,8 +193,7 @@ class WeaponMod(models.Model):
             models.CheckConstraint(check=models.Q(availability__gte=1) & models.Q(availability__lte=9), name='mod_availability_gte_1_lte_9'),
             models.CheckConstraint(check=models.Q(cost__gte=0), name='mod_cost_gte_0')
         ]
-
-    
+  
 class WeaponModSlot(models.Model):
     MOD_SLOTS = [
         ('Top', 'Top'),
@@ -217,7 +216,7 @@ class Qualities(models.Model):
     )
     type = models.CharField(
         verbose_name="Quality Type",
-        max_length=16,
+        max_length=32,
         default=""
     )
     effect = models.TextField(
@@ -230,9 +229,76 @@ class Qualities(models.Model):
         verbose_name="Quality Maximum Level",
         default=1
     )
-    example = models.TextField(
-        verbose_name="Quality Examples",
-        null=True,
-        blank=True,
-        default=""
+    surge = models.BooleanField(
+        verbose_name="Quality Surge",
+        default=False
+    )
+    complex = models.BooleanField(
+        verbose_name="Quality Complex",
+        default=False
+    )
+
+class Metatypes(models.Model):
+    id = models.CharField(
+        max_length=64,
+        verbose_name="Metatype ID",
+        primary_key=True
+    )
+    karma = models.IntegerField(
+        verbose_name="Metatype Karma Cost",
+        default=0
+    )
+    body = models.IntegerField(
+        verbose_name="Metatype Body",
+        default=1
+    )
+    agility = models.IntegerField(
+        verbose_name="Metatype Agility",
+        default=1
+    )
+    reaction = models.IntegerField(
+        verbose_name="Metatype Reaction",
+        default=1
+    )
+    strength = models.IntegerField(
+        verbose_name="Metatype Strength",
+        default=1
+    )
+    willpower = models.IntegerField(
+        verbose_name="Metatype Willpower",
+        default=1
+    )
+    logic = models.IntegerField(
+        verbose_name="Metatype Logic",
+        default=1
+    )
+    intuition = models.IntegerField(
+        verbose_name="Metatype Intuition",
+        default=1
+    )
+    charisma = models.IntegerField(
+        verbose_name="Metatype Charisma",
+        default=1
+    )
+    edge = models.IntegerField(
+        verbose_name="Metatype Edge",
+        default=1
+    )
+    qualities_1 = models.ForeignKey('Qualities', on_delete=models.CASCADE, related_name='qualities_1', blank=True, null=True)
+    qualities_2 = models.ForeignKey('Qualities', on_delete=models.CASCADE, related_name='qualities_2', blank=True, null=True)
+    qualities_3 = models.ForeignKey('Qualities', on_delete=models.CASCADE, related_name='qualities_3', blank=True, null=True)
+    qualities_4 = models.ForeignKey('Qualities', on_delete=models.CASCADE, related_name='qualities_4', blank=True, null=True)
+    qualities_5 = models.ForeignKey('Qualities', on_delete=models.CASCADE, related_name='qualities_5', blank=True, null=True)
+    qualities_6 = models.ForeignKey('Qualities', on_delete=models.CASCADE, related_name='qualities_6', blank=True, null=True)
+    qualities_7 = models.ForeignKey('Qualities', on_delete=models.CASCADE, related_name='qualities_7', blank=True, null=True)
+    qualities_8 = models.ForeignKey('Qualities', on_delete=models.CASCADE, related_name='qualities_8', blank=True, null=True)
+    average_height_m = models.DecimalField(
+        verbose_name="Metatype Average Height (m)",
+        default=1.00,
+        max_digits=3,
+        decimal_places=2
+    )
+    average_weight_kg = models.IntegerField(
+        verbose_name="Metatype Average Weight (kg)",
+        default=1
     )

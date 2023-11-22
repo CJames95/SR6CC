@@ -30,5 +30,10 @@ def weapons(request, type):
     return JsonResponse(list(weapons), safe=False)
 
 def qualities(request):
-    qualities = Qualities.objects.values()
+    qualities = Qualities.objects.filter(surge=0).values()
+
+    for quality in qualities:
+        quality['name'] = quality['id'].replace('_', ' ').title()
+        #print(quality['name'])
+        
     return JsonResponse(list(qualities), safe=False)

@@ -13,6 +13,9 @@ import {
     selectedButtonColor as selectedButtonColorAtom,
     selectedHoverButtonColor as selectedHoverButtonColorAtom,
     selectedActiveButtonColor as selectedActiveButtonColorAtom,
+    buttonColor as buttonColorAtom,
+    hoverButtonColor as hoverButtonColorAtom,
+    activeButtonColor as activeButtonColorAtom,
 } from '../atoms.js';
 
 axios.defaults.withCredentials = true;
@@ -32,6 +35,9 @@ export default function Qualities() {
     const [selectedButtonColor, setSelectedButtonColor] = useAtom(selectedButtonColorAtom);
     const [selectedHoverButtonColor, setSelectedHoverButtonColor] = useAtom(selectedHoverButtonColorAtom);
     const [selectedActiveButtonColor, setSelectedActiveButtonColor] = useAtom(selectedActiveButtonColorAtom);
+    const [buttonColor, setButtonColor] = useAtom(buttonColorAtom);
+    const [hoverButtonColor, setHoverButtonColor] = useAtom(hoverButtonColorAtom);
+    const [activeButtonColor, setActiveButtonColor] = useAtom(activeButtonColorAtom);
 
     const [scrollbarVisible, setScrollbarVisible] = useState(false);
     useEffect(() => {
@@ -48,6 +54,11 @@ export default function Qualities() {
         window.addEventListener('resize', checkScrollbar);
         return () => window.removeEventListener('resize', checkScrollbar);
     }, []);
+
+    const [selectedQuality, setSelectedQuality] = useState({});
+    const handleSelectedQuality = (value) => {
+        setSelectedQuality(value)
+    }
 
     const [addQuality, setAddQuality] = useState(false);
     const [data, setData] = useState([])
@@ -89,34 +100,58 @@ export default function Qualities() {
 
     const AddQualityRows = data.map((data, index, array) =>  {
         const isLastItem = index === array.length - 1;
+        const selectOptions = [];
+        if(data.max_level > 1) {
+            for (let i = 1; i <= data.max_level; i++) {
+                selectOptions.push(<option key={i} value={i}>{i}</option>);
+            }
+        }
         
         return (
             <div className='w-full grid grid-cols-12'>
                 <div className='flex items-center col-span-2'>
                     <button onClick className={`flex justify-center items-center w-full py-3 shadow-md focus:outline-none border-r border-black
                         ${isLastItem ? '' : 'border-b'}
-                        ${false ? 'bg-blue-500' : 'bg-gray-200'} 
-                        ${false ? 'hover:bg-blue-600' : 'hover:bg-gray-300'} 
-                        ${false ? 'active:bg-blue-300' : 'active:bg-gray-100'}
+                        ${selectedQuality.id == data.id ? `${selectedButtonColor}` : `${buttonColor}`}
+                        ${selectedQuality.id == data.id ? `${selectedHoverButtonColor}` : `${hoverButtonColor}`} 
+                        ${selectedQuality.id == data.id ? `${selectedActiveButtonColor}` : `${activeButtonColor}`}
                     `}>
-                        <span className="material-symbols-sharp pr-2">search</span>
+                        <span class="material-symbols-sharp">info</span>
                     </button>
                 </div>
-                <button onClick className={`w-full py-3 shadow-md col-span-10 focus:outline-none border-black
-                ${isLastItem ? '' : 'border-b'}
-                ${false ? 'bg-blue-500' : 'bg-gray-200'} 
-                ${false ? 'hover:bg-blue-600' : 'hover:bg-gray-300'} 
-                ${false ? 'active:bg-blue-300' : 'active:bg-gray-100'}
-            `}>
-                    <div className='grid grid-cols-2'>
-                        <div className='text-left px-4'>
-                            {data.id}
+                <button onClick={() => handleSelectedQuality(data)} className={`w-full py-3 shadow-md col-span-10 focus:outline-none border-black
+                    ${isLastItem ? '' : 'border-b'}
+                    ${selectedQuality.id == data.id ? `${selectedButtonColor}` : `${buttonColor}`}
+                    ${selectedQuality.id == data.id ? `${selectedHoverButtonColor}` : `${hoverButtonColor}`} 
+                    ${selectedQuality.id == data.id ? `${selectedActiveButtonColor}` : `${activeButtonColor}`}
+                `}>
+                    <div className={`grid ${selectOptions.length > 0 ? 'grid-cols-4' : 'grid-cols-3'}`}>
+                        <div className={`text-left px-4 w-full ${selectOptions.length > 0 ? 'col-span-2' : 'col-span-2'}`}>
+                            {data.name}
                         </div>
-                        <div className='flex justify-end items-center text-right px-4'>
-                            {data.karma}
-                        </div>
+                        {selectOptions.length > 0 ? (
+                            <>
+                                <div className='text-left px-4 grid grid-cols-2 col-span-1'>
+                                    <div className='flex justify-end items-center text-right px-4 col-span-1'>    
+                                        Level: 
+                                    </div>
+                                    <select className='border border-black rounded w-full'>
+                                        {selectOptions}
+                                    </select>
+                                </div>
+                                <div className='flex justify-end items-center text-right px-4 col-span-1'>
+                                    {data.karma}
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <div className='flex justify-end items-center text-right px-4 col-span-1'>
+                                    {data.karma}
+                                </div>
+                            </>
+                        )}
                     </div>
-                </button>        
+                </button>   
             </div>
         );
     });
@@ -126,28 +161,12 @@ export default function Qualities() {
             {addQualityScreen === true &&
                 <div className={`absolute h-[calc(100vh-76px)] left-1/2 transform -translate-x-1/2 z-10 w-full max-w-md mx-auto shadow-md md:max-w-2xl bg-gradient-to-t ${primaryBackgroundEnd} ${primaryBackgroundStart}`}>
                     <div className='px-4 py-2'>
-                        <div className='grid grid-cols-1 bg-gray-600'>
-                            <div className='flex items-center justify-between flex-wrap'>
-                                <button onClick={() => handleAddQualityScreen(false)} className="w-full bg-gray-200 py-3 shadow-md hover:bg-gray-300 active:bg-gray-100 focus:outline-none">
-                                    <div className='grid grid-cols-10'>
-                                        <div className='flex justify-start items-center text-left px-4 col-span-1'>
-                                            <span class="material-symbols-sharp">arrow_back</span>
-                                        </div>
-                                        <div className='flex items-center justify-start flex-wrap text-left px-4 col-span-9'>
-                                            Return to Qualities
-                                        </div>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='px-4 py-2'>
-                        <div className='grid grid-cols-1 bg-gray-500'>
-                            <div className={`grid grid-cols-12 bg-gray-500 ${scrollbarVisible ? 'pr-4' : ''}`}>
-                                <div className='flex items-center justify-between flex-wrap px-4 py-2.5 col-span-2 border-r border-black'>
-                                    More Info
+                        <div className={`grid grid-cols-1`}>
+                            <div className={`grid grid-cols-12 rounded-t-md font-semibold ${secondaryHeader} ${textColor} ${scrollbarVisible ? 'pr-4' : ''}`}>
+                                <div className={`flex items-center justify-between flex-wrap px-4 py-2.5 col-span-2 border-r ${secondaryBackgroundBorder}`}>
+                                    Info
                                 </div>
-                                <div className='grid grid-cols-2 bg-gray-500 col-span-10'>
+                                <div className='grid grid-cols-2 col-span-10'>
                                     <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
                                         Quality
                                     </div>
@@ -156,13 +175,21 @@ export default function Qualities() {
                                     </div>
                                 </div>
                             </div>
-                            <div id="scrollContainer" className='flex items-center justify-between flex-wrap overflow-auto' style={{ height: 'calc(100vh - 260px)' }}>
+                            <div id="scrollContainer" className='flex items-center justify-between flex-wrap overflow-auto' style={{ height: 'calc(100vh - 244px)' }}>
                                 {AddQualityRows}
                             </div>
+                            <div className='w-full grid grid-cols-12'>
+                                <button onClick={() => handleAddQualityScreen(false)} className={`col-span-6 flex justify-center text-center ${selectedButtonColor} ${selectedHoverButtonColor} ${selectedActiveButtonColor} ${textColor} font-semibold px-4 py-3 rounded-bl-md border-r-2 ${secondaryBackgroundBorder}`}>
+                                    Cancel
+                                </button>  
+                                <button onClick className={`col-span-6 flex justify-center text-center ${selectedButtonColor} ${selectedHoverButtonColor} ${selectedActiveButtonColor} ${textColor} font-semibold px-4 py-3 rounded-br-md border-l-2 ${secondaryBackgroundBorder}`}>
+                                    Add
+                                </button>  
+                            </div>                            
                         </div>
                     </div>
                     <div className='px-4 py-2'>
-                        <div className='grid grid-cols-1 bg-gray-500'>
+                        <div className={`grid grid-cols-1 rounded-md font-semibold ${secondaryHeader} ${textColor}`}>
                             <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
                                 Karma: {karma}
                             </div>
@@ -175,7 +202,7 @@ export default function Qualities() {
                     <div className={`grid grid-cols-1 ${secondaryHeader} ${textColor} font-semibold rounded-md shadow-md`}>
                         <div className={`grid grid-cols-12 ${scrollbarVisible ? 'pr-4' : ''}`}>
                             <div className={`flex items-center justify-between flex-wrap px-4 py-2.5 col-span-2 border-r-2 ${secondaryBackgroundBorder}`}>
-                                More Info
+                                Info
                             </div>
                             <div className='grid grid-cols-2 col-span-10'>
                                 <div className='flex items-center justify-between flex-wrap px-4 py-2.5'>
